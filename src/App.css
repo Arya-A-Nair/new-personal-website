@@ -3,6 +3,8 @@
 body{
   background-color: #0D7377;
   overflow-x: hidden;
+  
+  background-image: url("./components/assets/background.webp");
 }
 @media only screen and (max-width:800px)
 {
@@ -22,35 +24,46 @@ body{
 @media only screen and (min-width: 800px){
   .main-container{
     position: absolute;
-    width: 100%;
-    height:100%;
+    width: 100vw;
+    height:100vh;
     
     
     background-image: url("./components/assets/background.webp");
     display: flex;
     flex-direction: row;
-    padding-left: 4%;
+    
+    
     
   }
 
   .left-bar{
-    width:25%;
-    height:100%;
+    width:20vw;
+    height:100vh;
     font-family: 'IBM Plex Sans Thai Looped', sans-serif;
     color:#edf2f4;
     display: flex;
     flex-direction: column;
+    padding-left:4%;
+    padding-right:4%;
+    
+    position:sticky;
   }
   .right-bar{
     width:70%;
-    height:100%;
+    height:100vh;
   } 
   .arya-image{
-    width:20vh;
-    height:20vh;
+    width:10vw;
+    margin-top:15vh;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
   }
   .Name, .github-handle{
     font-size:1.2vw;
+  }
+  .Name{
+    margin-top:15%;
   }
   a{
     text-decoration: none;
@@ -58,11 +71,19 @@ body{
   }
   .role{
     font-size: 1.5vw;
+    margin-top:10%;
+    margin-bottom:10%;
   }
   .socials{
     width:100%;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    font-size: 1.5vw;
+    
+  }
+  .social-icon{
+    width:10%;
+    margin-top:18%;
   }
 }
