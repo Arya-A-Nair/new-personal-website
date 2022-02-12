@@ -13,10 +13,7 @@ export default function LeftBar() {
 
       <div className="role">Responsive Web Development, Python, C++</div>
       <span><i className="fas fa-map-marker-alt"></i> Earth</span>
-      <Socials/>
-      
-    
-      
+      <Socials/> 
     </div>
   )
 }
