@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 
 body{
   background-color: #0D7377;
@@ -13,14 +14,8 @@ body{
     position: absolute;
     width: 100vw;
     height:100vh;
-    
-    
-    
     display: flex;
     flex-direction: column;
-    
-    
-    
   }
 
   .left-bar{
@@ -81,14 +76,9 @@ body{
     position: absolute;
     width: 100vw;
     height:100vh;
-    
-    
-    background-image: url("./components/assets/background.webp");
     display: flex;
     flex-direction: row;
-    
-    
-    
+    overflow-y: hidden;
   }
 
   .left-bar{
@@ -105,8 +95,18 @@ body{
   }
   .right-bar{
     width:80vw;
-    height:100vh;
+
+    color:#FFFFFF;
+    overflow-y:scroll;
+    padding-top:4%;
+    padding-bottom:4%;
   } 
+  .rightbar-text{
+    font-family: 'Lobster', cursive;
+    font-size:5vw;
+    margin-left:50%;
+    margin-right:50%;
+  }
   .arya-image{
     height:20vh;
     margin-top:15vh;
@@ -141,4 +141,35 @@ body{
     width:10%;
     margin-top:12%;
   }
+  .tile{
+    width:25vw;
+    height:12vh;
+    background-color:#1B1B1B;
+    padding:1vw;
+    border-radius:1vw;
+    margin-top:1.5vw;
+    margin-bottom:1.5vw;
+
+  }
+  .content{
+    width:100%;
+    
+  }
+  .odd{
+    margin-left:10vw;
+  }
+  .even{
+    margin-left:40vw;
+  }
+}
+*::-webkit-scrollbar,
+*::-webkit-scrollbar-thumb {
+  width: 26px;
+  border-radius: 13px;
+  background-clip: padding-box;
+  border: 10px solid transparent;
+}
+
+*::-webkit-scrollbar-thumb {        
+  box-shadow: inset 0 0 0 10px;
 }
