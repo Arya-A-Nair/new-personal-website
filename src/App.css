@@ -5,23 +5,78 @@ body{
   overflow-x: hidden;
   
   background-image: url("./components/assets/background.webp");
+  background-attachment: fixed;
 }
-@media only screen and (max-width:800px)
+@media only screen and (max-width:900px)
 {
   .main-container{
     position: absolute;
-    width: 100%;
-    height:100%;
+    width: 100vw;
+    height:100vh;
     
     
-    background-image: url("./components/assets/background.webp");
+    
     display: flex;
-    flex-direction: row;
-    padding-left: 4%;
+    flex-direction: column;
+    
+    
     
   }
+
+  .left-bar{
+    width:100vw;
+    height:100vh;
+    font-family: 'IBM Plex Sans Thai Looped', sans-serif;
+    color:#edf2f4;
+    display: flex;
+    flex-direction: column;
+    padding-left:4%;
+    padding-right:4%;
+    text-align: center;
+    position:sticky;
+  }
+  .right-bar{
+    width:100vw;
+    height:100vh;
+  } 
+  .arya-image{
+    height:20vh;
+    margin-top:15vh;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .Name, .github-handle{
+    font-size:2.8vh;
+    
+  }
+  .Name{
+    margin-top:5vh;
+    
+  }
+  a{
+    text-decoration: none;
+    color: #edf2f4;
+  }
+  .role{
+    font-size: 2.5vh;
+    margin-top:10vh;
+    margin-bottom:10%;
+  }
+  .socials{
+    width:100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    font-size: 2.5vh;
+    
+  }
+  .social-icon{
+    width:10%;
+    margin-top:12%;
+  }
 }
-@media only screen and (min-width: 800px){
+@media only screen and (min-width: 900px){
   .main-container{
     position: absolute;
     width: 100vw;
