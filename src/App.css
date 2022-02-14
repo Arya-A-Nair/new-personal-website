@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 
 body{
-  background-color: #0D7377;
+  background-color: black;
   overflow-x: hidden;
   
   background-image: url("./components/assets/background.webp");
@@ -13,15 +14,10 @@ body{
     position: absolute;
     width: 100vw;
     height:100vh;
-    
-    
-    
     display: flex;
     flex-direction: column;
-    
-    
-    
   }
+  
 
   .left-bar{
     width:100vw;
@@ -36,8 +32,10 @@ body{
     position:sticky;
   }
   .right-bar{
+    margin-top:10vh;
     width:100vw;
-    height:100vh;
+    padding-bottom: 10vh;
+    color:#FFFFFF;
   } 
   .arya-image{
     height:20vh;
@@ -75,20 +73,59 @@ body{
     width:10%;
     margin-top:12%;
   }
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .tile{
+    width:60vw;
+    height:12vh;
+    background-color:#1B1B1B;
+    padding:1vw;
+    border-radius:1vw;
+    margin-top:2vh;
+    margin-bottom:2vh;   
+  }
+  .even{
+    margin-left:5vw
+  }
+  .odd{
+    margin-right:5vw;
+    margin-left: 40vw;
+  }
+  .title{
+    font-size:5vw;
+    font-family: 'Lobster', cursive;
+  }
+  .text{
+    font-size:auto;
+    font-family: 'IBM Plex Sans Thai Looped', sans-serif;
+    margin:1vh;
+  }
+  .rightbar-text{
+    font-family: 'Lobster', cursive;
+    font-size:10vw;
+    
+    text-align: center;
+  }
+  .rightbar-bottom{
+    font-family: 'Lobster', cursive;
+    font-size:7vw;
+    margin-top:10vh;
+    text-align: center;
+  }
+  .content{
+    margin-bottom:10vh;
+  }
 }
 @media only screen and (min-width: 900px){
   .main-container{
     position: absolute;
     width: 100vw;
     height:100vh;
-    
-    
-    background-image: url("./components/assets/background.webp");
     display: flex;
     flex-direction: row;
-    
-    
-    
+    overflow-y: hidden;
   }
 
   .left-bar{
@@ -105,8 +142,22 @@ body{
   }
   .right-bar{
     width:80vw;
-    height:100vh;
+
+    color:#FFFFFF;
+    overflow-y:scroll;
+    padding-top:4%;
+    padding-bottom:4%;
   } 
+  .rightbar-text{
+    font-family: 'Lobster', cursive;
+    font-size:5vw;
+    text-align: center;
+  }
+  .rightbar-bottom{
+    font-family: 'Lobster', cursive;
+    font-size:3vw;
+    text-align: center;
+  }
   .arya-image{
     height:20vh;
     margin-top:15vh;
@@ -141,4 +192,46 @@ body{
     width:10%;
     margin-top:12%;
   }
+  .tile{
+    width:25vw;
+    height:12vh;
+    background-color:#1B1B1B;
+    padding:1vw;
+    border-radius:1vw;
+    margin-top:1.5vw;
+    margin-bottom:1.5vw;
+    
+
+  }
+  .content{
+    width:100%;
+    margin-bottom: 5%;
+  }
+  .odd{
+    margin-left:10vw;
+  }
+  .even{
+    margin-left:40vw;
+  }
+  *::-webkit-scrollbar,
+  *::-webkit-scrollbar-thumb {
+    width: 26px;
+    border-radius: 13px;
+    background-clip: padding-box;
+    border: 10px solid transparent;
+  }
+
+  *::-webkit-scrollbar-thumb {        
+    box-shadow: inset 0 0 0 10px;
+  }
+  .title{
+    font-size:1.9vw;
+    font-family: 'Lobster', cursive;
+  }
+  .text{
+    font-size:auto;
+    font-family: 'IBM Plex Sans Thai Looped', sans-serif;
+    margin:1vh;
+  }
 }
+
