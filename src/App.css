@@ -17,6 +17,7 @@ body{
     display: flex;
     flex-direction: column;
   }
+  
 
   .left-bar{
     width:100vw;
@@ -107,8 +108,12 @@ body{
   .rightbar-text{
     font-family: 'Lobster', cursive;
     font-size:5vw;
-    margin-left:50%;
-    margin-right:50%;
+    text-align: center;
+  }
+  .rightbar-bottom{
+    font-family: 'Lobster', cursive;
+    font-size:3vw;
+    text-align: center;
   }
   .arya-image{
     height:20vh;
@@ -152,11 +157,12 @@ body{
     border-radius:1vw;
     margin-top:1.5vw;
     margin-bottom:1.5vw;
+    
 
   }
   .content{
     width:100%;
-    
+    margin-bottom: 5%;
   }
   .odd{
     margin-left:10vw;
@@ -174,6 +180,15 @@ body{
 
   *::-webkit-scrollbar-thumb {        
     box-shadow: inset 0 0 0 10px;
+  }
+  .title{
+    font-size:1.9vw;
+    font-family: 'Lobster', cursive;
+  }
+  .text{
+    font-size:auto;
+    font-family: 'IBM Plex Sans Thai Looped', sans-serif;
+    margin:1vh;
   }
 }
 
