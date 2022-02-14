@@ -70,6 +70,9 @@ body{
     width:10%;
     margin-top:12%;
   }
+  ::-webkit-scrollbar {
+    display: none;
+  }
 }
 @media only screen and (min-width: 900px){
   .main-container{
@@ -161,15 +164,16 @@ body{
   .even{
     margin-left:40vw;
   }
-}
-*::-webkit-scrollbar,
-*::-webkit-scrollbar-thumb {
-  width: 26px;
-  border-radius: 13px;
-  background-clip: padding-box;
-  border: 10px solid transparent;
+  *::-webkit-scrollbar,
+  *::-webkit-scrollbar-thumb {
+    width: 26px;
+    border-radius: 13px;
+    background-clip: padding-box;
+    border: 10px solid transparent;
+  }
+
+  *::-webkit-scrollbar-thumb {        
+    box-shadow: inset 0 0 0 10px;
+  }
 }
 
-*::-webkit-scrollbar-thumb {        
-  box-shadow: inset 0 0 0 10px;
-}
