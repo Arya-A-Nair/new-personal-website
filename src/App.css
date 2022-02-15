@@ -79,7 +79,7 @@ body{
   
   .tile{
     width:60vw;
-    height:12vh;
+    
     background-color:#1B1B1B;
     padding:1vw;
     border-radius:1vw;
@@ -100,7 +100,7 @@ body{
   .text{
     font-size:auto;
     font-family: 'IBM Plex Sans Thai Looped', sans-serif;
-    margin:1vh;
+    margin:2vh;
   }
   .rightbar-text{
     font-family: 'Lobster', cursive;
