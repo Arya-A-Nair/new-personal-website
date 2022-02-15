@@ -19,6 +19,8 @@ body{
   }
   
 
+
+
   .left-bar{
     width:100vw;
     height:100vh;
@@ -26,8 +28,7 @@ body{
     color:#edf2f4;
     display: flex;
     flex-direction: column;
-    padding-left:4%;
-    padding-right:4%;
+    
     text-align: center;
     position:sticky;
   }
@@ -91,7 +92,7 @@ body{
   }
   .odd{
     margin-right:5vw;
-    margin-left: 40vw;
+    margin-left: 30vw;
   }
   .title{
     font-size:5vw;
@@ -200,8 +201,10 @@ body{
     border-radius:1vw;
     margin-top:1.5vw;
     margin-bottom:1.5vw;
+  }
+  .tile:hover{
+    transform:scale(1.2);
     
-
   }
   .content{
     width:100%;
@@ -210,8 +213,14 @@ body{
   .odd{
     margin-left:10vw;
   }
+  .odd:hover{
+    box-shadow: rgba(240, 46, 170, 0.4) -5px 5px, rgba(240, 46, 170, 0.3) -10px 10px, rgba(240, 46, 170, 0.2) -15px 15px, rgba(240, 46, 170, 0.1) -20px 20px, rgba(240, 46, 170, 0.05) -25px 25px;
+  }
   .even{
     margin-left:40vw;
+  }
+  .even:hover{
+    box-shadow: rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px, rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px, rgba(240, 46, 170, 0.05) 25px 25px;
   }
   *::-webkit-scrollbar,
   *::-webkit-scrollbar-thumb {
@@ -228,10 +237,12 @@ body{
     font-size:1.9vw;
     font-family: 'Lobster', cursive;
   }
+  
   .text{
     font-size:auto;
     font-family: 'IBM Plex Sans Thai Looped', sans-serif;
     margin:1vh;
   }
 }
+
 
