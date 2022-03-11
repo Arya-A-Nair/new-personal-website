@@ -9,7 +9,7 @@ export default function LeftBar() {
     
       <img src={logo} alt="Arya-img" className="arya-image"/>
       <div className="Name">Arya Nair</div>
-      <a href="https://github.com/Arya-A-Nair" className="github-handle" target="_blank">@Arya-A-Nair</a>
+      <a href="https://github.com/Arya-A-Nair" className="github-handle" target="_blank" rel="noreferrer">@Arya-A-Nair</a>
 
       <div className="role">Responsive Web Development, Python, C++</div>
       <span><i className="fas fa-map-marker-alt"></i> Earth</span>
