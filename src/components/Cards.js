@@ -1,7 +1,7 @@
 import React from 'react'
 
-const Cards = ({data}) => {
-    if(data.id%2===0){
+const Cards = ({data,index}) => {
+    if(index%2===0){
         return (
         <a href={data.link} target="_blank" rel="noreferrer">
             <div className="tile odd">

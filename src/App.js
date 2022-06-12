@@ -4,7 +4,7 @@ import RightBar from './components/RightBar.js';
 
 function App() {
   return (
-  <div class="main-container">
+  <div className="main-container">
     <LeftBar />
     <RightBar />
   </div>

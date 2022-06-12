@@ -8,8 +8,8 @@ export default function RightBar() {
       <div className="rightbar-text">Guten</div>
       <div className="rightbar-text">Tag!</div>
       <div className="content">
-        {resume.map((data)=>{
-          return <Cards key={data.id} data={data}/>
+        {resume.map((data,index)=>{
+          return <Cards key={index} data={data} index={index}/>
         })}
       </div>
 
@@ -17,8 +17,8 @@ export default function RightBar() {
 
       <div className="rightbar-text">Certifications</div>
       <div className="content">
-      {certifications.map((data)=>{
-          return <Cards key={data.id} data={data}/>
+      {certifications.map((data,index)=>{
+          return <Cards key={index} data={data} index={index}/>
         })}
       </div>
 
@@ -26,8 +26,8 @@ export default function RightBar() {
 
       <div className="rightbar-text">Works</div> 
       <div className="content">
-      {works.map((data)=>{
-          return <Cards key={data.id} data={data}/>
+      {works.map((data,index)=>{
+          return <Cards key={index} data={data} index={index}/>
         })}
       </div>
       
