@@ -1,5 +1,5 @@
 const resume=[
-    {text:"Click here to checkout my Resume",link:"https://drive.google.com/file/d/1i-Yktw_0ykju4IXOYsIVmd9lzxgE1zdY/view?usp=sharing",title:"Resume"},    
+    {text:"Click here to checkout my Resume",link:"https://drive.google.com/file/d/1bhLfOFy87ukde8o6MoI6AC0gJmc6Nygp/view?usp=sharing",title:"Resume"},    
 ]
 
 const certifications=[
