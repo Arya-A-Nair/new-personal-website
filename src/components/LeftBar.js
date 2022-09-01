@@ -11,7 +11,7 @@ export default function LeftBar() {
       <div className="Name">Arya Nair</div>
       <a href="https://github.com/Arya-A-Nair" className="github-handle" target="_blank" rel="noreferrer">@Arya-A-Nair</a>
 
-      <div className="role">Responsive Web Development, Python, C++</div>
+      <div className="role">Full Stack Web Development Django + React </div>
       <span><i className="fas fa-map-marker-alt"></i> Earth</span>
       <Socials/> 
     </div>
