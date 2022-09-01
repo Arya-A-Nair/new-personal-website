@@ -3,7 +3,7 @@ const resume=[
 ]
 
 const certifications=[
-    {text:"Certificate by Udemy", link:"https://www.udemy.com/certificate/UC-3d786140-e231-4d89-bc89-33ff06aba723/",title:"Full Stack Web Development With React, MUI, Django, And DRF"},
+    {text:"Certificate by Udemy", link:"https://www.udemy.com/certificate/UC-3d786140-e231-4d89-bc89-33ff06aba723/",title:"Full Stack Web Development With React and Django"},
     {text:"Certificate by IBM",link:"https://www.credly.com/badges/3ce53246-2cd2-4245-a5ce-9e95e731b637?source=linked_in_profile",title:"Python For Data Science"},
     {text:"Certificate by freecodecamp",link:"https://www.freecodecamp.org/certification/arya-nair/scientific-computing-with-python-v7",title:"Scientific Computing with Python"},
     {text:"Certificate by freecodecamp",link:"https://www.freecodecamp.org/certification/arya-nair/responsive-web-design",title:"Responsive Web Design"},
