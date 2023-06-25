@@ -5,26 +5,32 @@
     z-index: 999999999;
     background: rgba(255, 255, 255, 0.2);
     border-radius: 10px 10px 0 0;
-    display: flex;
     height: 10%;
-    width: auto;
+    width: 40%;
     gap: 2rem;
     transform: translate(50%, 0);
-    padding: 0.8rem 1rem;
+    padding: 0.8rem 5rem;
+    text-align: center;
 }
+
 .container > div {
     position: relative;
+    display: inline-block;
+    height: 100%;
+    margin: 0 2rem;
 }
+
 .container > div > img {
     height: 100%;
-    -webkit-box-reflect: below 2px -webkit-gradient(linear, left top, left
-                bottom, from(transparent), color-stop(0.7, transparent), to(rgba(255, 255, 255, 0.5)));
-    -webkit-transition: all 0.3s;
-    -webkit-transform-origin: 40% 70%;
+    -webkit-box-reflect: below 2px
+        linear-gradient(transparent, transparent 70%, rgba(255, 255, 255, 0.5));
+    transition: all 0.3s;
+    transform-origin: 40% 70%;
     aspect-ratio: 1/1;
 }
+
 .container > div:hover > img {
-    -webkit-transform: scale(2);
+    transform: scale(2);
     margin: 0 2em;
 }
 
@@ -38,6 +44,8 @@
     z-index: 999999999;
     border-radius: 0.4rem;
     padding: 0.5rem;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .container > div:hover > span {

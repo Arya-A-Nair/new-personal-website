@@ -1,7 +1,27 @@
 import React from "react";
+import batteryIcon from "../../assets/battery.png";
+import batteryCharging from "../../assets/batteryCharging.png";
+import styles from "./BatteryContianer.module.css";
+import { useBattery } from "react-use";
 
 const BatteryContainer = () => {
-    return <div>BatteryContainer</div>;
+
+    const battery = useBattery();
+
+    const { isSupported, level, charging } =
+        battery;
+    console.log(battery);
+
+    return (
+        <div className={styles.container}>
+            
+            <img
+                src={isSupported && !charging ? batteryIcon : batteryCharging}
+            />
+            {isSupported ? level * 100 : 100}
+            {"%"}
+        </div>
+    );
 };
 
 export default BatteryContainer;

@@ -33,11 +33,6 @@ const Container = () => {
             setShowExperience(true);
         }
 
-        navigator.getBattery().then(function (battery) {
-            var level = battery.level;
-
-            console.log(level);
-        });
     }, [activeElement]);
 
     return (

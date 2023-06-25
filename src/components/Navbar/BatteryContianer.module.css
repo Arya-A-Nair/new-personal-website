@@ -1,0 +1,10 @@
+.container {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.container > img {
+    height: 100%;
+    margin:0 0.5rem;
+}
