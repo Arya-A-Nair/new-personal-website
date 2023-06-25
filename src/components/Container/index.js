@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Container.module.css";
-import Draggable, { DraggableCore } from "react-draggable";
+import Draggable from "react-draggable";
 import "./Container.module.css";
 import Toolbar from "../Toolbar/Toolbar";
+import AboutUs from "../AboutUs";
+import Projects from "../Projects";
+import Experience from "../Experience";
 
 const Container = () => {
 	const [showAboutUs, setShowAboutUs] = useState(false);
@@ -40,7 +43,11 @@ const Container = () => {
 							zIndex: zIndexAboutUs,
 						}}
 					>
-						About Us
+						<AboutUs
+							onClickClose={() => {
+								setShowAboutUs(false);
+							}}
+						/>
 					</div>
 				</Draggable>
 			)}
@@ -56,7 +63,11 @@ const Container = () => {
 							zIndex: zIndexProject,
 						}}
 					>
-						Projects
+						<Projects
+							onClickClose={() => {
+								setShowProjects(false);
+							}}
+						/>
 					</div>
 				</Draggable>
 			)}
@@ -72,7 +83,7 @@ const Container = () => {
 							zIndex: zIndexExperience,
 						}}
 					>
-						Experience
+						<Experience onClickClose={() => setShowExperience(false)} />
 					</div>
 				</Draggable>
 			)}
