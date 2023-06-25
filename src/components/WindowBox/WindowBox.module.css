@@ -1,0 +1,12 @@
+.check {
+	width: 10vw;
+	background-color: aliceblue;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	height: 20%;
+	box-shadow: 5px 10px #888888;
+	-webkit-box-shadow: 0 0 20px #888888;
+	box-shadow: 0 0 20px #888888;
+}
