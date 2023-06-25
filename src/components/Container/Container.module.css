@@ -1,15 +1,13 @@
 .container {
-	width: 90vw;
-	height: 90vh;
-	background-color: blue;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+	height: 100%;
+	position: relative;
+	background-image: url("/public/images/laptopWallpaper.png");
+	background-size: cover;
+	border-radius: 2rem;
+	padding: 1rem;
 }
 
 .check {
-	/* width: 10vw; */
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -17,5 +15,4 @@
 	box-shadow: 5px 10px #888888;
 	-webkit-box-shadow: 0 0 20px #888888;
 	box-shadow: 0 0 20px #888888;
-	
 }

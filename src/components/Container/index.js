@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Container.module.css";
 import Draggable from "react-draggable";
-import "./Container.module.css";
 import Toolbar from "../Toolbar/Toolbar";
 import AboutUs from "../AboutUs";
 import Projects from "../Projects";
@@ -22,6 +21,7 @@ const Container = () => {
 			setZIndexAboutUs(maxOfThree + 1);
 			setShowAboutUs(true);
 		} else if (activeElement === "Projects") {
+			console.log("check")
 			setZIndexProject(maxOfThree + 1);
 			setShowProjects(true);
 		} else if (activeElement === "Experience") {
