@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./Toolbar.module.css";
-import folder from "../../assets/folder.png";
 import visualStudio from "../../assets/visualStudio.png";
 import linux from "../../assets/linux.png";
 import terminal from "../../assets/terminal.png";

@@ -1,0 +1,17 @@
+.container {
+    width: 100%;
+    background-color: #1b1b1b;
+    height: 2rem;
+    border-radius: 2rem 2rem 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #babbbf;
+    padding: 0 1rem;
+}
+.logoContainer {
+    height: 100%;
+}
+.logoContainer > img {
+    height: 90%;
+}

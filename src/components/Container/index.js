@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Container.module.css";
-import Draggable from "react-draggable";
 import Toolbar from "../Toolbar/Toolbar";
 import AboutUs from "../AboutUs";
 import Projects from "../Projects";
 import Experience from "../Experience";
+import Navbar from "../Navbar/Navbar";
 
 const Container = () => {
     const [showAboutUs, setShowAboutUs] = useState(false);
@@ -42,6 +42,7 @@ const Container = () => {
 
     return (
         <div className={styles.container}>
+            <Navbar />
             {showAboutUs && (
                 <AboutUs
                     onClickClose={() => {
