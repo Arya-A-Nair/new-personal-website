@@ -9,6 +9,7 @@ const Experience = ({ onClickClose, setActiveElement, zIndexVal }) => {
             setActive={() => setActiveElement("Experience")}
             zIndexVal={zIndexVal}
             offset={20}
+            displayText="Companies I have worked with"
         >
             Experience
         </WindowBox>

@@ -7,6 +7,8 @@ const AboutUs = ({ onClickClose, setActiveElement, zIndexVal }) => {
             onClickClose={onClickClose}
             setActive={() => setActiveElement("AboutUs")}
             zIndexVal={zIndexVal}
+            offset={60}
+            displayText="So who am I??"
         >
             About Us
         </WindowBox>

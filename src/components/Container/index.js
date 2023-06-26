@@ -32,7 +32,6 @@ const Container = () => {
             setZIndexExperience(maxOfThree + 1);
             setShowExperience(true);
         }
-
     }, [activeElement]);
 
     return (

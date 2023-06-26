@@ -2,7 +2,7 @@
     position: absolute;
     bottom: 0;
     right: 50%;
-    z-index: 999999999;
+    z-index: 99999999;
     background: rgba(255, 255, 255, 0.2);
     border-radius: 10px 10px 0 0;
     height: 10%;

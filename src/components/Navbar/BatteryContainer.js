@@ -5,16 +5,13 @@ import styles from "./BatteryContianer.module.css";
 import { useBattery } from "react-use";
 
 const BatteryContainer = () => {
-
     const battery = useBattery();
 
-    const { isSupported, level, charging } =
-        battery;
+    const { isSupported, level, charging } = battery;
     console.log(battery);
 
     return (
         <div className={styles.container}>
-            
             <img
                 src={isSupported && !charging ? batteryIcon : batteryCharging}
             />

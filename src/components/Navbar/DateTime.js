@@ -22,8 +22,9 @@ const DateTime = () => {
 
     return (
         <div>
-            {day.slice(0, 3)} {month.slice(0,3)} {date} {hour > 12 ? hour - 12 : hour}:
-            {minute<10?`0${minute}`:minute} {hour > 12 ? "PM" : "AM"}
+            {day.slice(0, 3)} {month.slice(0, 3)} {date}{" "}
+            {hour > 12 ? hour - 12 : hour}:{minute < 10 ? `0${minute}` : minute}{" "}
+            {hour > 12 ? "PM" : "AM"}
         </div>
     );
 };
