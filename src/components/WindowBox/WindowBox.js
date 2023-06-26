@@ -12,6 +12,7 @@ const WindowBox = ({
     setActive,
     offset = 0,
     displayText,
+    activeElement,
 }) => {
     const [dimensions, setDimensions] = React.useState({
         height: 70,
@@ -21,7 +22,7 @@ const WindowBox = ({
 
     const handleZoom = () => {
         if (dimensions.height === 70 && dimensions.width === 60) {
-            setDimensions({ height: 100, width: 100 });
+            setDimensions({ height: 90, width: 100 });
             setPosition({ x: 0, y: 0 });
         } else {
             setDimensions({ height: 70, width: 60 });
@@ -45,15 +46,22 @@ const WindowBox = ({
                 style={{
                     zIndex: zIndexVal,
                     top:
-                        dimensions.height === 100
+                        dimensions.height === 90
                             ? 0
                             : `calc(10% - ${offset}px)`,
                     left:
-                        dimensions.height === 100
+                        dimensions.height === 90
                             ? 0
                             : `calc(10% - ${offset}px)`,
                     height: `${dimensions.height}%`,
                     width: `${dimensions.width}%`,
+                    boxShadow: activeElement
+                        ? "0px 0px 32px 0px rgba(0, 0, 0, 0.50)"
+                        : "0 0 10px rgba(0, 0, 0, 0.2)",
+                    border: activeElement ? "1px solid #131313" : "none",
+                    opacity: activeElement ? 1 : 0.9,
+                    filter: activeElement ? "blur(0px)" : "blur(0.8px)",
+                    // backdropFilter: activeElement ? "blur(0.75)" : "blur(0px)",
                 }}
             >
                 <div className={styles.statBar}>

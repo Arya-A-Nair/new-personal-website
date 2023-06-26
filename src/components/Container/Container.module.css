@@ -1,7 +1,7 @@
 .container {
     height: 100%;
     position: relative;
-    background-image: url("/public/images/laptopWallpaper.png");
+    background-image: url("/public/images/idee-chambre-gamer.webp");
     background-size: cover;
-    border-radius: 2rem;
+    border-radius: 0.2rem;
 }

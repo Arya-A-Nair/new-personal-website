@@ -25,7 +25,6 @@ const Container = () => {
             setZIndexAboutUs(maxOfThree + 1);
             setShowAboutUs(true);
         } else if (activeElement === "Projects") {
-            console.log("check");
             setZIndexProject(maxOfThree + 1);
             setShowProjects(true);
         } else if (activeElement === "Experience") {
@@ -41,32 +40,37 @@ const Container = () => {
                 <AboutUs
                     onClickClose={() => {
                         setShowAboutUs(false);
+                        setActiveElement("");
                     }}
                     setActiveElement={setActiveElement}
                     zIndexVal={zIndexAboutUs}
+                    activeElement={activeElement}
                 />
             )}
             {showProjects && (
                 <Projects
                     onClickClose={() => {
                         setShowProjects(false);
+                        setActiveElement("");
                     }}
                     setActiveElement={setActiveElement}
                     zIndexVal={zIndexProject}
+                    activeElement={activeElement}
                 />
             )}
             {showExperience && (
                 <Experience
                     onClickClose={() => {
                         setShowExperience(false);
+                        setActiveElement("");
                     }}
                     setActiveElement={setActiveElement}
                     zIndexVal={zIndexExperience}
+                    activeElement={activeElement}
                 />
             )}
             <Toolbar
                 selectActiveItem={(e) => {
-                    console.log(e);
                     setActiveElement(e);
                 }}
             />

@@ -2,7 +2,12 @@ import React from "react";
 import "./Projects.module.css";
 import WindowBox from "../WindowBox/WindowBox";
 
-const Projects = ({ onClickClose, setActiveElement, zIndexVal }) => {
+const Projects = ({
+    onClickClose,
+    setActiveElement,
+    zIndexVal,
+    activeElement,
+}) => {
     return (
         <WindowBox
             onClickClose={onClickClose}
@@ -10,6 +15,7 @@ const Projects = ({ onClickClose, setActiveElement, zIndexVal }) => {
             zIndexVal={zIndexVal}
             offset={40}
             displayText="Projects I have worked on"
+            activeElement={activeElement==="Projects"}
         >
             Projects
         </WindowBox>

@@ -1,5 +1,5 @@
 .laptopScreen {
-    width: 80vw;
+    width: 90vw;
     height: 90vh;
     border-radius: 2rem;
     background-color: #000;
@@ -10,7 +10,6 @@
 }
 .cameraIcon {
     height: 2.5rem;
-    /* background-color: #1b1b1b; */
     text-align: center;
 }
 
@@ -31,5 +30,5 @@
 
 .wrapper {
     height: 100%;
-    padding: 0 2.5rem 1rem 2.5rem;
+    padding: 0 1rem 1rem 1rem;
 }

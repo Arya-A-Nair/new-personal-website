@@ -1,7 +1,12 @@
 import React from "react";
 import WindowBox from "../WindowBox/WindowBox";
 
-const AboutUs = ({ onClickClose, setActiveElement, zIndexVal }) => {
+const AboutUs = ({
+    onClickClose,
+    setActiveElement,
+    zIndexVal,
+    activeElement,
+}) => {
     return (
         <WindowBox
             onClickClose={onClickClose}
@@ -9,6 +14,7 @@ const AboutUs = ({ onClickClose, setActiveElement, zIndexVal }) => {
             zIndexVal={zIndexVal}
             offset={60}
             displayText="So who am I??"
+            activeElement={activeElement==="AboutUs"}
         >
             About Us
         </WindowBox>

@@ -8,14 +8,13 @@ const BatteryContainer = () => {
     const battery = useBattery();
 
     const { isSupported, level, charging } = battery;
-    console.log(battery);
 
     return (
         <div className={styles.container}>
             <img
                 src={isSupported && !charging ? batteryIcon : batteryCharging}
             />
-            {isSupported ? level * 100 : 100}
+            {isSupported ? (level * 100).toFixed(0) : 100}
             {"%"}
         </div>
     );
