@@ -8,6 +8,7 @@ const Projects = ({ onClickClose, setActiveElement, zIndexVal }) => {
             onClickClose={onClickClose}
             setActive={() => setActiveElement("Projects")}
             zIndexVal={zIndexVal}
+            offset={40}
         >
             Projects
         </WindowBox>

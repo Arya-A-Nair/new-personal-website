@@ -8,6 +8,7 @@ const Experience = ({ onClickClose, setActiveElement, zIndexVal }) => {
             onClickClose={onClickClose}
             setActive={() => setActiveElement("Experience")}
             zIndexVal={zIndexVal}
+            offset={20}
         >
             Experience
         </WindowBox>

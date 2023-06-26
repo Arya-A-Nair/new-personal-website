@@ -6,18 +6,20 @@
     background: rgba(255, 255, 255, 0.2);
     border-radius: 10px 10px 0 0;
     height: 10%;
-    width: 40%;
+    width: auto;
     gap: 2rem;
     transform: translate(50%, 0);
-    padding: 0.8rem 5rem;
+    padding: 0.8rem 1rem;
     text-align: center;
+    display: flex;
+    justify-content: center;
 }
 
 .container > div {
     position: relative;
-    display: inline-block;
+    /* display: inline-block; */
     height: 100%;
-    margin: 0 2rem;
+    /* margin: 0 2rem; */
 }
 
 .container > div > img {
