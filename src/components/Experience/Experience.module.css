@@ -1,0 +1,36 @@
+.containerTitle {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 1rem 0;
+    gap: 1rem;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 60%;
+    height: 90%;
+}
+.title {
+    font-weight: bold;
+    font-size: 2.5rem;
+    color: #ffffff;
+    width: auto;
+}
+.greyLine {
+    /* width: 60%; */
+    flex: 1;
+    background: rgba(156, 156, 156, 0.61);
+    height: 1px;
+}
+.TabContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px rgba(217, 217, 217, 0.25) solid;
+}

@@ -15,7 +15,7 @@ const Projects = ({
             zIndexVal={zIndexVal}
             offset={40}
             displayText="Projects I have worked on"
-            activeElement={activeElement==="Projects"}
+            activeElement={activeElement === "Projects"}
         >
             Projects
         </WindowBox>

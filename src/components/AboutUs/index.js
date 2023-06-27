@@ -14,7 +14,7 @@ const AboutUs = ({
             zIndexVal={zIndexVal}
             offset={60}
             displayText="So who am I??"
-            activeElement={activeElement==="AboutUs"}
+            activeElement={activeElement === "AboutUs"}
         >
             About Us
         </WindowBox>

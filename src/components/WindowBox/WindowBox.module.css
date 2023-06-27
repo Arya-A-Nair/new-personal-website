@@ -5,7 +5,7 @@
     position: absolute;
     border-radius: 1rem;
     overflow: hidden;
-    
+
     animation: width 1s ease-in-out;
 }
 
@@ -31,4 +31,12 @@
 
 .statBarIcons > img {
     cursor: pointer;
+}
+
+.ContentContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
 }

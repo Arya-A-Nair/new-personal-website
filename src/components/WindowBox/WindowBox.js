@@ -61,7 +61,6 @@ const WindowBox = ({
                     border: activeElement ? "1px solid #131313" : "none",
                     opacity: activeElement ? 1 : 0.9,
                     filter: activeElement ? "blur(0px)" : "blur(0.8px)",
-                    // backdropFilter: activeElement ? "blur(0.75)" : "blur(0px)",
                 }}
             >
                 <div className={styles.statBar}>
@@ -77,7 +76,7 @@ const WindowBox = ({
                     <div>{displayText}</div>
                     <div></div>
                 </div>
-                <div>{children}</div>
+                <div className={styles.ContentContainer}>{children}</div>
             </div>
         </Draggable>
     );

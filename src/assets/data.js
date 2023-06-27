@@ -92,4 +92,16 @@ const works = [
     },
 ];
 
-export { resume, certifications, works };
+const experience = [
+    {
+        companyName: "CodeCell",
+    },
+    {
+        companyName: "UNL",
+    },
+    {
+        companyName: "Tactic",
+    },
+];
+
+export { resume, certifications, works, experience };
