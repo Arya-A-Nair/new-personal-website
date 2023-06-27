@@ -95,12 +95,45 @@ const works = [
 const experience = [
     {
         companyName: "CodeCell",
+        position: "Tech Team",
+        techStack: [
+            "React",
+            "Python",
+            "SCSS",
+            "React Native",
+            "Node",
+            "Solidity",
+            "Firebase",
+            "MongoDB",
+            "Express",
+        ],
+        duration: "Jan 2022 - Present",
+        workDone: [
+            "Responsible for efficiently maintaining and improving legacy code repositories",
+            "Organized engaging workshops on competitive programming and web development, empowering students with valuable tech skills",
+            "Developed a robust participant tracking app for a hackathon, ensuring smooth event management",
+        ],
     },
     {
         companyName: "UNL",
+        position: "SDE Intern",
+        techStack: ["Node", "NestJs", "Rust"],
+        duration: "June 2023 - Present",
+        workDone: [
+            "Streamlined code efficiency by implementing a conversion process from NestJs to Rust, harnessing Rust's inherent advantages to significantly enhance performance and optimize resource utilization.",
+            "Strategically managed and fine-tuned routing algorithms through in-depth analysis, resulting in notable speed enhancements and improved overall efficiency of the system.",
+        ],
     },
     {
         companyName: "Tactic",
+        position: "Frontend Developer",
+        techStack: ["React Native", "Node", "Express"],
+        duration: "March 2023 - Present",
+        workDone: [
+            "Led frontend development of the Tactic trading app, implementing innovative features for an exceptional user experience",
+            "Proficient in MERN stack and React Native, building robust, high-performance applications",
+            "Deployed Tactic on Google Playstore, enabling seamless updates and gaining valuable insights through Mixpanel integration",
+        ],
     },
 ];
 

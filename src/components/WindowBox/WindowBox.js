@@ -61,6 +61,7 @@ const WindowBox = ({
                     border: activeElement ? "1px solid #131313" : "none",
                     opacity: activeElement ? 1 : 0.9,
                     filter: activeElement ? "blur(0px)" : "blur(0.8px)",
+                    transform: dimensions.height===90 ? "scale(1)" : "scale(0.9)",  
                 }}
             >
                 <div className={styles.statBar}>

@@ -1,11 +1,8 @@
 .container {
-    /* width: 60%;
-    height: 70%; */
     background-color: #10162c;
     position: absolute;
     border-radius: 1rem;
     overflow: hidden;
-
     animation: width 1s ease-in-out;
 }
 
@@ -39,4 +36,17 @@
     align-items: center;
     height: 100%;
     width: 100%;
+    overflow: scroll;
+}
+.ContentContainer::-webkit-scrollbar {
+    width: 0.5rem;
+}
+.ContentContainer::-webkit-scrollbar-track {
+    background: rgba(72, 209, 253, 0.11);
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+.ContentContainer::-webkit-scrollbar-thumb {
+    background-color: rgba(72, 209, 253, 0.3);
+    outline: 1px solid slategrey;
+    border-radius: 1rem;
 }

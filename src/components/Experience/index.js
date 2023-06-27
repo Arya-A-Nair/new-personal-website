@@ -11,6 +11,17 @@ const Experience = ({
     activeElement,
 }) => {
     const [activeIndex, setActiveIndex] = useState(0);
+
+    useEffect(() => {
+        setInterval(() => {
+            setActiveIndex((prev) => (prev + 1) % experience.length);
+        }, 5000);
+
+        return () => {
+            clearInterval();
+        };
+    }, []);
+
     return (
         <WindowBox
             onClickClose={onClickClose}
@@ -38,26 +49,15 @@ const Experience = ({
                         />
                     ))}
                 </div>
-                <div>
-                    {activeIndex === 0 && (
-                        <ItemTab
-                            isActive={activeIndex === 0}
-                            val={activeIndex}
-                        />
-                    )}
-                    {activeIndex === 1 && (
-                        <ItemTab
-                            isActive={activeIndex === 1}
-                            val={activeIndex}
-                        />
-                    )}
-                    {activeIndex === 2 && (
-                        <ItemTab
-                            isActive={activeIndex === 2}
-                            val={activeIndex}
-                        />
-                    )}
-                </div>
+                {experience.map(
+                    (item, index) =>
+                        activeIndex === index && (
+                            <ItemTab
+                                isActive={activeIndex === index}
+                                data={item}
+                            />
+                        )
+                )}
             </div>
         </WindowBox>
     );

@@ -1,10 +1,9 @@
 import React from "react";
 import { motion } from "framer-motion";
-
-// write a variant for item in framer that when a particular component is opened it appears ffrom the right and when it is closed it disappears to the left
+import styles from "./ItemTab.module.css";
 const animation = {
     hidden: {
-        x: 100,
+        x: 200,
         opacity: 0,
     },
     visible: {
@@ -13,31 +12,52 @@ const animation = {
         transition: {
             duration: 0.5,
             type: "spring",
-            stiffness: 100,
+            stiffness: 40,
             damping: 10,
         },
     },
     exit: {
-        x: -100,
+        x: -200,
         opacity: 0,
         transition: {
             duration: 0.5,
             type: "spring",
-            stiffness: 100,
+            stiffness: 40,
             damping: 10,
         },
     },
 };
 
-const ItemTab = ({ isActive, val }) => {
+const ItemTab = ({ isActive, data }) => {
     return (
         <motion.div
             initial="hidden"
             animate="visible"
             exit="exit"
             variants={animation}
+            className={styles.container}
         >
-            {val + 1}
+            <div>
+                <span className={styles.position}>{data.position}</span>
+                <span className={styles.companyName}>{data.companyName}</span>
+            </div>
+            <div className={styles.duration}>{data.duration}</div>
+            <div
+                className={styles.superContainer}
+            >
+                <div className={styles.workDone}>
+                    <ul>
+                        {data.workDone.map((work, index) => (
+                            <li>{work}</li>
+                        ))}
+                    </ul>
+                </div>
+                <div className={styles.techStack}>
+                    {data.techStack.map((tech, index) => (
+                        <div className={styles.item}>{tech}</div>
+                    ))}
+                </div>
+            </div>
         </motion.div>
     );
 };
