@@ -1,6 +1,8 @@
-import React from "react";
-import "./Projects.module.css";
+import React, { useEffect, useState } from "react";
+import styles from "./Projects.module.css";
 import WindowBox from "../WindowBox/WindowBox";
+import { projects } from "../../assets/data";
+import ProjectItem from "./ProjectItem";
 
 const Projects = ({
     onClickClose,
@@ -8,6 +10,16 @@ const Projects = ({
     zIndexVal,
     activeElement,
 }) => {
+    const [activeIndex, setActiveIndex] = useState(0);
+    useEffect(() => {
+        let interval = setInterval(() => {
+            setActiveIndex((prev) => (prev + 1) % projects.length);
+        }, 5000);
+        return () => {
+            clearInterval(interval);
+        };
+    }, []);
+
     return (
         <WindowBox
             onClickClose={onClickClose}
@@ -17,7 +29,18 @@ const Projects = ({
             displayText="Projects I have worked on"
             activeElement={activeElement === "Projects"}
         >
-            Projects
+            <div className={styles.container}>
+                <div className={styles.containerTitle}>
+                    <span className={styles.title}>Projects</span>
+                    <span className={styles.greyLine}></span>
+                </div>
+                {projects.map(
+                    (item, index) =>
+                        activeIndex === index && (
+                            <ProjectItem key={index} data={item} />
+                        )
+                )}
+            </div>
         </WindowBox>
     );
 };

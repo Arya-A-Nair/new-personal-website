@@ -6,89 +6,78 @@ const resume = [
     },
 ];
 
-const certifications = [
+const projects = [
     {
-        text: "Certificate by Udemy",
-        link: "https://www.udemy.com/certificate/UC-3d786140-e231-4d89-bc89-33ff06aba723/",
-        title: "Full Stack Web Development With React and Django",
+        title: "Three Bricks",
+        img: "threeBricks.png",
+        description: [
+            "Streamlined property transactions with Polygon and NFTs, enhancing transparency, security, and ownership transfers.",
+            "Decentralized property platform leveraging blockchain and Polygon's scalability, reducing intermediaries and empowering direct ownership through NFTs.",
+        ],
+        techStack: ["React", "Solidity", "Firebase", "Polygon"],
     },
     {
-        text: "Certificate by IBM",
-        link: "https://www.credly.com/badges/3ce53246-2cd2-4245-a5ce-9e95e731b637?source=linked_in_profile",
-        title: "Python For Data Science",
+        title: "Pointer Aid",
+        img: "threeBricks.png",
+        description: [
+            "Empowering students with efficient studying by estimating required marks for desired pointers, optimizing academic performance.",
+            "Popular app with 10K+ views and 1.2K+ active users, enhancing student learning experience and addressing study needs effectively.",
+        ],
+        techStack: ["React"],
     },
     {
-        text: "Certificate by freecodecamp",
-        link: "https://www.freecodecamp.org/certification/arya-nair/scientific-computing-with-python-v7",
-        title: "Scientific Computing with Python",
+        title: "Three Money",
+        img: "threeBricks.png",
+        description: [
+            "Building a fair credit score system for a decentralized bank, reducing loan default risk and promoting financial inclusion through smart contracts",
+            "Creating a transparent and unbiased evaluation mechanism for fair loan access, enabling broader financial participation with reduced barriers.",
+        ],
+        techStack: ["React", "Solidity", "Firebase", "Polygon"],
     },
     {
-        text: "Certificate by freecodecamp",
-        link: "https://www.freecodecamp.org/certification/arya-nair/responsive-web-design",
-        title: "Responsive Web Design",
+        title: "Any Kode",
+        img: "threeBricks.png",
+        description: [
+            "Empowering developers with in-app code debugging and testing, optimizing code efficiency and providing instant feedback.",
+            "Offering a diverse range of coding problems and a customizable keyboard with shortcut keys for an enhanced coding experience and skill improvement.",
+        ],
+        techStack: ["React Native"],
     },
     {
-        text: "Certificate by freecodecamp",
-        link: "https://www.freecodecamp.org/certification/arya-nair/javascript-algorithms-and-data-structures",
-        title: "Javascript DSA",
-    },
-];
-
-const works = [
-    {
-        text: "Team management Application Django+React",
-        link: "https://github.com/Arya-A-Nair/Team-Manager",
-        title: "Team Manager",
+        title: "Three Chain",
+        img: "threeBricks.png",
+        description: [
+            "Ensures secure goods transfer with escrow service, reverse logistics using ERC721 tokens, and quality assurance through Aadhar QR KYC verification.",
+            "Enables location tracking, transparent transfer signatures, and efficient inventory management with batch management using ERC721a tokens.",
+        ],
+        techStack: ["Solidity", "React", "Firebase"],
     },
     {
-        text: "Task management Application Django+React",
-        link: "https://github.com/Arya-A-Nair/Task-Manager",
-        title: "Task Manager",
+        title: "Placement Predictor",
+        img: "threeBricks.png",
+        description: [
+            "Developed an 80.95% accurate Random Forest Classifier model to predict college placements.",
+            "Integrated the model into a Flask app for easy input of academic details and placement predictions",
+        ],
+        techStack: ["Python", "Flask", "Scikit-learn"],
     },
     {
-        text: "Mailing system using Django+React using Django Rest framework",
-        link: "https://github.com/Arya-A-Nair/MAIL-PROJECT",
         title: "Mail Project",
+        img: "threeBricks.png",
+        description: [
+            "Built an internal mailing system with Django+React, offering features like composing, archiving, and read status color changes for effective email management and communication.",
+            "Implemented functionalities such as composing, archiving, and read status color changes, enhancing the email system's usability and ensuring a seamless user experience."
+        ],
+        techStack: ["React", "Django"],
     },
     {
-        text: "This project links to my old personal website",
-        link: "https://arya-a-nair.github.io/Personal-Website/",
-        title: "Old Personal Website",
-    },
-    {
-        text: "Python project to Detect movement",
-        link: "https://github.com/Arya-A-Nair/Face-Detection",
-        title: "Face Detection",
-    },
-    {
-        text: "Simple Bootstrap website made for a friend",
-        link: "https://github.com/Arya-A-Nair/Pratherium",
-        title: "Pratherium",
-    },
-    {
-        text: "Python CLI dictionary",
-        link: "https://github.com/Arya-A-Nair/Dictionary",
-        title: "Dictionary",
-    },
-    {
-        text: "Fun text spammer using pyautogui",
-        link: "https://github.com/Arya-A-Nair/TEXT-SPAMMER",
-        title: "Text-Spammer",
-    },
-    {
-        text: "Simple Product Page",
-        link: "https://github.com/Arya-A-Nair/Product-page",
-        title: "Product Page",
-    },
-    {
-        text: "My version of Flappy Bird",
-        link: "https://github.com/Arya-A-Nair/Flappy-cube",
-        title: "Flappy Cube",
-    },
-    {
-        text: "Simple Ping pong game using JS",
-        link: "https://github.com/Arya-A-Nair/Ping-Pong",
-        title: "Ping Pong",
+        title: "Team Manager",
+        img: "threeBricks.png",
+        description: [
+            "Developed a full-stack team management application with unique team codes, enabling seamless task assignment and prioritization for enhanced collaboration.",
+            "Implemented task allocation and priority features, empowering admins to efficiently assign and manage tasks within teams, fostering effective collaboration and productivity."
+        ],
+        techStack: ["React", "Django"],
     },
 ];
 
@@ -137,4 +126,4 @@ const experience = [
     },
 ];
 
-export { resume, certifications, works, experience };
+export { resume, projects, experience };

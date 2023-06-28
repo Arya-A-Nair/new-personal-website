@@ -1,0 +1,34 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    gap: 2rem;
+}
+.imageContainer > img {
+    width: 100%;
+    object-fit: cover;
+}
+.childContainer {
+    width: 50%;
+    height: 100%;
+}
+.imageContainer {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.projectTitle {
+    color: #56aeff;
+    font-weight: 500;
+    font-size: 2rem;
+}
+.projectDescription {
+    color: #8892b2;
+    margin: 1rem 0;
+}
