@@ -12,8 +12,11 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    width: 60%;
-    height: 90%;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    padding: 3rem 15%;
+    overflow-x: hidden;
 }
 .title {
     font-weight: bold;
@@ -33,4 +36,18 @@
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px rgba(217, 217, 217, 0.25) solid;
+}
+
+
+.container::-webkit-scrollbar {
+    width: 0.5rem;
+}
+.container::-webkit-scrollbar-track {
+    background: rgba(72, 209, 253, 0.11);
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+.container::-webkit-scrollbar-thumb {
+    background-color: rgba(72, 209, 253, 0.3);
+    outline: 1px solid slategrey;
+    border-radius: 1rem;
 }
