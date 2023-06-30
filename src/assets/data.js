@@ -15,6 +15,7 @@ const projects = [
             "Decentralized property platform leveraging blockchain and Polygon's scalability, reducing intermediaries and empowering direct ownership through NFTs.",
         ],
         techStack: ["React", "Solidity", "Firebase", "Polygon"],
+        link: "https://github.com/team-somehow/3-bricks",
     },
     {
         title: "Pointer Aid",
@@ -24,6 +25,7 @@ const projects = [
             "Popular app with 10K+ views and 1.2K+ active users, enhancing student learning experience and addressing study needs effectively.",
         ],
         techStack: ["React"],
+        link: "https://pointer-aid.pettiboy.com/",
     },
     {
         title: "Three Money",
@@ -33,6 +35,7 @@ const projects = [
             "Creating a transparent and unbiased evaluation mechanism for fair loan access, enabling broader financial participation with reduced barriers.",
         ],
         techStack: ["React", "Solidity", "Firebase", "Polygon"],
+        link: "https://github.com/team-somehow/three-money",
     },
     {
         title: "Any Kode",
@@ -42,6 +45,7 @@ const projects = [
             "Offering a diverse range of coding problems and a customizable keyboard with shortcut keys for an enhanced coding experience and skill improvement.",
         ],
         techStack: ["React Native"],
+        link: "https://github.com/team-somehow/code-somehow",
     },
     {
         title: "Three Chain",
@@ -51,6 +55,7 @@ const projects = [
             "Enables location tracking, transparent transfer signatures, and efficient inventory management with batch management using ERC721a tokens.",
         ],
         techStack: ["Solidity", "React", "Firebase"],
+        link: "https://github.com/team-somehow/three-chain",
     },
     {
         title: "Placement Predictor",
@@ -60,24 +65,27 @@ const projects = [
             "Integrated the model into a Flask app for easy input of academic details and placement predictions",
         ],
         techStack: ["Python", "Flask", "Scikit-learn"],
+        link: "https://github.com/Arya-A-Nair/PlacementPredictor",
     },
     {
         title: "Mail Project",
         img: "threeBricks.png",
         description: [
             "Built an internal mailing system with Django+React, offering features like composing, archiving, and read status color changes for effective email management and communication.",
-            "Implemented functionalities such as composing, archiving, and read status color changes, enhancing the email system's usability and ensuring a seamless user experience."
+            "Implemented functionalities such as composing, archiving, and read status color changes, enhancing the email system's usability and ensuring a seamless user experience.",
         ],
         techStack: ["React", "Django"],
+        link: "https://github.com/Arya-A-Nair/MAIL-PROJECT",
     },
     {
         title: "Team Manager",
         img: "threeBricks.png",
         description: [
             "Developed a full-stack team management application with unique team codes, enabling seamless task assignment and prioritization for enhanced collaboration.",
-            "Implemented task allocation and priority features, empowering admins to efficiently assign and manage tasks within teams, fostering effective collaboration and productivity."
+            "Implemented task allocation and priority features, empowering admins to efficiently assign and manage tasks within teams, fostering effective collaboration and productivity.",
         ],
         techStack: ["React", "Django"],
+        link: "https://github.com/Arya-A-Nair/Team-Manager",
     },
 ];
 

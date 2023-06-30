@@ -28,8 +28,9 @@
     flex: 1;
     background: rgba(156, 156, 156, 0.61);
     height: 1px;
+    cursor: pointer;
+    margin: 0 0.5rem;
 }
-
 
 .container::-webkit-scrollbar {
     width: 0.5rem;
@@ -42,4 +43,19 @@
     background-color: rgba(72, 209, 253, 0.3);
     outline: 1px solid slategrey;
     border-radius: 1rem;
+}
+.blueLine {
+    flex: 1;
+    background-color: #3a9ffd;
+    height: 2px;
+    margin: 0 0.5rem;
+
+}
+
+.containerLine{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 60%;
 }

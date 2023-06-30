@@ -38,7 +38,22 @@ const ProjectItem = ({ data }) => {
             variants={animation}
         >
             <div className={[styles.imageContainer]}>
-                <img src={process.env.PUBLIC_URL + "/images/" + data.img} />
+                <div
+                    style={{
+                        position: "relative",
+                    }}
+                >
+                    <img src={process.env.PUBLIC_URL + "/images/" + data.img} />
+                    <div className={styles.overlay}>
+                        <img
+                            src={
+                                process.env.PUBLIC_URL +
+                                "/images/mark-github.png"
+                            }
+                            onClick={() => window.open(data.link)}
+                        />
+                    </div>
+                </div>
             </div>
             <div className={[styles.childContainer]}>
                 <div className={styles.projectTitle}>{data.title}</div>

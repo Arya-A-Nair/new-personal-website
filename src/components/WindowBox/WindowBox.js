@@ -15,17 +15,17 @@ const WindowBox = ({
     activeElement,
 }) => {
     const [dimensions, setDimensions] = React.useState({
-        height: 70,
+        height: 80,
         width: 60,
     });
     const [position, setPosition] = React.useState({ x: 0, y: 0 });
 
     const handleZoom = () => {
-        if (dimensions.height === 70 && dimensions.width === 60) {
+        if (dimensions.height === 80 && dimensions.width === 60) {
             setDimensions({ height: 90, width: 100 });
             setPosition({ x: 0, y: 0 });
         } else {
-            setDimensions({ height: 70, width: 60 });
+            setDimensions({ height: 80, width: 60 });
             setPosition({ x: "50%", y: "50%" });
         }
     };

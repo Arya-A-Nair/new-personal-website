@@ -40,6 +40,21 @@ const Projects = ({
                             <ProjectItem key={index} data={item} />
                         )
                 )}
+                <div className={styles.containerLine}>
+                    {projects.map((item, index) => (
+                        <div
+                            key={index}
+                            className={
+                                activeIndex === index
+                                    ? styles.blueLine
+                                    : styles.greyLine
+                            }
+                            onClick={() => {
+                                setActiveIndex(index);
+                            }}
+                        />
+                    ))}
+                </div>
             </div>
         </WindowBox>
     );
