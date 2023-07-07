@@ -1,7 +1,13 @@
 .container {
     height: 100%;
     position: relative;
-    background-image: url("/public/images/idee-chambre-gamer.webp");
+    background-image: url("/public/images/background.gif");
     background-size: cover;
     border-radius: 0.2rem;
+}
+.preloader{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

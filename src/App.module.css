@@ -32,3 +32,10 @@
     height: 100%;
     padding: 0 1rem 1rem 1rem;
 }
+
+@media screen and (max-width:600px) {
+    .laptopScreen {
+        width: 100vw;
+        height: 100vh;
+    }
+}

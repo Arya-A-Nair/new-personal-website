@@ -49,19 +49,37 @@
     background-color: #3a9ffd;
     height: 2px;
     margin: 0 0.2rem;
-
 }
 
-.containerLine{
+.containerLine {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: flex-end;
+    align-items: center;
     width: 60%;
+    margin-bottom: 2rem;
+}
+.arrow {
+    margin: 0 0.4rem;
+    color: #3a9ffd;
+    size: 2rem;
+    cursor: pointer;
 }
 
-@media screen and (max-width:900px) {
-    .container{
-        padding: 3rem 5%;
+@media screen and (max-width: 900px) {
+    .container {
+        padding: 1rem 10%;
+    }
+}
+@media screen and (max-width: 600px) {
+    .container {
+        padding: 1rem 5%;
+    }
+    .containerLine {
+        width: 100%;
+        order: 2;
+    }
+    .projectContainer {
+        order: 3;
     }
 }

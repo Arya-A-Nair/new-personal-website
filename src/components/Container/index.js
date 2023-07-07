@@ -14,6 +14,7 @@ const Container = () => {
     const [zIndexAboutUs, setZIndexAboutUs] = useState(0);
     const [zIndexProject, setZIndexProject] = useState(0);
     const [zIndexExperience, setZIndexExperience] = useState(0);
+    const [showPreloader, setShowPreloader] = useState(true);
 
     useEffect(() => {
         const maxOfThree = Math.max(
@@ -33,48 +34,106 @@ const Container = () => {
         }
     }, [activeElement]);
 
+    useEffect(() => {
+        setTimeout(() => {
+            setShowPreloader(false);
+        }, 2000);
+    }, []);
+
     return (
-        <div className={styles.container}>
-            <Navbar />
-            {showAboutUs && (
-                <AboutUs
-                    onClickClose={() => {
-                        setShowAboutUs(false);
-                        setActiveElement("");
-                    }}
-                    setActiveElement={setActiveElement}
-                    zIndexVal={zIndexAboutUs}
-                    activeElement={activeElement}
-                />
+        <>
+            {showPreloader && (
+                    <img
+                        src={process.env.PUBLIC_URL + "/images/preloader.gif"}
+                        alt="preloader"
+                        className={styles.preloader}
+                    />
             )}
-            {showProjects && (
-                <Projects
-                    onClickClose={() => {
-                        setShowProjects(false);
-                        setActiveElement("");
-                    }}
-                    setActiveElement={setActiveElement}
-                    zIndexVal={zIndexProject}
-                    activeElement={activeElement}
-                />
+            {!showPreloader && (
+                <div className={styles.container}>
+                    <Navbar />
+                    {showAboutUs && (
+                        <AboutUs
+                            onClickClose={() => {
+                                setShowAboutUs(false);
+                                setActiveElement("");
+                            }}
+                            setActiveElement={setActiveElement}
+                            zIndexVal={zIndexAboutUs}
+                            activeElement={activeElement}
+                        />
+                    )}
+                    {showProjects && (
+                        <Projects
+                            onClickClose={() => {
+                                setShowProjects(false);
+                                setActiveElement("");
+                            }}
+                            setActiveElement={setActiveElement}
+                            zIndexVal={zIndexProject}
+                            activeElement={activeElement}
+                        />
+                    )}
+                    {showExperience && (
+                        <Experience
+                            onClickClose={() => {
+                                setShowExperience(false);
+                                setActiveElement("");
+                            }}
+                            setActiveElement={setActiveElement}
+                            zIndexVal={zIndexExperience}
+                            activeElement={activeElement}
+                        />
+                    )}
+                    <Toolbar
+                        selectActiveItem={(e) => {
+                            setActiveElement(e);
+                        }}
+                    />
+                </div>
             )}
-            {showExperience && (
-                <Experience
-                    onClickClose={() => {
-                        setShowExperience(false);
-                        setActiveElement("");
+            {/* <div className={styles.container}>
+                <Navbar />
+                {showAboutUs && (
+                    <AboutUs
+                        onClickClose={() => {
+                            setShowAboutUs(false);
+                            setActiveElement("");
+                        }}
+                        setActiveElement={setActiveElement}
+                        zIndexVal={zIndexAboutUs}
+                        activeElement={activeElement}
+                    />
+                )}
+                {showProjects && (
+                    <Projects
+                        onClickClose={() => {
+                            setShowProjects(false);
+                            setActiveElement("");
+                        }}
+                        setActiveElement={setActiveElement}
+                        zIndexVal={zIndexProject}
+                        activeElement={activeElement}
+                    />
+                )}
+                {showExperience && (
+                    <Experience
+                        onClickClose={() => {
+                            setShowExperience(false);
+                            setActiveElement("");
+                        }}
+                        setActiveElement={setActiveElement}
+                        zIndexVal={zIndexExperience}
+                        activeElement={activeElement}
+                    />
+                )}
+                <Toolbar
+                    selectActiveItem={(e) => {
+                        setActiveElement(e);
                     }}
-                    setActiveElement={setActiveElement}
-                    zIndexVal={zIndexExperience}
-                    activeElement={activeElement}
                 />
-            )}
-            <Toolbar
-                selectActiveItem={(e) => {
-                    setActiveElement(e);
-                }}
-            />
-        </div>
+            </div> */}
+        </>
     );
 };
 

@@ -1,6 +1,6 @@
 import Draggable from "react-draggable";
 import styles from "./WindowBox.module.css";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Close from "../../assets/Close.png";
 import Zoom from "../../assets/Zoom.png";
 import Minimize from "../../assets/Minimise.png";
@@ -14,6 +14,24 @@ const WindowBox = ({
     displayText,
     activeElement,
 }) => {
+    const [isMobile, setIsMobile] = useState(false);
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth > 600) {
+                setDimensions({ height: 80, width: 60 });
+                setPosition({ x: "50%", y: "50%" });
+                setIsMobile(false);
+            } else {
+                setIsMobile(true);
+                setDimensions({ height: 90, width: 100 });
+                setPosition({ x: 0, y: 0 });
+            }
+        };
+        handleResize();
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
     const [dimensions, setDimensions] = React.useState({
         height: 80,
         width: 60,
@@ -40,6 +58,7 @@ const WindowBox = ({
             onMouseDown={() => setActive()}
             onDrag={(e, data) => positionHandler(e, data)}
             position={{ x: parseFloat(position.x), y: parseFloat(position.y) }}
+            disabled={isMobile}
         >
             <div
                 className={styles.container}
@@ -74,7 +93,7 @@ const WindowBox = ({
                         <img src={Zoom} alt="Zoom" onClick={handleZoom} />
                     </div>
                     <div>{displayText}</div>
-                    <div></div>
+                    {!isMobile && <div></div>}
                 </div>
                 <div className={styles.ContentContainer}>{children}</div>
             </div>

@@ -38,7 +38,6 @@
     border-bottom: 1px rgba(217, 217, 217, 0.25) solid;
 }
 
-
 .container::-webkit-scrollbar {
     width: 0.5rem;
 }
@@ -50,4 +49,10 @@
     background-color: rgba(72, 209, 253, 0.3);
     outline: 1px solid slategrey;
     border-radius: 1rem;
+}
+
+@media screen and (max-width: 600px) {
+    .container {
+        padding: 1rem 5%;
+    }
 }

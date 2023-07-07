@@ -12,15 +12,6 @@ const Experience = ({
 }) => {
     const [activeIndex, setActiveIndex] = useState(0);
 
-    useEffect(() => {
-        setInterval(() => {
-            setActiveIndex((prev) => (prev + 1) % experience.length);
-        }, 5000);
-
-        return () => {
-            clearInterval();
-        };
-    }, []);
 
     return (
         <WindowBox

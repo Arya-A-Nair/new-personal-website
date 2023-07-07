@@ -1,6 +1,8 @@
 import React from "react";
 import { motion } from "framer-motion";
 import styles from "./ProjectItem.module.css";
+import { FaGithub, FaLinkedinIn, FaWhatsapp } from "react-icons/fa6";
+import { IconContext } from "react-icons";
 const animation = {
     hidden: {
         x: 200,
@@ -45,13 +47,21 @@ const ProjectItem = ({ data }) => {
                 >
                     <img src={process.env.PUBLIC_URL + "/images/" + data.img} />
                     <div className={styles.overlay}>
-                        <img
+                        {/* <img
                             src={
                                 process.env.PUBLIC_URL +
                                 "/images/mark-github.png"
                             }
                             onClick={() => window.open(data.link)}
-                        />
+                        /> */}
+                        <IconContext.Provider
+                            value={{
+                                className: styles.icon,
+                                size: "2rem",
+                            }}
+                        >
+                            <FaGithub onClick={() => window.open(data.link)} />
+                        </IconContext.Provider>
                     </div>
                 </div>
             </div>
