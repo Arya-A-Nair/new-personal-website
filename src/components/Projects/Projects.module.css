@@ -59,3 +59,9 @@
     align-items: flex-end;
     width: 60%;
 }
+
+@media screen and (max-width:900px) {
+    .container{
+        padding: 3rem 5%;
+    }
+}
