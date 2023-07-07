@@ -1,15 +1,19 @@
 {
   "files": {
-    "main.css": "/new-personal-website/static/css/main.01591167.css",
-    "main.js": "/new-personal-website/static/js/main.0e93bb19.js",
-    "static/media/logo.png": "/new-personal-website/static/media/logo.58833b54222f62dfac24.png",
-    "static/media/background.webp": "/new-personal-website/static/media/background.46f72e2dee40d835b854.webp",
+    "main.css": "/new-personal-website/static/css/main.8d714b4c.css",
+    "main.js": "/new-personal-website/static/js/main.f19f7343.js",
+    "static/media/background.gif": "/new-personal-website/static/media/background.396a9ebfb9771708ff27.gif",
+    "static/media/Background.png": "/new-personal-website/static/media/Background.f63954c701169724a2f4.png",
+    "static/media/linux.png": "/new-personal-website/static/media/linux.b79d9a382fd8984cff12.png",
+    "static/media/visualStudio.png": "/new-personal-website/static/media/visualStudio.9bc6e588b5f2b867a8a4.png",
+    "static/media/popOs.png": "/new-personal-website/static/media/popOs.1a5da53d6f1b68369531.png",
+    "static/media/terminal.png": "/new-personal-website/static/media/terminal.ea4915bcf2a1e1591fa5.png",
     "index.html": "/new-personal-website/index.html",
-    "main.01591167.css.map": "/new-personal-website/static/css/main.01591167.css.map",
-    "main.0e93bb19.js.map": "/new-personal-website/static/js/main.0e93bb19.js.map"
+    "main.8d714b4c.css.map": "/new-personal-website/static/css/main.8d714b4c.css.map",
+    "main.f19f7343.js.map": "/new-personal-website/static/js/main.f19f7343.js.map"
   },
   "entrypoints": [
-    "static/css/main.01591167.css",
-    "static/js/main.0e93bb19.js"
+    "static/css/main.8d714b4c.css",
+    "static/js/main.f19f7343.js"
   ]
 }
