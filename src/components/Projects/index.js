@@ -34,12 +34,14 @@ const Projects = ({
                     <span className={styles.title}>Projects</span>
                     <span className={styles.greyLine}></span>
                 </div>
-                {projects.map(
-                    (item, index) =>
-                        activeIndex === index && (
-                            <ProjectItem key={index} data={item} />
-                        )
-                )}
+                <div>
+                    {projects.map(
+                        (item, index) =>
+                            activeIndex === index && (
+                                <ProjectItem key={index} data={item} />
+                            )
+                    )}
+                </div>
                 <div className={styles.containerLine}>
                     {projects.map((item, index) => (
                         <div

@@ -24,52 +24,62 @@ const AboutUs = ({
                 </div>
                 <div className={styles.containerContent}>
                     <div className={styles.contentLeft}>
-                        <div className={styles.brandLogos}>
-                            <img
-                                src={
-                                    process.env.PUBLIC_URL +
-                                    "/images/Linkedin.png"
-                                }
-                                className={styles.logo}
-                                alt="Linkedin Logo"
-                            />
-                            <img
-                                src={
-                                    process.env.PUBLIC_URL +
-                                    "/images/Linkedin.png"
-                                }
-                                className={styles.logo}
-                                alt="Linkedin Logo"
-                            />
-                            <img
-                                src={
-                                    process.env.PUBLIC_URL +
-                                    "/images/Linkedin.png"
-                                }
-                                alt="Linkedin Logo"
-                                className={styles.logo}
-                            />
-                            <img
-                                src={
-                                    process.env.PUBLIC_URL +
-                                    "/images/Linkedin.png"
-                                }
-                                alt="Linkedin Logo"
-                                className={styles.logo}
-                            />
-                        </div>
                         <div className={styles.ProfilePic}>
-                            <img
-                                src={
-                                    process.env.PUBLIC_URL +
-                                    "/images/profilePic.png"
-                                }
-                                alt="Profile Pic"
-                            />
-                            <div className={styles.qoute}>
-                                "Sorry. I'm Doing My Own Thing"
+                            <div className={styles.brandLogos}>
+                                <img
+                                    src={
+                                        process.env.PUBLIC_URL +
+                                        "/images/Linkedin.png"
+                                    }
+                                    className={styles.logo}
+                                    alt="Linkedin Logo"
+                                />
+                                <img
+                                    src={
+                                        process.env.PUBLIC_URL +
+                                        "/images/Linkedin.png"
+                                    }
+                                    className={styles.logo}
+                                    alt="Linkedin Logo"
+                                />
+                                <img
+                                    src={
+                                        process.env.PUBLIC_URL +
+                                        "/images/Linkedin.png"
+                                    }
+                                    alt="Linkedin Logo"
+                                    className={styles.logo}
+                                />
+                                <img
+                                    src={
+                                        process.env.PUBLIC_URL +
+                                        "/images/Linkedin.png"
+                                    }
+                                    alt="Linkedin Logo"
+                                    className={styles.logo}
+                                />
                             </div>
-                            <div className={styles.author}>~Miles Morales</div>
+                            <div className={styles.profileImg}>
+                                <img
+                                    src={
+                                        process.env.PUBLIC_URL +
+                                        "/images/profilePic.png"
+                                    }
+                                    alt="Profile Pic"
+                                    className={styles.profilePicImage}
+                                />
+                            </div>
+                        </div>
+                        <div className={styles.qoutesContainer}>
+                            <div className={styles.blankdiv}></div>
+                            <div className={styles.qoutes}>
+                                <div className={styles.qoute}>
+                                    "Sorry. I'm Doing My Own Thing"
+                                </div>
+                                <div className={styles.author}>
+                                    ~Miles Morales
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div className={styles.contentRight}>
@@ -129,7 +139,7 @@ const AboutUs = ({
                             </span>{" "}
                             at <span className={styles.highlight}>UNL</span>,
                             hidden beneath my secret identity. With{" "}
-                            <span className={styles.highlight}>Rust</span> and {" "}
+                            <span className={styles.highlight}>Rust</span> and{" "}
                             <span className={styles.highlight}>
                                 React Native
                             </span>{" "}

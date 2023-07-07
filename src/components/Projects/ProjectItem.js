@@ -64,6 +64,16 @@ const ProjectItem = ({ data }) => {
                         ))}
                     </ul>
                 </div>
+                <div className={styles.projectTechStack}>
+                    <p>Technologies Interacted with</p>
+                    <div>
+                        {data.techStack.map((item, index) => (
+                            <div key={index} className={styles.item}>
+                                {item}
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </div>
         </motion.div>
     );

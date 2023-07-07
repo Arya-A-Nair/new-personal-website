@@ -36,42 +36,61 @@
     width: 100%;
     display: flex;
     flex-direction: row;
+    height: fit-content;
+    gap: 2.5rem;
 }
 .contentLeft {
-    flex: 1;
     display: flex;
-    justify-content: space-around;
+    /* justify-content: space-around; */
+    flex-direction: column;
+    /* height: max-content; */
+    width: 40%;
 }
 .contentRight {
-    flex: 1;
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    width: 60%;
 }
 
 .brandLogos {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    flex-grow: 1;
     justify-content: space-around;
+    height: 100%;
 }
 .brandLogos > img {
     cursor: pointer;
+    width: 1.2rem;
 }
 .ProfilePic {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
+    gap: 1rem;
+    /* width: 0%; */
 }
+.profilePicImage {
+    width: 100%;
+}
+
+.qoutesContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+/* .qoutes {
+    width: calc;
+} */
 
 .qoute {
     color: #48d1fd;
     font-style: italic;
     font-weight: 600;
-    width: 80%;
     text-align: center;
-    margin: 1rem 0 0.5rem 0;
+    margin: 1.5rem 0 0.5rem 0;
 }
 
 .author {
@@ -79,6 +98,7 @@
     font-style: italic;
     font-weight: 600;
     font-size: 0.6rem;
+    text-align: center;
 }
 
 .contentText {
@@ -126,4 +146,42 @@
     background-color: rgba(72, 209, 253, 0.3);
     outline: 1px solid slategrey;
     border-radius: 1rem;
+}
+.blankdiv {
+    width: 3rem;
+}
+
+@media screen and (max-width: 900px) {
+    .containerContent {
+        flex-direction: column;
+    }
+    .contentLeft {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        width: 100%;
+    }
+    .brandLogos {
+        flex-direction: row;
+        margin: 1rem 0;
+        width: 100%;
+    }
+    .contentText {
+        text-align: center;
+    }
+    .contentRight {
+        width: 100%;
+    }
+    .qoutesContainer {
+        width: 100%;
+    }
+    .ProfilePic {
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+    .blankdiv {
+        display: none;
+    }.qoutes{
+        width: 100%;
+    }
 }
