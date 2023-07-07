@@ -1,0 +1,41 @@
+.container {
+    background-color: #10162c;
+    position: absolute;
+    border-radius: 1rem;
+    overflow: hidden;
+    animation: width 1s ease-in-out;
+}
+
+.statBar {
+    width: 100%;
+    height: 2rem;
+    background: linear-gradient(180deg, #4b4b4b, #3d3d3d);
+    top: 0%;
+    left: 0%;
+    padding: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #ffffff;
+}
+
+.statBarIcons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.statBarIcons > img {
+    cursor: pointer;
+}
+
+.ContentContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    /* overflow: scroll; */
+    overflow-y: hidden;
+}

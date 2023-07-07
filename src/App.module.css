@@ -1,0 +1,41 @@
+.laptopScreen {
+    width: 90vw;
+    height: 90vh;
+    border-radius: 2rem;
+    background-color: #000;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 0.4rem solid #87888c;
+}
+.cameraIcon {
+    height: 2.5rem;
+    text-align: center;
+}
+
+.cameraIcon > img {
+    height: 100%;
+}
+
+.laptopBase {
+    color: #babbbf;
+    width: auto;
+    height: 2.5rem;
+    background-color: #1b1b1b;
+    border-radius: 0 0 2rem 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapper {
+    height: 100%;
+    padding: 0 1rem 1rem 1rem;
+}
+
+@media screen and (max-width:600px) {
+    .laptopScreen {
+        width: 100vw;
+        height: 100vh;
+    }
+}
