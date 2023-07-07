@@ -15,3 +15,9 @@
 .logoContainer > img {
     height: 90%;
 }
+
+@media screen and (max-width:600px) {
+    .container{
+        padding:0 0.5rem;
+    }
+}

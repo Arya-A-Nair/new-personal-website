@@ -6,6 +6,20 @@ const DateTime = () => {
     const [date, setDate] = useState(1);
     const [hour, setHour] = useState(0);
     const [minute, setMinute] = useState(0);
+
+    const [isMobile, setIsMobile] = useState(false);
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth > 600) {
+                setIsMobile(false);
+            } else {
+                setIsMobile(true);
+            }
+        };
+        handleResize();
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
     useEffect(() => {
         setInterval(() => {
             const date = new Date();
@@ -22,7 +36,7 @@ const DateTime = () => {
 
     return (
         <div>
-            {day.slice(0, 3)} {month.slice(0, 3)} {date}{" "}
+            {!isMobile && `${day.slice(0, 3)} ${month.slice(0, 3)} ${date} `}
             {hour > 12 ? hour - 12 : hour}:{minute < 10 ? `0${minute}` : minute}{" "}
             {hour > 12 ? "PM" : "AM"}
         </div>

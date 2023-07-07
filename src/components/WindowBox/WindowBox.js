@@ -13,6 +13,7 @@ const WindowBox = ({
     offset = 0,
     displayText,
     activeElement,
+    displayTextMobile,
 }) => {
     const [isMobile, setIsMobile] = useState(false);
     useEffect(() => {
@@ -92,8 +93,8 @@ const WindowBox = ({
                         />
                         <img src={Zoom} alt="Zoom" onClick={handleZoom} />
                     </div>
-                    <div>{displayText}</div>
-                    {!isMobile && <div></div>}
+                    <div>{isMobile ? displayTextMobile : displayText}</div>
+                    <div></div>
                 </div>
                 <div className={styles.ContentContainer}>{children}</div>
             </div>

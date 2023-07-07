@@ -21,6 +21,7 @@ const Experience = ({
             offset={20}
             displayText="Companies I have worked with"
             activeElement={activeElement === "Experience"}
+            displayTextMobile={"Experience"}
         >
             <div className={styles.container}>
                 <div className={styles.containerTitle}>

@@ -20,6 +20,7 @@ const AboutUs = ({
                 offset={60}
                 displayText="So who am I??"
                 activeElement={activeElement === "AboutUs"}
+                displayTextMobile={"About Me"}
             >
                 <div className={styles.container}>
                     <div className={styles.containerTitle}>

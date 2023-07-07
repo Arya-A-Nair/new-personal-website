@@ -15,6 +15,7 @@ const Container = () => {
     const [zIndexProject, setZIndexProject] = useState(0);
     const [zIndexExperience, setZIndexExperience] = useState(0);
     const [showPreloader, setShowPreloader] = useState(true);
+    const [brightness, setBrightness] = useState(1);
 
     useEffect(() => {
         const maxOfThree = Math.max(
@@ -43,15 +44,20 @@ const Container = () => {
     return (
         <>
             {showPreloader && (
-                    <img
-                        src={process.env.PUBLIC_URL + "/images/preloader.gif"}
-                        alt="preloader"
-                        className={styles.preloader}
-                    />
+                <img
+                    src={process.env.PUBLIC_URL + "/images/preloader.gif"}
+                    alt="preloader"
+                    className={styles.preloader}
+                />
             )}
             {!showPreloader && (
-                <div className={styles.container}>
-                    <Navbar />
+                <div
+                    className={styles.container}
+                    style={{
+                        opacity: brightness,
+                    }}
+                >
+                    <Navbar setBrightness={setBrightness} />
                     {showAboutUs && (
                         <AboutUs
                             onClickClose={() => {

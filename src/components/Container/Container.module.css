@@ -4,10 +4,17 @@
     background-image: url("/public/images/background.gif");
     background-size: cover;
     border-radius: 0.2rem;
+    background-position: center;
 }
-.preloader{
+.preloader {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+@media screen and (max-width: 600px) {
+    .preloader {
+        width: 90%;
+    }
 }
