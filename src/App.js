@@ -6,18 +6,16 @@ import AboutUs from "./components/AboutUs";
 import Projects from "./components/Projects";
 
 function App() {
-    const [isMobile, setIsMobile] = useState(false);
+    console.log(
+      window.location.href.includes("https://arya-a-nair.github.io/new-personal-website/")
+    );
     useEffect(() => {
-        const handleResize = () => {
-            if (window.innerWidth > 600) {
-                setIsMobile(false);
-            } else {
-                setIsMobile(true);
-            }
-        };
-        handleResize();
-        window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
+        if (
+            window.location.href.includes("https://arya-a-nair.github.io/new-personal-website/")
+        ) {
+            window.location.href =
+                "https://www.arya-nair.in/";
+        }
     }, []);
 
     return (
