@@ -1,6 +1,6 @@
 {
-    "homepage": "https://Arya-A-Nair.github.io/new-personal-website",
-    "name": "my-app",
+    "homepage": "https://arya-nair-hello.vercel.app/",
+    "name": "Portfolio",
     "version": "0.1.0",
     "private": true,
     "dependencies": {

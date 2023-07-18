@@ -60,7 +60,9 @@ const ProjectItem = ({ data }) => {
                                 size: "2rem",
                             }}
                         >
-                            <FaGithub onClick={() => window.open(data.link)} />
+                            <FaGithub style={{
+                                cursor: "pointer"
+                            }} onClick={() => window.open(data.link)} />
                         </IconContext.Provider>
                     </div>
                 </div>
