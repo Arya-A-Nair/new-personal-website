@@ -57,7 +57,7 @@ const Container = () => {
                         opacity: brightness,
                     }}
                 >
-                    <Navbar setBrightness={setBrightness} />
+                    <Navbar setBrightness={setBrightness} brightness={brightness} />
                     {showAboutUs && (
                         <AboutUs
                             onClickClose={() => {

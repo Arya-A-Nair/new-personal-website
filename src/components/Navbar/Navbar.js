@@ -4,7 +4,7 @@ import popOs from "../../assets/popOs.png";
 import DateTime from "./DateTime";
 import BatteryContainer from "./BatteryContainer";
 
-const Navbar = ({ setBrightness }) => {
+const Navbar = ({ setBrightness,brightness }) => {
     
 
     return (
@@ -14,7 +14,7 @@ const Navbar = ({ setBrightness }) => {
             </div>
             <DateTime />
 
-            <BatteryContainer setBrightness={setBrightness} />
+            <BatteryContainer setBrightness={setBrightness} brightness={brightness} />
         </div>
     );
 };

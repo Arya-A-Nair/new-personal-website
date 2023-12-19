@@ -11,7 +11,7 @@ import {
 } from "react-icons/bs";
 import { Slider } from "@mui/material";
 
-const BatteryContainer = ({ setBrightness }) => {
+const BatteryContainer = ({ setBrightness, brightness }) => {
     const [openMenu, setOpenMenu] = React.useState(false);
     const battery = useBattery();
     const [isMobile, setIsMobile] = useState(false);
@@ -55,6 +55,7 @@ const BatteryContainer = ({ setBrightness }) => {
                                 max={1}
                                 step={0.01}
                                 defaultValue={1}
+                                value={brightness}
                                 sx={{
                                     "& .MuiSlider-thumb": {
                                         color: "black",
