@@ -85,7 +85,7 @@ const projects = [
 const experience = [
     {
         companyName: "CodeCell",
-        position: "Tech Team",
+        position: "Committee Head",
         techStack: [
             "React",
             "Python",
@@ -108,7 +108,7 @@ const experience = [
         companyName: "UNL",
         position: "SDE Intern",
         techStack: ["Node", "NestJs", "Rust"],
-        duration: "June 2023 - Present",
+        duration: "June 2023 - Sep 2023",
         workDone: [
             "Streamlined code efficiency by implementing a conversion process from NestJs to Rust, harnessing Rust's inherent advantages to significantly enhance performance and optimize resource utilization.",
             "Strategically managed and fine-tuned routing algorithms through in-depth analysis, resulting in notable speed enhancements and improved overall efficiency of the system.",
@@ -118,7 +118,7 @@ const experience = [
         companyName: "Tactic",
         position: "Frontend Developer",
         techStack: ["React Native", "Node", "Express"],
-        duration: "March 2023 - Present",
+        duration: "March 2023 - Aug 2023",
         workDone: [
             "Led frontend development of the Tactic trading app, implementing innovative features for an exceptional user experience",
             "Proficient in MERN stack and React Native, building robust, high-performance applications",
