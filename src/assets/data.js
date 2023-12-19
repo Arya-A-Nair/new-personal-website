@@ -8,6 +8,27 @@ const resume = [
 
 const projects = [
     {
+        title: "3-Transform",
+        img: "3-transform.webp",
+        description: [
+            "This International hackathon winning project empowers beginners with hands-on learning for smart contract integration, and aids enterprises in efficient web3 adoption.",
+            "This is the Winner project in EthIndia 2023, World's biggest Ethereum hackathon.",
+            "It also won 3 track prizes in EthIndia 2023, namely Filecoin, Okto and Scroll.",
+        ],
+        techStack: ["React", "Solidity", "Firebase", "Polygon"],
+        link: "https://devfolio.co/projects/transform-014b",
+    },
+    {
+        title: "Dhanush",
+        img: "dhanush.png",
+        description: [
+            "Developed a fund trail analysis tool for detecting cyber crime and won Kavach 2023 and the project is now going to be integrated into current systems by the government of India.",
+            "This is Kavach national Government hackathon 2023 winner project.",
+        ],
+        techStack: ["React", "Django", "Express", "MongoDB"],
+        link: "https://www.youtube.com/watch?v=PQmar1DG5eI",
+    },
+    {
         title: "Three Bricks",
         img: "threeBricks.png",
         description: [
