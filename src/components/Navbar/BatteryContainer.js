@@ -97,6 +97,7 @@ const BatteryContainer = ({ setBrightness, brightness }) => {
                     src={
                         isSupported && !charging ? batteryIcon : batteryCharging
                     }
+                    alt="Battery status"
                 />
                 {!isMobile &&
                     `${isSupported ? (level * 100).toFixed(0) : 100} ${"%"}`}

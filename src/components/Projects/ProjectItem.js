@@ -45,7 +45,7 @@ const ProjectItem = ({ data }) => {
                         position: "relative",
                     }}
                 >
-                    <img src={process.env.PUBLIC_URL + "/images/" + data.img} />
+                    <img src={process.env.PUBLIC_URL + "/images/" + data.img} alt="Project"/>
                     <div className={styles.overlay}>
                         {/* <img
                             src={
