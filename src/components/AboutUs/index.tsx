@@ -5,7 +5,14 @@ import { IconContext } from "react-icons";
 import { FaGithub, FaLinkedinIn, FaWhatsapp } from "react-icons/fa6";
 import { AiOutlineMail } from "react-icons/ai";
 
-const AboutUs = ({
+interface AboutUsProps {
+    onClickClose: () => void;
+    setActiveElement: (element: string) => void;
+    zIndexVal: number;
+    activeElement: string;
+}
+
+const AboutUs: React.FC<AboutUsProps> = ({
     onClickClose,
     setActiveElement,
     zIndexVal,

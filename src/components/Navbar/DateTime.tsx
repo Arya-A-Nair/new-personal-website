@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 
-const DateTime = () => {
-    const [day, setDay] = useState("Monday");
-    const [month, setMonth] = useState("January");
-    const [date, setDate] = useState(1);
-    const [hour, setHour] = useState(0);
-    const [minute, setMinute] = useState(0);
+const DateTime: React.FC = () => {
+    const [day, setDay] = useState<string>("Monday");
+    const [month, setMonth] = useState<string>("January");
+    const [date, setDate] = useState<number>(1);
+    const [hour, setHour] = useState<number>(0);
+    const [minute, setMinute] = useState<number>(0);
+    const [isMobile, setIsMobile] = useState<boolean>(false);
 
-    const [isMobile, setIsMobile] = useState(false);
     useEffect(() => {
         const handleResize = () => {
             if (window.innerWidth > 600) {
@@ -20,8 +20,9 @@ const DateTime = () => {
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
     }, []);
+
     useEffect(() => {
-        setInterval(() => {
+        const interval = setInterval(() => {
             const date = new Date();
             const hours = date.getHours();
             const minutes = date.getMinutes();
@@ -32,6 +33,8 @@ const DateTime = () => {
             setHour(hours);
             setMinute(minutes);
         }, 1000);
+
+        return () => clearInterval(interval);
     }, []);
 
     return (

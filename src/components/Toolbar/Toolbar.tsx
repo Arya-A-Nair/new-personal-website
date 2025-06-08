@@ -4,7 +4,11 @@ import visualStudio from "../../assets/visualStudio.png";
 import linux from "../../assets/linux.png";
 import terminal from "../../assets/terminal.png";
 
-const Toolbar = ({ selectActiveItem }) => {
+interface ToolbarProps {
+    selectActiveItem: (item: string) => void;
+}
+
+const Toolbar: React.FC<ToolbarProps> = ({ selectActiveItem }) => {
     return (
         <div className={styles.container}>
             <div onClick={() => selectActiveItem("AboutUs")}>

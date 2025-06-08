@@ -5,7 +5,28 @@ import Close from "../../assets/Close.png";
 import Zoom from "../../assets/Zoom.png";
 import Minimize from "../../assets/Minimise.png";
 
-const WindowBox = ({
+interface WindowBoxProps {
+    children: React.ReactNode;
+    onClickClose: () => void;
+    zIndexVal: number;
+    setActive: () => void;
+    offset?: number;
+    displayText: string;
+    activeElement: boolean;
+    displayTextMobile: string;
+}
+
+interface Dimensions {
+    height: number;
+    width: number;
+}
+
+interface Position {
+    x: number | string;
+    y: number | string;
+}
+
+const WindowBox: React.FC<WindowBoxProps> = ({
     children,
     onClickClose,
     zIndexVal,
@@ -15,7 +36,13 @@ const WindowBox = ({
     activeElement,
     displayTextMobile,
 }) => {
-    const [isMobile, setIsMobile] = useState(false);
+    const [isMobile, setIsMobile] = useState<boolean>(false);
+    const [dimensions, setDimensions] = useState<Dimensions>({
+        height: 80,
+        width: 60,
+    });
+    const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
+
     useEffect(() => {
         const handleResize = () => {
             if (window.innerWidth > 600) {
@@ -33,12 +60,6 @@ const WindowBox = ({
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-    const [dimensions, setDimensions] = React.useState({
-        height: 80,
-        width: 60,
-    });
-    const [position, setPosition] = React.useState({ x: 0, y: 0 });
-
     const handleZoom = () => {
         if (dimensions.height === 80 && dimensions.width === 60) {
             setDimensions({ height: 90, width: 100 });
@@ -49,7 +70,7 @@ const WindowBox = ({
         }
     };
 
-    const positionHandler = (e, data) => {
+    const positionHandler = (e: any, data: any) => {
         setPosition({ x: data.x, y: data.y });
     };
 
@@ -58,7 +79,10 @@ const WindowBox = ({
             bounds="parent"
             onMouseDown={() => setActive()}
             onDrag={(e, data) => positionHandler(e, data)}
-            position={{ x: parseFloat(position.x), y: parseFloat(position.y) }}
+            position={{
+                x: parseFloat(position.x.toString()),
+                y: parseFloat(position.y.toString()),
+            }}
             disabled={isMobile}
         >
             <div

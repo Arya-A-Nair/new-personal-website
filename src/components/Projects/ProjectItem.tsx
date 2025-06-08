@@ -1,8 +1,14 @@
 import React from "react";
 import { motion } from "framer-motion";
 import styles from "./ProjectItem.module.css";
-import { FaGithub, FaLinkedinIn, FaWhatsapp } from "react-icons/fa6";
+import { FaGithub } from "react-icons/fa6";
 import { IconContext } from "react-icons";
+import { Project } from "../../assets/data";
+
+interface ProjectItemProps {
+    data: Project;
+}
+
 const animation = {
     hidden: {
         x: 200,
@@ -30,7 +36,7 @@ const animation = {
     },
 };
 
-const ProjectItem = ({ data }) => {
+const ProjectItem: React.FC<ProjectItemProps> = ({ data }) => {
     return (
         <motion.div
             className={styles.container}
@@ -39,7 +45,7 @@ const ProjectItem = ({ data }) => {
             exit="exit"
             variants={animation}
         >
-            <div className={[styles.imageContainer]}>
+            <div className={styles.imageContainer}>
                 <div
                     style={{
                         position: "relative",
@@ -47,13 +53,6 @@ const ProjectItem = ({ data }) => {
                 >
                     <img src={process.env.PUBLIC_URL + "/images/" + data.img} alt="Project"/>
                     <div className={styles.overlay}>
-                        {/* <img
-                            src={
-                                process.env.PUBLIC_URL +
-                                "/images/mark-github.png"
-                            }
-                            onClick={() => window.open(data.link)}
-                        /> */}
                         <IconContext.Provider
                             value={{
                                 className: styles.icon,
@@ -67,7 +66,7 @@ const ProjectItem = ({ data }) => {
                     </div>
                 </div>
             </div>
-            <div className={[styles.childContainer]}>
+            <div className={styles.childContainer}>
                 <div className={styles.projectTitle}>{data.title}</div>
                 <div className={styles.projectDescription}>
                     <ul>
@@ -91,4 +90,4 @@ const ProjectItem = ({ data }) => {
     );
 };
 
-export default ProjectItem;
+export default ProjectItem; 

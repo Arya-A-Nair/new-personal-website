@@ -11,10 +11,19 @@ import {
 } from "react-icons/bs";
 import { Slider } from "@mui/material";
 
-const BatteryContainer = ({ setBrightness, brightness }) => {
-    const [openMenu, setOpenMenu] = React.useState(false);
+interface BatteryContainerProps {
+    setBrightness: (brightness: number) => void;
+    brightness: number;
+}
+
+const BatteryContainer: React.FC<BatteryContainerProps> = ({
+    setBrightness,
+    brightness,
+}) => {
+    const [openMenu, setOpenMenu] = useState<boolean>(false);
     const battery = useBattery();
-    const [isMobile, setIsMobile] = useState(false);
+    const [isMobile, setIsMobile] = useState<boolean>(false);
+
     useEffect(() => {
         const handleResize = () => {
             if (window.innerWidth > 600) {
@@ -28,7 +37,11 @@ const BatteryContainer = ({ setBrightness, brightness }) => {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-    const { isSupported, level, charging } = battery;
+    const { isSupported, level, charging } = battery as any;
+
+    const handleSliderChange = (_event: Event, newValue: number | number[]) => {
+        setBrightness(newValue as number);
+    };
 
     return (
         <>
@@ -40,17 +53,17 @@ const BatteryContainer = ({ setBrightness, brightness }) => {
                     <div className={styles.menu}>
                         <div className={styles.menuItem}>
                             {isSupported && !charging ? (
-                                <BsBatteryFull  size="1.2rem"/>
+                                <BsBatteryFull size="1.2rem" />
                             ) : (
-                                <BsBatteryCharging size="1.2rem"/>
+                                <BsBatteryCharging size="1.2rem" />
                             )}
                             {isSupported ? (level * 100).toFixed(0) : 100}
                             {"%"}
                         </div>
                         <div className={styles.menuItem}>
-                            <BsFillBrightnessHighFill size="1.2rem"/>
+                            <BsFillBrightnessHighFill size="1.2rem" />
                             <Slider
-                                onChange={(e) => setBrightness(e.target.value)}
+                                onChange={handleSliderChange}
                                 min={0.1}
                                 max={1}
                                 step={0.01}
