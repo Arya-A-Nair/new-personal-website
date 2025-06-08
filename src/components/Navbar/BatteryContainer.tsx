@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-globals */
 import React, { useState } from "react";
 import batteryIcon from "../../assets/battery.png";
 import batteryCharging from "../../assets/batteryCharging.png";

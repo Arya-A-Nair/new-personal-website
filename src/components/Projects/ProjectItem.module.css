@@ -8,7 +8,6 @@
     overflow-y: auto;
 }
 
-/* Project Header */
 .projectHeader {
     background: #2d2d30;
     border-bottom: 1px solid #3c3c3c;
@@ -47,7 +46,6 @@
     color: #007acc;
 }
 
-/* Content Layout */
 .contentLayout {
     display: flex;
     flex-direction: column;
@@ -55,13 +53,10 @@
     flex: 1;
 }
 
-/* Image Container */
 .imageContainer {
-    /* flex: 0 0 100%; */
     max-width: 100%;
     padding: 1rem;
     height: 100%;
-    
 }
 
 .imageWrapper {
@@ -117,7 +112,6 @@
     transform: scale(1.1);
 }
 
-/* Project Content */
 .projectContent {
     flex: 1;
     display: flex;
@@ -173,7 +167,6 @@
     margin-bottom: 0;
 }
 
-/* Tech Stack */
 .projectTechStack {
     background: #252526;
     border: 1px solid #3c3c3c;
@@ -229,7 +222,6 @@
     font-size: 0.9rem;
 }
 
-/* Project Links */
 .projectLinks {
     display: flex;
     gap: 1rem;
@@ -277,7 +269,6 @@
     color: #ffffff;
 }
 
-/* Responsive Design */
 @media screen and (max-width: 1200px) {
     .contentLayout {
         flex-direction: column;
@@ -322,7 +313,6 @@
     }
 }
 
-/* Custom Scrollbar for Container */
 .container::-webkit-scrollbar {
     width: 8px;
 }

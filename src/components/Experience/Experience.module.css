@@ -59,7 +59,6 @@
     font-style: italic;
 }
 
-/* Custom Scrollbar */
 .timelineContainer::-webkit-scrollbar {
     width: 8px;
 }
@@ -87,7 +86,6 @@
     );
 }
 
-/* Responsive Design */
 @media screen and (max-width: 768px) {
     .header {
         padding: 1.5rem 1rem 1rem 1rem;
@@ -136,7 +134,6 @@
     }
 }
 
-/* Legacy styles cleanup - removing old classes */
 .containerTitle,
 .container,
 .greyLine,
@@ -149,7 +146,7 @@
     flex-direction: column;
     height: 100%;
     width: 100%;
-    background: #1e1e1e; /* PopOS dark theme */
+    background: #1e1e1e;
     color: #ffffff;
     font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, system-ui,
         sans-serif;
@@ -162,8 +159,6 @@
     min-width: 0;
 }
 
-/* Desktop File Explorer Design */
-/* Left Sidebar - File Explorer Style */
 .sidebar {
     width: 280px;
     min-width: 200px;
@@ -263,7 +258,6 @@
     align-self: flex-start;
 }
 
-/* Right Panel - Details */
 .detailsPanel {
     flex: 1;
     min-width: 0;
@@ -318,7 +312,6 @@
     border-color: #666666;
 }
 
-/* Content Area */
 .contentArea {
     flex: 1;
     padding: 20px;
@@ -359,7 +352,6 @@
     border: 1px solid #404040;
 }
 
-/* Sections */
 .section {
     margin-bottom: 28px;
 }
@@ -380,7 +372,6 @@
     font-size: 16px;
 }
 
-/* Achievements */
 .achievementsList {
     display: flex;
     flex-direction: column;
@@ -410,7 +401,6 @@
     font-size: 14px;
 }
 
-/* Tech Stack */
 .techGrid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -461,7 +451,6 @@
     border: 1px solid #555555;
 }
 
-/* Scrollbar styling */
 .companyList::-webkit-scrollbar,
 .contentArea::-webkit-scrollbar {
     width: 8px;
@@ -483,17 +472,15 @@
     background: #666666;
 }
 
-/* Hide mobile elements on desktop */
 .mobileHeader,
 .mobileCompanySelector,
 .mobileExperienceCard {
     display: none;
 }
 
-/* ===== MOBILE DESIGN - COMPLETE REDESIGN ===== */
 @media screen and (max-width: 768px) {
     .osContainer {
-        background: #000000; /* Pure black like iOS dark mode */
+        background: #000000;
     }
 
     .explorerLayout {
@@ -501,7 +488,6 @@
         height: 100%;
     }
 
-    /* Hide desktop elements */
     .sidebar,
     .toolbar,
     .keyboardHints,
@@ -509,7 +495,6 @@
         display: none;
     }
 
-    /* Show mobile elements */
     .mobileHeader,
     .mobileCompanySelector,
     .mobileExperienceCard {
@@ -520,13 +505,11 @@
         flex-direction: column;
     }
 
-    /* Mobile-first redesign */
     .detailsPanel {
         background: #000000;
         padding: 0;
     }
 
-    /* Mobile header */
     .mobileHeader {
         padding: 20px 20px 16px 20px;
         background: linear-gradient(135deg, #1c1c1e 0%, #2c2c2e 100%);
@@ -546,7 +529,6 @@
         font-weight: 400;
     }
 
-    /* Mobile company selection */
     .mobileCompanySelector {
         padding: 16px 20px;
         background: #1c1c1e;
@@ -581,13 +563,11 @@
         background: #3a3a3c;
     }
 
-    /* Mobile content area */
     .contentArea {
         padding: 0;
         background: #000000;
     }
 
-    /* Mobile experience card */
     .mobileExperienceCard {
         margin: 16px 20px;
         background: #1c1c1e;
@@ -648,7 +628,6 @@
         gap: 4px;
     }
 
-    /* Mobile sections */
     .section {
         margin: 0 20px 24px 20px;
     }
@@ -669,7 +648,6 @@
         font-size: 18px;
     }
 
-    /* Mobile achievements */
     .achievementsList {
         gap: 8px;
     }
@@ -694,7 +672,6 @@
         margin-top: 1px;
     }
 
-    /* Mobile tech stack */
     .techGrid {
         display: flex;
         flex-wrap: wrap;
@@ -724,13 +701,11 @@
         font-size: 13px;
     }
 
-    /* Mobile scrollbar */
     .mobileCompanySelector::-webkit-scrollbar {
         display: none;
     }
 }
 
-/* Very small phones */
 @media screen and (max-width: 480px) {
     .mobileHeader {
         padding: 16px 16px 12px 16px;

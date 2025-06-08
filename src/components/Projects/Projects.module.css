@@ -7,14 +7,12 @@
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* ===== DESKTOP VS CODE LAYOUT ===== */
 .desktopLayout {
     display: flex;
     width: 100%;
     height: 100%;
 }
 
-/* Left Sidebar - Complete VS Code Explorer */
 .explorer {
     display: flex;
     background: #252526;
@@ -22,7 +20,6 @@
     overflow: hidden;
 }
 
-/* Activity Bar */
 .activityBar {
     width: 48px;
     background: #2c2c2c;
@@ -62,7 +59,6 @@
     background: #007acc;
 }
 
-/* Explorer Panel */
 .explorerPanel {
     width: 300px;
     background: #252526;
@@ -101,7 +97,6 @@
     font-weight: 400;
 }
 
-/* Search Container */
 .searchContainer {
     padding: 8px 20px 12px;
     background: #252526;
@@ -157,7 +152,6 @@
     color: #cccccc;
 }
 
-/* File Tree with Folder Structure */
 .fileTree {
     flex: 1;
     overflow-y: auto;
@@ -223,7 +217,6 @@
     white-space: nowrap;
 }
 
-/* File List inside folders */
 .fileList {
     padding-left: 20px;
     background: rgba(0, 0, 0, 0.1);
@@ -259,7 +252,6 @@
     font-style: italic;
 }
 
-/* Main Content Area */
 .mainContent {
     flex: 1;
     background: #1e1e1e;
@@ -274,7 +266,6 @@
     flex-direction: column;
 }
 
-/* Tab Bar */
 .tabBar {
     background: #2d2d30;
     border-bottom: 1px solid #3c3c3c;
@@ -336,7 +327,6 @@
     color: #cccccc;
 }
 
-/* Breadcrumb Bar */
 .breadcrumbBar {
     background: #2d2d30;
     border-bottom: 1px solid #3c3c3c;
@@ -360,7 +350,6 @@
     color: #cccccc;
 }
 
-/* Welcome Screen */
 .welcomeScreen {
     flex: 1;
     display: flex;
@@ -433,7 +422,6 @@
     font-size: 12px;
 }
 
-/* Repository View */
 .repositoryView {
     height: 100%;
 }
@@ -533,7 +521,6 @@
     margin-left: 8px;
 }
 
-/* ===== MOBILE MATERIAL DESIGN LAYOUT (DARK THEME) ===== */
 .mobileLayout {
     display: none;
     flex-direction: column;
@@ -543,7 +530,6 @@
     font-family: "Roboto", "Segoe UI", sans-serif;
 }
 
-/* Mobile Header */
 .mobileHeader {
     background: #1e1e1e;
     padding: 16px 16px 8px;
@@ -597,7 +583,6 @@
     background: rgba(72, 209, 253, 0.25);
 }
 
-/* Mobile Search */
 .mobileSearchContainer {
     margin-bottom: 12px;
 }
@@ -656,7 +641,6 @@
     color: #ffffff;
 }
 
-/* Mobile Stats */
 .mobileStats {
     color: #b3b3b3;
     font-size: 14px;
@@ -664,14 +648,12 @@
     font-weight: 400;
 }
 
-/* Mobile Project List Container */
 .mobileProjectList {
     flex: 1;
     overflow-y: auto;
     padding: 8px 16px 16px;
 }
 
-/* Grid and List Views */
 .mobileGridView {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -684,7 +666,6 @@
     gap: 8px;
 }
 
-/* Mobile Project Card (Grid View) */
 .mobileProjectCard {
     background: #1e1e1e;
     border-radius: 12px;
@@ -850,7 +831,6 @@
     background: rgba(72, 209, 253, 0.2);
 }
 
-/* Mobile Project List Item (List View) */
 .mobileProjectListItem {
     background: #1e1e1e;
     border-radius: 8px;
@@ -970,7 +950,6 @@
     transform: scale(1);
 }
 
-/* Mobile No Results */
 .mobileNoResults {
     text-align: center;
     padding: 48px 24px;
@@ -996,7 +975,6 @@
     margin: 0;
 }
 
-/* Mobile Project Detail View */
 .mobileProjectDetail {
     display: flex;
     flex-direction: column;
@@ -1084,7 +1062,6 @@
     background: #121212;
 }
 
-/* ===== RESPONSIVE BREAKPOINTS ===== */
 @media screen and (max-width: 768px) {
     .desktopLayout {
         display: none;
@@ -1133,7 +1110,6 @@
     }
 }
 
-/* Custom Scrollbars */
 .fileTree::-webkit-scrollbar {
     width: 6px;
 }
@@ -1151,7 +1127,6 @@
     background: #4e4e4e;
 }
 
-/* Custom Scrollbars for Mobile */
 .mobileProjectList::-webkit-scrollbar,
 .mobileDetailContent::-webkit-scrollbar {
     width: 4px;

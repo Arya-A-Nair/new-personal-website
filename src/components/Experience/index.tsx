@@ -18,7 +18,6 @@ const Experience: React.FC<ExperienceProps> = ({
 }) => {
     const [selectedCompany, setSelectedCompany] = useState<number>(0);
 
-    // Keyboard navigation for OS feel
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
             if (activeElement !== "Experience") return;
@@ -58,9 +57,7 @@ const Experience: React.FC<ExperienceProps> = ({
             displayTextMobile={"Experience"}
         >
             <div className={styles.osContainer}>
-                {/* Desktop File Explorer Layout */}
                 <div className={styles.explorerLayout}>
-                    {/* Left Sidebar - Company List (Desktop Only) */}
                     <div className={styles.sidebar}>
                         <div className={styles.sidebarHeader}>
                             <span className={styles.sidebarTitle}>
@@ -101,9 +98,7 @@ const Experience: React.FC<ExperienceProps> = ({
                         </div>
                     </div>
 
-                    {/* Right Panel - Details */}
                     <div className={styles.detailsPanel}>
-                        {/* Desktop Toolbar */}
                         <div className={styles.toolbar}>
                             <div className={styles.breadcrumb}>
                                 <span>📁 Experience</span>
@@ -124,7 +119,6 @@ const Experience: React.FC<ExperienceProps> = ({
                             </div>
                         </div>
 
-                        {/* Mobile Header (Mobile Only) */}
                         <div className={styles.mobileHeader}>
                             <h1 className={styles.mobileTitle}>Experience</h1>
                             <p className={styles.mobileSubtitle}>
@@ -132,7 +126,6 @@ const Experience: React.FC<ExperienceProps> = ({
                             </p>
                         </div>
 
-                        {/* Mobile Company Selector (Mobile Only) */}
                         <div className={styles.mobileCompanySelector}>
                             {experience.map((exp, index) => (
                                 <div
@@ -149,9 +142,7 @@ const Experience: React.FC<ExperienceProps> = ({
                             ))}
                         </div>
 
-                        {/* Content Area */}
                         <div className={styles.contentArea}>
-                            {/* Mobile Experience Card (Mobile Only) */}
                             <div className={styles.mobileExperienceCard}>
                                 <div className={styles.mobileCardHeader}>
                                     <div className={styles.mobileCompanyIcon}>
@@ -181,7 +172,6 @@ const Experience: React.FC<ExperienceProps> = ({
                                 </div>
                             </div>
 
-                            {/* Desktop Experience Header (Desktop Only) */}
                             <div className={styles.experienceHeader}>
                                 <div className={styles.companyInfo}>
                                     <h2 className={styles.position}>
@@ -200,8 +190,6 @@ const Experience: React.FC<ExperienceProps> = ({
                                     </div>
                                 </div>
                             </div>
-
-                            {/* Work Done Section */}
                             <div className={styles.section}>
                                 <h4 className={styles.sectionHeader}>
                                     <span className={styles.sectionIcon}>
@@ -232,7 +220,6 @@ const Experience: React.FC<ExperienceProps> = ({
                                 </div>
                             </div>
 
-                            {/* Tech Stack Section */}
                             <div className={styles.section}>
                                 <h4 className={styles.sectionHeader}>
                                     <span className={styles.sectionIcon}>

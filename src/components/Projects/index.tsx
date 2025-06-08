@@ -112,9 +112,7 @@ const Projects: React.FC<ProjectsProps> = ({
             >
                 <div className={styles.container}>
                     <div className={styles.desktopLayout}>
-                        {/* Left Sidebar - VS Code Explorer */}
                         <div className={styles.explorer}>
-                            {/* Activity Bar */}
                             <div className={styles.activityBar}>
                                 <div
                                     className={`${styles.activityItem} ${
@@ -140,7 +138,6 @@ const Projects: React.FC<ProjectsProps> = ({
                                 </div>
                             </div>
 
-                            {/* Explorer Panel */}
                             <div className={styles.explorerPanel}>
                                 <div className={styles.explorerHeader}>
                                     <div
@@ -347,7 +344,6 @@ const Projects: React.FC<ProjectsProps> = ({
                             </div>
                         </div>
 
-                        {/* Main Content Area */}
                         <div className={styles.mainContent}>
                             {selectedProject !== null ? (
                                 <div className={styles.projectDetails}>

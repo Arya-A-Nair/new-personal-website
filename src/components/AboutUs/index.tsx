@@ -30,7 +30,6 @@ const AboutUs: React.FC<AboutUsProps> = ({
                 displayTextMobile={"About Me"}
             >
                 <div className={styles.container}>
-                    {/* Profile Image */}
                     <div className={styles.profileImageWrapper}>
                         <img
                             src="/images/profilePic.png"
@@ -42,7 +41,6 @@ const AboutUs: React.FC<AboutUsProps> = ({
                     <h1 className={styles.name}>Arya Nair</h1>
                     <p className={styles.subtitle}>Software Developer</p>
 
-                    {/* Specifications */}
                     <div className={styles.specs}>
                         <div className={styles.specRow}>
                             <span className={styles.specLabel}>Education</span>
