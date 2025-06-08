@@ -14,6 +14,21 @@ import {
     VscRepo,
     VscMarkdown,
 } from "react-icons/vsc";
+import {
+    MdSearch,
+    MdClear,
+    MdFolder,
+    MdCode,
+    MdLaunch,
+    MdFilterList,
+    MdApps,
+    MdViewList,
+    MdArrowBack,
+    MdMoreVert,
+    MdShare,
+    MdFavorite,
+    MdStar,
+} from "react-icons/md";
 import { IconContext } from "react-icons";
 
 interface ProjectsProps {
@@ -34,6 +49,12 @@ const Projects: React.FC<ProjectsProps> = ({
     const [isExplorerOpen, setIsExplorerOpen] = useState<boolean>(true);
     const [filteredProjects, setFilteredProjects] = useState(projects);
     const [viewMode, setViewMode] = useState<"explorer" | "grid">("explorer");
+    const [mobileViewMode, setMobileViewMode] = useState<"grid" | "list">(
+        "grid"
+    );
+    const [selectedMobileProject, setSelectedMobileProject] = useState<
+        number | null
+    >(null);
 
     useEffect(() => {
         if (searchTerm.trim() === "") {
@@ -64,8 +85,14 @@ const Projects: React.FC<ProjectsProps> = ({
 
     const handleViewModeChange = (mode: "explorer" | "grid") => {
         setViewMode(mode);
-        // Reset the selected project when switching view modes
         setSelectedProject(null);
+    };
+
+    const handleMobileProjectSelect = (index: number) => {
+        const actualIndex = projects.findIndex(
+            (p) => p.title === filteredProjects[index].title
+        );
+        setSelectedMobileProject(actualIndex);
     };
 
     const clearSearch = () => {
@@ -84,7 +111,6 @@ const Projects: React.FC<ProjectsProps> = ({
                 displayTextMobile={"Projects"}
             >
                 <div className={styles.container}>
-                    {/* Desktop VS Code Layout */}
                     <div className={styles.desktopLayout}>
                         {/* Left Sidebar - VS Code Explorer */}
                         <div className={styles.explorer}>
@@ -569,81 +595,404 @@ const Projects: React.FC<ProjectsProps> = ({
                         </div>
                     </div>
 
-                    {/* Mobile Layout */}
                     <div className={styles.mobileLayout}>
-                        <div className={styles.mobileHeader}>
-                            <h2>My Projects</h2>
-                            <div className={styles.mobileSearch}>
-                                <VscSearch />
-                                <input
-                                    type="text"
-                                    placeholder="Search..."
-                                    value={searchTerm}
-                                    onChange={(e) =>
-                                        setSearchTerm(e.target.value)
-                                    }
-                                />
-                                {searchTerm && (
-                                    <button onClick={clearSearch}>×</button>
-                                )}
-                            </div>
-                        </div>
-
-                        <div className={styles.mobileProjectList}>
-                            {filteredProjects.length === 0 ? (
-                                <div className={styles.noResults}>
-                                    No projects found for "{searchTerm}"
-                                </div>
-                            ) : (
-                                filteredProjects.map((project, index) => (
-                                    <div
-                                        key={project.title}
-                                        className={styles.mobileProjectCard}
+                        {selectedMobileProject !== null ? (
+                            <div className={styles.mobileProjectDetail}>
+                                <div className={styles.mobileDetailHeader}>
+                                    <button
+                                        className={styles.backButton}
+                                        onClick={() =>
+                                            setSelectedMobileProject(null)
+                                        }
                                     >
-                                        <div className={styles.mobileCardImage}>
-                                            <img
-                                                src={"/images/" + project.img}
-                                                alt={project.title}
-                                            />
-                                        </div>
+                                        <MdArrowBack />
+                                    </button>
+                                    <div className={styles.detailTitle}>
+                                        <h2>
+                                            {
+                                                projects[selectedMobileProject]
+                                                    ?.title
+                                            }
+                                        </h2>
+                                        <span>README.md</span>
+                                    </div>
+                                </div>
+                                <div className={styles.mobileDetailContent}>
+                                    <ProjectItem
+                                        data={projects[selectedMobileProject]}
+                                    />
+                                </div>
+                            </div>
+                        ) : (
+                            <>
+                                <div className={styles.mobileHeader}>
+                                    <div className={styles.mobileHeaderTop}>
+                                        <h1>My Projects</h1>
                                         <div
-                                            className={styles.mobileCardContent}
+                                            className={
+                                                styles.mobileHeaderActions
+                                            }
                                         >
-                                            <h3>{project.title}</h3>
-                                            <p>{project.description[0]}</p>
-                                            <div
-                                                className={
-                                                    styles.mobileTechStack
-                                                }
-                                            >
-                                                {project.techStack.map(
-                                                    (tech, techIndex) => (
-                                                        <span
-                                                            key={techIndex}
-                                                            className={
-                                                                styles.mobileTechBadge
-                                                            }
-                                                        >
-                                                            {tech}
-                                                        </span>
-                                                    )
-                                                )}
-                                            </div>
                                             <button
-                                                className={
-                                                    styles.mobileViewButton
-                                                }
+                                                className={`${
+                                                    styles.viewToggle
+                                                } ${
+                                                    mobileViewMode === "grid"
+                                                        ? styles.active
+                                                        : ""
+                                                }`}
                                                 onClick={() =>
-                                                    window.open(project.link)
+                                                    setMobileViewMode("grid")
                                                 }
                                             >
-                                                View Project
+                                                <MdApps />
+                                            </button>
+                                            <button
+                                                className={`${
+                                                    styles.viewToggle
+                                                } ${
+                                                    mobileViewMode === "list"
+                                                        ? styles.active
+                                                        : ""
+                                                }`}
+                                                onClick={() =>
+                                                    setMobileViewMode("list")
+                                                }
+                                            >
+                                                <MdViewList />
                                             </button>
                                         </div>
                                     </div>
-                                ))
-                            )}
-                        </div>
+
+                                    <div
+                                        className={styles.mobileSearchContainer}
+                                    >
+                                        <div className={styles.mobileSearchBar}>
+                                            <MdSearch
+                                                className={
+                                                    styles.mobileSearchIcon
+                                                }
+                                            />
+                                            <input
+                                                type="text"
+                                                placeholder="Search projects..."
+                                                value={searchTerm}
+                                                onChange={(e) =>
+                                                    setSearchTerm(
+                                                        e.target.value
+                                                    )
+                                                }
+                                                className={
+                                                    styles.mobileSearchInput
+                                                }
+                                            />
+                                            {searchTerm && (
+                                                <button
+                                                    className={
+                                                        styles.mobileClearButton
+                                                    }
+                                                    onClick={clearSearch}
+                                                >
+                                                    <MdClear />
+                                                </button>
+                                            )}
+                                        </div>
+                                    </div>
+
+                                    <div className={styles.mobileStats}>
+                                        <span>
+                                            {filteredProjects.length} projects
+                                            found
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div className={styles.mobileProjectList}>
+                                    {filteredProjects.length === 0 ? (
+                                        <div className={styles.mobileNoResults}>
+                                            <MdSearch
+                                                className={styles.noResultsIcon}
+                                            />
+                                            <h3>No projects found</h3>
+                                            <p>
+                                                Try adjusting your search terms
+                                            </p>
+                                        </div>
+                                    ) : (
+                                        <div
+                                            className={
+                                                mobileViewMode === "grid"
+                                                    ? styles.mobileGridView
+                                                    : styles.mobileListView
+                                            }
+                                        >
+                                            {filteredProjects.map(
+                                                (project, index) => (
+                                                    <div
+                                                        key={project.title}
+                                                        className={
+                                                            mobileViewMode ===
+                                                            "grid"
+                                                                ? styles.mobileProjectCard
+                                                                : styles.mobileProjectListItem
+                                                        }
+                                                        onClick={() =>
+                                                            handleMobileProjectSelect(
+                                                                index
+                                                            )
+                                                        }
+                                                    >
+                                                        {mobileViewMode ===
+                                                        "grid" ? (
+                                                            <>
+                                                                <div
+                                                                    className={
+                                                                        styles.mobileCardImageContainer
+                                                                    }
+                                                                >
+                                                                    <img
+                                                                        src={
+                                                                            "/images/" +
+                                                                            project.img
+                                                                        }
+                                                                        alt={
+                                                                            project.title
+                                                                        }
+                                                                    />
+                                                                    <div
+                                                                        className={
+                                                                            styles.mobileCardOverlay
+                                                                        }
+                                                                    >
+                                                                        <button
+                                                                            className={
+                                                                                styles.favoriteButton
+                                                                            }
+                                                                            onClick={(
+                                                                                e
+                                                                            ) => {
+                                                                                e.stopPropagation();
+                                                                            }}
+                                                                        >
+                                                                            <MdFavorite />
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <div
+                                                                    className={
+                                                                        styles.mobileCardContent
+                                                                    }
+                                                                >
+                                                                    <div
+                                                                        className={
+                                                                            styles.mobileCardHeader
+                                                                        }
+                                                                    >
+                                                                        <h3>
+                                                                            {
+                                                                                project.title
+                                                                            }
+                                                                        </h3>
+                                                                        <MdStar
+                                                                            className={
+                                                                                styles.starIcon
+                                                                            }
+                                                                        />
+                                                                    </div>
+                                                                    <p>
+                                                                        {project.description[0].substring(
+                                                                            0,
+                                                                            80
+                                                                        )}
+                                                                        ...
+                                                                    </p>
+                                                                    <div
+                                                                        className={
+                                                                            styles.mobileTechStack
+                                                                        }
+                                                                    >
+                                                                        {project.techStack
+                                                                            .slice(
+                                                                                0,
+                                                                                3
+                                                                            )
+                                                                            .map(
+                                                                                (
+                                                                                    tech,
+                                                                                    techIndex
+                                                                                ) => (
+                                                                                    <span
+                                                                                        key={
+                                                                                            techIndex
+                                                                                        }
+                                                                                        className={
+                                                                                            styles.mobileTechChip
+                                                                                        }
+                                                                                    >
+                                                                                        {
+                                                                                            tech
+                                                                                        }
+                                                                                    </span>
+                                                                                )
+                                                                            )}
+                                                                        {project
+                                                                            .techStack
+                                                                            .length >
+                                                                            3 && (
+                                                                            <span
+                                                                                className={
+                                                                                    styles.mobileTechMore
+                                                                                }
+                                                                            >
+                                                                                +
+                                                                                {project
+                                                                                    .techStack
+                                                                                    .length -
+                                                                                    3}
+                                                                            </span>
+                                                                        )}
+                                                                    </div>
+                                                                    <div
+                                                                        className={
+                                                                            styles.mobileCardActions
+                                                                        }
+                                                                    >
+                                                                        <button
+                                                                            className={
+                                                                                styles.mobileActionButton
+                                                                            }
+                                                                            onClick={(
+                                                                                e
+                                                                            ) => {
+                                                                                e.stopPropagation();
+                                                                                window.open(
+                                                                                    project.link
+                                                                                );
+                                                                            }}
+                                                                        >
+                                                                            <MdLaunch />
+                                                                            <span>
+                                                                                View
+                                                                            </span>
+                                                                        </button>
+                                                                        <button
+                                                                            className={
+                                                                                styles.mobileActionButton
+                                                                            }
+                                                                            onClick={(
+                                                                                e
+                                                                            ) => {
+                                                                                e.stopPropagation();
+                                                                            }}
+                                                                        >
+                                                                            <MdShare />
+                                                                            <span>
+                                                                                Share
+                                                                            </span>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </>
+                                                        ) : (
+                                                            <>
+                                                                <div
+                                                                    className={
+                                                                        styles.mobileListItemIcon
+                                                                    }
+                                                                >
+                                                                    <MdFolder />
+                                                                </div>
+                                                                <div
+                                                                    className={
+                                                                        styles.mobileListItemContent
+                                                                    }
+                                                                >
+                                                                    <div
+                                                                        className={
+                                                                            styles.mobileListItemHeader
+                                                                        }
+                                                                    >
+                                                                        <h3>
+                                                                            {
+                                                                                project.title
+                                                                            }
+                                                                        </h3>
+                                                                        <span
+                                                                            className={
+                                                                                styles.mobileListItemTime
+                                                                            }
+                                                                        >
+                                                                            {
+                                                                                project
+                                                                                    .techStack
+                                                                                    .length
+                                                                            }{" "}
+                                                                            techs
+                                                                        </span>
+                                                                    </div>
+                                                                    <p>
+                                                                        {project.description[0].substring(
+                                                                            0,
+                                                                            100
+                                                                        )}
+                                                                        ...
+                                                                    </p>
+                                                                    <div
+                                                                        className={
+                                                                            styles.mobileListItemTech
+                                                                        }
+                                                                    >
+                                                                        {project.techStack
+                                                                            .slice(
+                                                                                0,
+                                                                                2
+                                                                            )
+                                                                            .map(
+                                                                                (
+                                                                                    tech,
+                                                                                    techIndex
+                                                                                ) => (
+                                                                                    <span
+                                                                                        key={
+                                                                                            techIndex
+                                                                                        }
+                                                                                        className={
+                                                                                            styles.mobileListTechChip
+                                                                                        }
+                                                                                    >
+                                                                                        {
+                                                                                            tech
+                                                                                        }
+                                                                                    </span>
+                                                                                )
+                                                                            )}
+                                                                    </div>
+                                                                </div>
+                                                                <button
+                                                                    className={
+                                                                        styles.mobileListItemAction
+                                                                    }
+                                                                    onClick={(
+                                                                        e
+                                                                    ) => {
+                                                                        e.stopPropagation();
+                                                                        window.open(
+                                                                            project.link
+                                                                        );
+                                                                    }}
+                                                                >
+                                                                    <MdLaunch />
+                                                                </button>
+                                                            </>
+                                                        )}
+                                                    </div>
+                                                )
+                                            )}
+                                        </div>
+                                    )}
+                                </div>
+                            </>
+                        )}
                     </div>
                 </div>
             </WindowBox>
