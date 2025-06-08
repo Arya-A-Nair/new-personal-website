@@ -127,6 +127,50 @@ const projects: Project[] = [
 
 const experience: Experience[] = [
     {
+        companyName: "Edra Labs",
+        position: "Software Engineer Intern",
+        techStack: ["Prefect", "Python", "Phoenix Framework", "LLMs", "Browser Automation"],
+        duration: "Jan 2025 - Present",
+        workDone: [
+            "Reduced manual labor by 40% by developing AI agents that automate repetitive business tasks",
+            "Automated 300+ daily tasks via browser automation using AI agents, removing manual input",
+            "Centralized LLM evaluation and Prefect orchestration, reducing execution time by 50% and error rate by 30%"
+        ]
+    },
+    {
+        companyName: "Isosceles AI",
+        position: "Software Development Engineer",
+        techStack: ["Next.js", "Python", "RAG"],
+        duration: "Oct 2024 - Dec 2024",
+        workDone: [
+            "Automated 70% of manual processes by designing AI-driven workflows for business operations",
+            "Increased customer engagement by 25% by integrating AI-powered solutions to enhance user interaction",
+            "Boosted revenue and onboarded major clients by implementing scalable AI-driven business features"
+        ]
+    },
+    {
+        companyName: "JPMorgan Chase",
+        position: "Software Development Engineering Intern",
+        techStack: ["Terraform", "AWS Lambda", "Python"],
+        duration: "Jun 2024 - Aug 2024",
+        workDone: [
+            "Enhanced cloud scalability by deploying Infrastructure-as-Code (IaC) solutions using Terraform",
+            "Reduced cloud costs by 30% by optimizing AWS Lambda functions for better resource efficiency",
+            "Increased system throughput by 77% by implementing multithreading and improving concurrency"
+        ]
+    },
+    {
+        companyName: "Metis",
+        position: "Software Engineer",
+        techStack: ["React", "Node", "Express", "GraphQL"],
+        duration: "Dec 2023 - Mar 2024",
+        workDone: [
+            "Led the development of a comprehensive student management platform tailored for study-abroad consultancy services",
+            "Designed and implemented key modules for student onboarding, document tracking, and progress reporting",
+            "Ensured seamless integration with third-party APIs for application status updates and notifications"
+        ]
+    },
+    {
         companyName: "CodeCell",
         position: "Committee Head",
         techStack: [
@@ -140,7 +184,7 @@ const experience: Experience[] = [
             "MongoDB",
             "Express",
         ],
-        duration: "Jan 2022 - Present",
+        duration: "Jan 2022 - June 2024",
         workDone: [
             "Responsible for efficiently maintaining and improving legacy code repositories",
             "Organized engaging workshops on competitive programming and web development, empowering students with valuable tech skills",

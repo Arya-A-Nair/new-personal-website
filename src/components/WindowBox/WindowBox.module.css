@@ -4,6 +4,8 @@
     border-radius: 1rem;
     overflow: hidden;
     animation: width 1s ease-in-out;
+    display: flex;
+    flex-direction: column;
 }
 
 .statBar {
@@ -17,6 +19,7 @@
     justify-content: space-between;
     align-items: center;
     color: #ffffff;
+    flex-shrink: 0;
 }
 
 .statBarIcons {
@@ -33,9 +36,9 @@
 .ContentContainer {
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100%;
+    align-items: stretch;
+    flex: 1;
     width: 100%;
-    /* overflow: scroll; */
-    overflow-y: hidden;
+    overflow: hidden;
+    min-height: 0;
 }
