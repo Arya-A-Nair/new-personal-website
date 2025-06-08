@@ -435,8 +435,7 @@
 
 /* Repository View */
 .repositoryView {
-    width: 100%;
-    padding: 24px;
+    height: 100%;
 }
 
 .repoHeader {
