@@ -1,190 +1,245 @@
+/* About This Mac Style Container */
 .container {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
     align-items: center;
     width: 100%;
     height: 100%;
-    overflow-y: scroll;
-    padding: 3rem 15%;
-    overflow-x: hidden;
-}
-.greyLine {
-    flex: 1;
-    background: rgba(156, 156, 156, 0.61);
-    height: 1px;
-    cursor: pointer;
-    margin: 0 0.5rem;
-}
-.containerTitle {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    padding: 1rem 0;
-    gap: 1rem;
-}
-.title {
-    font-weight: bold;
-    font-size: 2.5rem;
+    overflow-y: auto;
+    padding: 2rem 3rem;
+    background: #2d2d30;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display",
+        "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #ffffff;
-    width: auto;
-}
-
-.containerContent {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    height: fit-content;
-    gap: 2.5rem;
-}
-.contentLeft {
-    display: flex;
-    /* justify-content: space-around; */
-    flex-direction: column;
-    /* height: max-content; */
-    width: 40%;
-}
-.contentRight {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    width: 60%;
-}
-
-.brandLogos {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    justify-content: space-between;
-    align-items: flex-end;
-    height: 100%;
-}
-.brandLogos > img {
-    cursor: pointer;
-    width: 1.2rem;
-}
-.ProfilePic {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-}
-.profilePicImage {
-    width: 100%;
-}
-
-.qoutesContainer {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-/* .qoutes {
-    width: calc;
-} */
-
-.qoute {
-    color: #48d1fd;
-    font-style: italic;
-    font-weight: 600;
-    text-align: center;
-    margin: 1.5rem 0 0.5rem 0;
-}
-
-.author {
-    color: #a8b2d1;
-    font-style: italic;
-    font-weight: 600;
-    font-size: 0.6rem;
     text-align: center;
 }
 
-.contentText {
-    color: #a8b2d1;
-    font-size: 0.8rem;
+/* Profile Image */
+.profileImageWrapper {
+    margin-bottom: 1.5rem;
 }
-.highlight {
-    font-size: 0.9rem;
-    color: #56aeff;
-    font-weight: 600;
+
+.profileImage {
+    width: 120px;
+    height: 120px;
+    border-radius: 0.5rem;
+    object-fit: cover;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
-.ResumeBox {
+
+/* Name and Subtitle */
+.name {
+    font-size: 2.25rem;
+    font-weight: 300;
+    color: #ffffff;
+    margin: 0 0 0.25rem 0;
+    letter-spacing: -0.5px;
+}
+
+.subtitle {
+    font-size: 1rem;
+    color: #a0a0a0;
+    margin: 0 0 2rem 0;
+    font-weight: 400;
+}
+
+/* Specifications */
+.specs {
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 2rem;
+}
+
+.specRow {
     display: flex;
-    flex-direction: row;
-    margin-top: 1rem;
-    color: #56aeff;
     justify-content: space-between;
     align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
-.resumeText {
-    font-size: 0.9rem;
-    font-weight: 600;
+
+.specRow:last-child {
+    border-bottom: none;
 }
-.resumeButtonContainer {
+
+.specLabel {
+    font-size: 0.95rem;
+    color: #a0a0a0;
+    font-weight: 400;
+    text-align: left;
+    min-width: 80px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.specValue {
+    font-size: 0.95rem;
+    color: #ffffff;
+    font-weight: 400;
+    text-align: right;
     flex: 1;
-    text-align: center;
-}
-.resumeButton {
-    border: 1px solid #48d1fd;
-    background: rgba(72, 209, 253, 0.17);
-    color: #48d1fd;
-    height: 2rem;
-    width: 6rem;
-    border-radius: 1rem;
-    cursor: pointer;
-}
-.container::-webkit-scrollbar {
-    width: 0.5rem;
-}
-.container::-webkit-scrollbar-track {
-    background: rgba(72, 209, 253, 0.11);
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-}
-.container::-webkit-scrollbar-thumb {
-    background-color: rgba(72, 209, 253, 0.3);
-    outline: 1px solid slategrey;
-    border-radius: 1rem;
-}
-.blankdiv {
-    width: 3rem;
+    margin-left: 1rem;
 }
 
-@media screen and (max-width: 900px) {
-    .containerContent {
-        flex-direction: column;
+.specLink {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+    color: #007aff;
+    font-weight: 400;
+    text-align: right;
+    flex: 1;
+    margin-left: 1rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    justify-content: flex-end;
+}
+
+.specLink:hover {
+    color: #0056cc;
+    text-decoration: underline;
+}
+
+.linkIcon {
+    font-size: 0.9rem;
+}
+
+/* More Info Button */
+.moreInfoButton {
+    background: #4a4a4a;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-bottom: 2rem;
+    font-family: inherit;
+}
+
+.moreInfoButton:hover {
+    background: #5a5a5a;
+}
+
+.moreInfoButton:active {
+    background: #3a3a3a;
+}
+
+/* Footer */
+.footer {
+    margin-top: auto;
+    text-align: center;
+}
+
+.copyright {
+    font-size: 0.8rem;
+    color: #666666;
+    margin: 0.25rem 0;
+    font-weight: 400;
+}
+
+/* Scrollbar */
+.container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.container::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.container::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}
+
+.container::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Mobile Responsive */
+@media screen and (max-width: 768px) {
+    .container {
+        padding: 1.5rem 2rem;
+        background: #1c1c1e;
     }
-    .contentLeft {
+
+    .profileImage {
+        width: 100px;
+        height: 100px;
+        border-radius: 10px;
+    }
+
+    .name {
+        font-size: 1.75rem;
+    }
+
+    .subtitle {
+        font-size: 0.9rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .specs {
+        max-width: 100%;
+    }
+
+    .specRow {
         flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25rem;
+        padding: 1rem 0;
+    }
+
+    .specLabel {
+        color: #ffffff;
+        font-weight: 500;
+        min-width: auto;
+    }
+
+    .specValue {
+        color: #a0a0a0;
+        text-align: left;
+        margin-left: 0;
+        font-size: 0.9rem;
+    }
+
+    .specLink {
+        text-align: left;
+        margin-left: 0;
         justify-content: flex-start;
-        align-items: center;
-        width: 100%;
+        font-size: 0.9rem;
     }
-    .brandLogos {
-        flex-direction: row;
-        margin: 1rem 0;
-        width: 100%;
+
+    .moreInfoButton {
+        padding: 0.875rem 2rem;
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
     }
-    .contentText {
-        text-align: center;
+
+    .footer {
+        margin-top: 1rem;
     }
-    .contentRight {
-        width: 100%;
+
+    .copyright {
+        font-size: 0.75rem;
     }
-    .qoutesContainer {
-        width: 100%;
+}
+
+/* Extra small devices */
+@media screen and (max-width: 480px) {
+    .container {
+        padding: 1rem 1.5rem;
     }
-    .ProfilePic {
-        flex-direction: column-reverse;
-        align-items: center;
+
+    .name {
+        font-size: 1.5rem;
     }
-    .blankdiv {
-        display: none;
-    }.qoutes{
-        width: 100%;
-    }
-    .emptyDiv{
-        display: none;
+
+    .profileImage {
+        width: 80px;
+        height: 80px;
     }
 }
