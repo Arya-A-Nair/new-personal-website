@@ -10,6 +10,7 @@ import {
     BsFillBrightnessHighFill,
 } from "react-icons/bs";
 import { Slider } from "@mui/material";
+import { BatteryState } from "react-use/lib/useBattery";
 
 interface BatteryContainerProps {
     setBrightness: (brightness: number) => void;
@@ -37,7 +38,9 @@ const BatteryContainer: React.FC<BatteryContainerProps> = ({
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-    const { isSupported, level, charging } = battery as any;
+    const batteryState = battery as BatteryState & { isSupported: boolean };
+    const level = batteryState.isSupported ? batteryState.level : 1;
+    const charging = batteryState.isSupported ? batteryState.charging : false;
 
     const handleSliderChange = (_event: Event, newValue: number | number[]) => {
         setBrightness(newValue as number);
@@ -52,12 +55,14 @@ const BatteryContainer: React.FC<BatteryContainerProps> = ({
                 >
                     <div className={styles.menu}>
                         <div className={styles.menuItem}>
-                            {isSupported && !charging ? (
+                            {batteryState.isSupported && !charging ? (
                                 <BsBatteryFull size="1.2rem" />
                             ) : (
                                 <BsBatteryCharging size="1.2rem" />
                             )}
-                            {isSupported ? (level * 100).toFixed(0) : 100}
+                            {batteryState.isSupported
+                                ? (level * 100).toFixed(0)
+                                : 100}
                             {"%"}
                         </div>
                         <div className={styles.menuItem}>
@@ -108,12 +113,18 @@ const BatteryContainer: React.FC<BatteryContainerProps> = ({
             <div className={styles.container} onClick={() => setOpenMenu(true)}>
                 <img
                     src={
-                        isSupported && !charging ? batteryIcon : batteryCharging
+                        batteryState.isSupported && !charging
+                            ? batteryIcon
+                            : batteryCharging
                     }
                     alt="Battery status"
                 />
                 {!isMobile &&
-                    `${isSupported ? (level * 100).toFixed(0) : 100} ${"%"}`}
+                    `${
+                        batteryState.isSupported
+                            ? (level * 100).toFixed(0)
+                            : 100
+                    } ${"%"}`}
             </div>
         </>
     );
