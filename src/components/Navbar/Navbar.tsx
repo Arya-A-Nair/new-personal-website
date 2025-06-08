@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Navbar.module.css";
 import popOs from "../../assets/popOs.png";
 import DateTime from "./DateTime";
@@ -11,11 +11,22 @@ interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = ({ setBrightness, brightness }) => {
+    const [isMobile, setIsMobile] = useState<boolean>(false);
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 600);
+        };
+        handleResize();
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
     return (
         <div className={styles.container}>
-            <div className={styles.logoContainer}>
-                <FaApple className={styles.appleIcon} />
-            </div>
+            {!isMobile && (
+                <div className={styles.logoContainer}>
+                    <FaApple className={styles.appleIcon} />
+                </div>
+            )}
             <DateTime />
 
             <BatteryContainer
