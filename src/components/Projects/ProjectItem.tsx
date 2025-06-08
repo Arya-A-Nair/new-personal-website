@@ -109,8 +109,8 @@ const ProjectItem: React.FC<ProjectItemProps> = ({ data }) => {
                             className={styles.secondaryButton}
                             onClick={() => window.open(data.link)}
                         >
-                            <FaGithub />
-                            Source Code
+                            <FaExternalLinkAlt />
+                            View Project
                         </button>
                     </div>
                 </div>
