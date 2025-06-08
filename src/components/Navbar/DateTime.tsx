@@ -10,11 +10,7 @@ const DateTime: React.FC = () => {
 
     useEffect(() => {
         const handleResize = () => {
-            if (window.innerWidth > 600) {
-                setIsMobile(false);
-            } else {
-                setIsMobile(true);
-            }
+            setIsMobile(window.innerWidth <= 600);
         };
         handleResize();
         window.addEventListener("resize", handleResize);
@@ -37,11 +33,23 @@ const DateTime: React.FC = () => {
         return () => clearInterval(interval);
     }, []);
 
+    const formatTime = () => {
+        const displayHour = hour > 12 ? hour - 12 : hour === 0 ? 12 : hour;
+        const displayMinute = minute < 10 ? `0${minute}` : minute;
+        const period = hour >= 12 ? "PM" : "AM";
+        return `${displayHour}:${displayMinute} ${period}`;
+    };
+
     return (
-        <div>
+        <div
+            style={{
+                fontSize: isMobile ? "0.8rem" : "0.875rem",
+                fontWeight: isMobile ? "500" : "400",
+                textAlign: "center",
+            }}
+        >
             {!isMobile && `${day.slice(0, 3)} ${month.slice(0, 3)} ${date} `}
-            {hour > 12 ? hour - 12 : hour}:{minute < 10 ? `0${minute}` : minute}{" "}
-            {hour > 12 ? "PM" : "AM"}
+            {formatTime()}
         </div>
     );
 };

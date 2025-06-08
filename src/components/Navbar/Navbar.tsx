@@ -3,6 +3,7 @@ import styles from "./Navbar.module.css";
 import popOs from "../../assets/popOs.png";
 import DateTime from "./DateTime";
 import BatteryContainer from "./BatteryContainer";
+import { FaApple } from "react-icons/fa6";
 
 interface NavbarProps {
     setBrightness: (brightness: number) => void;
@@ -13,7 +14,7 @@ const Navbar: React.FC<NavbarProps> = ({ setBrightness, brightness }) => {
     return (
         <div className={styles.container}>
             <div className={styles.logoContainer}>
-                <img src={popOs} alt="PopOS logo" />
+                <FaApple className={styles.appleIcon} />
             </div>
             <DateTime />
 
