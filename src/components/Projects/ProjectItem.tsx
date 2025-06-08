@@ -51,7 +51,7 @@ const ProjectItem: React.FC<ProjectItemProps> = ({ data }) => {
                         position: "relative",
                     }}
                 >
-                    <img src={process.env.PUBLIC_URL + "/images/" + data.img} alt="Project"/>
+                    <img src={"/images/" + data.img} alt="Project" />
                     <div className={styles.overlay}>
                         <IconContext.Provider
                             value={{
@@ -59,9 +59,12 @@ const ProjectItem: React.FC<ProjectItemProps> = ({ data }) => {
                                 size: "2rem",
                             }}
                         >
-                            <FaGithub style={{
-                                cursor: "pointer"
-                            }} onClick={() => window.open(data.link)} />
+                            <FaGithub
+                                style={{
+                                    cursor: "pointer",
+                                }}
+                                onClick={() => window.open(data.link)}
+                            />
                         </IconContext.Provider>
                     </div>
                 </div>
@@ -90,4 +93,4 @@ const ProjectItem: React.FC<ProjectItemProps> = ({ data }) => {
     );
 };
 
-export default ProjectItem; 
+export default ProjectItem;
