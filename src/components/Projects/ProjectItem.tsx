@@ -56,10 +56,6 @@ const ProjectItem: React.FC<ProjectItemProps> = ({ data }) => {
                                 onClick={() => window.open(data.link)}
                                 title="View Source Code"
                             />
-                            <FaExternalLinkAlt
-                                onClick={() => window.open(data.link)}
-                                title="View Project"
-                            />
                         </IconContext.Provider>
                     </div>
                 </div>
@@ -109,13 +105,6 @@ const ProjectItem: React.FC<ProjectItemProps> = ({ data }) => {
                     </div>
 
                     <div className={styles.projectLinks}>
-                        <button
-                            className={styles.primaryButton}
-                            onClick={() => window.open(data.link)}
-                        >
-                            <FaExternalLinkAlt />
-                            View Project
-                        </button>
                         <button
                             className={styles.secondaryButton}
                             onClick={() => window.open(data.link)}

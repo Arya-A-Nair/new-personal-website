@@ -30,6 +30,41 @@ const resume: ResumeItem[] = [
 
 const projects: Project[] = [
     {
+        title: "Parity Protocol",
+        img: "parity.png",
+        description: [
+            "A decentralized, verifiable compute execution network—think trustless AWS Lambda where anyone can contribute compute and earn rewards.",
+            "Built with a modular Go-based architecture including runner, server, client, token, and wallet components.",
+            "💡 Fully open-source and cloudless—compute remains off-chain, coordination and verification are on-chain.",
+            "🏆 Winner of Prakalp 2025, the national-level working software competition."
+        ],
+        techStack: ["Go", "Docker", "PostgreSQL", "ERC-20", "Ethereum", "Web3"],
+        link: "https://blitlabs.xyz/"
+    },
+    {
+        title: "ThreeDrive",
+        img: "threedrive.jpeg",
+        description: [
+            "A decentralized Google Drive-like filesystem powered by the Walrus protocol.",
+            "Provides intuitive nested folders, real-time collaboration, and SDK integration.",
+            "🏅 Earned an Honorable Mention in the Walrus Protocol track at ETHIndia 2024.",
+            "🏆 Won the Quadratic Voting prize pool share at ETHIndia 2024."
+        ],
+        techStack: ["npm", "WebSockets", "Python", "Express.js", "FastAPI", "Node.js", "Next.js", "Walrus"],
+        link: "https://devfolio.co/projects/threedrive-0f13"
+    },
+    {
+        title: "OpenFund",
+        img: "openfund.png",
+        description: [
+            "Empowering open source innovation with crypto rewards—bridging contributions and incentives seamlessly through our AI driven GitHub bot.",
+            "Built at Unfold 2024, it won “Best Agentic Project” from Nethermind plus 2 other prizes.",
+            "Solves contributor burnout by incentivizing meaningful open source work via automated crypto rewards."
+        ],
+        techStack: ["Express.js", "React.js", "Polygon (Matic)", "BASE", "okto", "BAML"],
+        link: "https://devfolio.co/projects/openfund-8ef2"
+    },
+    {
         title: "3-Transform",
         img: "3-transform.webp",
         description: [
