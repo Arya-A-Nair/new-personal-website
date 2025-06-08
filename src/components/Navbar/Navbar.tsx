@@ -1,10 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styles from "./Navbar.module.css";
 import popOs from "../../assets/popOs.png";
 import DateTime from "./DateTime";
 import BatteryContainer from "./BatteryContainer";
 
-const Navbar = ({ setBrightness, brightness }) => {
+interface NavbarProps {
+    setBrightness: (brightness: number) => void;
+    brightness: number;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ setBrightness, brightness }) => {
     return (
         <div className={styles.container}>
             <div className={styles.logoContainer}>

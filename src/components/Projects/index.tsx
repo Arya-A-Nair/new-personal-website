@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./Projects.module.css";
 import WindowBox from "../WindowBox/WindowBox";
 import { projects } from "../../assets/data";
@@ -9,13 +9,20 @@ import {
 } from "react-icons/bs";
 import { IconContext } from "react-icons";
 
-const Projects = ({
+interface ProjectsProps {
+    onClickClose: () => void;
+    setActiveElement: (element: string) => void;
+    zIndexVal: number;
+    activeElement: string;
+}
+
+const Projects: React.FC<ProjectsProps> = ({
     onClickClose,
     setActiveElement,
     zIndexVal,
     activeElement,
 }) => {
-    const [activeIndex, setActiveIndex] = useState(0);
+    const [activeIndex, setActiveIndex] = useState<number>(0);
 
     return (
         <IconContext.Provider value={{ className: styles.arrow , size:"1.5rem"}}>
@@ -78,4 +85,4 @@ const Projects = ({
     );
 };
 
-export default Projects;
+export default Projects; 

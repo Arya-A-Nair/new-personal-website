@@ -1,4 +1,26 @@
-const resume = [
+export interface ResumeItem {
+    text: string;
+    link: string;
+    title: string;
+}
+
+export interface Project {
+    title: string;
+    img: string;
+    description: string[];
+    techStack: string[];
+    link: string;
+}
+
+export interface Experience {
+    companyName: string;
+    position: string;
+    techStack: string[];
+    duration: string;
+    workDone: string[];
+}
+
+const resume: ResumeItem[] = [
     {
         text: "Click here to checkout my Resume",
         link: "https://drive.google.com/file/d/1bhLfOFy87ukde8o6MoI6AC0gJmc6Nygp/view?usp=sharing",
@@ -6,7 +28,7 @@ const resume = [
     },
 ];
 
-const projects = [
+const projects: Project[] = [
     {
         title: "3-Transform",
         img: "3-transform.webp",
@@ -103,7 +125,7 @@ const projects = [
     },
 ];
 
-const experience = [
+const experience: Experience[] = [
     {
         companyName: "CodeCell",
         position: "Committee Head",
@@ -148,4 +170,4 @@ const experience = [
     },
 ];
 
-export { resume, projects, experience };
+export { resume, projects, experience }; 

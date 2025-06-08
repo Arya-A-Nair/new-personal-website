@@ -1,6 +1,13 @@
 import React from "react";
 import { motion } from "framer-motion";
 import styles from "./ItemTab.module.css";
+import { Experience } from "../../assets/data";
+
+interface ItemTabProps {
+    isActive: boolean;
+    data: Experience;
+}
+
 const animation = {
     hidden: {
         x: 200,
@@ -28,7 +35,7 @@ const animation = {
     },
 };
 
-const ItemTab = ({ isActive, data }) => {
+const ItemTab: React.FC<ItemTabProps> = ({ isActive, data }) => {
     return (
         <motion.div
             initial="hidden"
@@ -42,19 +49,19 @@ const ItemTab = ({ isActive, data }) => {
                 <span className={styles.companyName}>{data.companyName}</span>
             </div>
             <div className={styles.duration}>{data.duration}</div>
-            <div
-                className={styles.superContainer}
-            >
+            <div className={styles.superContainer}>
                 <div className={styles.workDone}>
                     <ul>
                         {data.workDone.map((work, index) => (
-                            <li>{work}</li>
+                            <li key={index}>{work}</li>
                         ))}
                     </ul>
                 </div>
                 <div className={styles.techStack}>
                     {data.techStack.map((tech, index) => (
-                        <div className={styles.item}>{tech}</div>
+                        <div key={index} className={styles.item}>
+                            {tech}
+                        </div>
                     ))}
                 </div>
             </div>

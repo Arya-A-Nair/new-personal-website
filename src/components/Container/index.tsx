@@ -6,31 +6,36 @@ import Projects from "../Projects";
 import Experience from "../Experience";
 import Navbar from "../Navbar/Navbar";
 
-const Container = () => {
-    const [showAboutUs, setShowAboutUs] = useState(false);
-    const [showProjects, setShowProjects] = useState(false);
-    const [showExperience, setShowExperience] = useState(false);
-    const [activeElement, setActiveElement] = useState("");
-    const [zIndexAboutUs, setZIndexAboutUs] = useState(0);
-    const [zIndexProject, setZIndexProject] = useState(0);
-    const [zIndexExperience, setZIndexExperience] = useState(0);
-    const [showPreloader, setShowPreloader] = useState(true);
-    const [brightness, setBrightness] = useState(1);
+const Container: React.FC = () => {
+    const [showAboutUs, setShowAboutUs] = useState<boolean>(false);
+    const [showProjects, setShowProjects] = useState<boolean>(false);
+    const [showExperience, setShowExperience] = useState<boolean>(false);
+    const [activeElement, setActiveElement] = useState<string>("");
+    const [zIndexAboutUs, setZIndexAboutUs] = useState<number>(0);
+    const [zIndexProject, setZIndexProject] = useState<number>(0);
+    const [zIndexExperience, setZIndexExperience] = useState<number>(0);
+    const [, setZIndexCounter] = useState<number>(1);
+    const [showPreloader, setShowPreloader] = useState<boolean>(true);
+    const [brightness, setBrightness] = useState<number>(1);
 
     useEffect(() => {
-        const maxOfThree = Math.max(
-            zIndexAboutUs,
-            zIndexExperience,
-            zIndexProject
-        );
         if (activeElement === "AboutUs") {
-            setZIndexAboutUs(maxOfThree + 1);
+            setZIndexCounter((prev) => {
+                setZIndexAboutUs(prev + 1);
+                return prev + 1;
+            });
             setShowAboutUs(true);
         } else if (activeElement === "Projects") {
-            setZIndexProject(maxOfThree + 1);
+            setZIndexCounter((prev) => {
+                setZIndexProject(prev + 1);
+                return prev + 1;
+            });
             setShowProjects(true);
         } else if (activeElement === "Experience") {
-            setZIndexExperience(maxOfThree + 1);
+            setZIndexCounter((prev) => {
+                setZIndexExperience(prev + 1);
+                return prev + 1;
+            });
             setShowExperience(true);
         }
     }, [activeElement]);
@@ -57,7 +62,10 @@ const Container = () => {
                         opacity: brightness,
                     }}
                 >
-                    <Navbar setBrightness={setBrightness} brightness={brightness} />
+                    <Navbar
+                        setBrightness={setBrightness}
+                        brightness={brightness}
+                    />
                     {showAboutUs && (
                         <AboutUs
                             onClickClose={() => {
@@ -92,53 +100,12 @@ const Container = () => {
                         />
                     )}
                     <Toolbar
-                        selectActiveItem={(e) => {
+                        selectActiveItem={(e: string) => {
                             setActiveElement(e);
                         }}
                     />
                 </div>
             )}
-            {/* <div className={styles.container}>
-                <Navbar />
-                {showAboutUs && (
-                    <AboutUs
-                        onClickClose={() => {
-                            setShowAboutUs(false);
-                            setActiveElement("");
-                        }}
-                        setActiveElement={setActiveElement}
-                        zIndexVal={zIndexAboutUs}
-                        activeElement={activeElement}
-                    />
-                )}
-                {showProjects && (
-                    <Projects
-                        onClickClose={() => {
-                            setShowProjects(false);
-                            setActiveElement("");
-                        }}
-                        setActiveElement={setActiveElement}
-                        zIndexVal={zIndexProject}
-                        activeElement={activeElement}
-                    />
-                )}
-                {showExperience && (
-                    <Experience
-                        onClickClose={() => {
-                            setShowExperience(false);
-                            setActiveElement("");
-                        }}
-                        setActiveElement={setActiveElement}
-                        zIndexVal={zIndexExperience}
-                        activeElement={activeElement}
-                    />
-                )}
-                <Toolbar
-                    selectActiveItem={(e) => {
-                        setActiveElement(e);
-                    }}
-                />
-            </div> */}
         </>
     );
 };

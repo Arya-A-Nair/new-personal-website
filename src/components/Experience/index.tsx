@@ -1,17 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./Experience.module.css";
 import WindowBox from "../WindowBox/WindowBox";
 import ItemTab from "./ItemTab";
 import CompanyTab from "./CompanyTab";
 import { experience } from "../../assets/data";
-const Experience = ({
+
+interface ExperienceProps {
+    onClickClose: () => void;
+    setActiveElement: (element: string) => void;
+    zIndexVal: number;
+    activeElement: string;
+}
+
+const Experience: React.FC<ExperienceProps> = ({
     onClickClose,
     setActiveElement,
     zIndexVal,
     activeElement,
 }) => {
-    const [activeIndex, setActiveIndex] = useState(0);
-
+    const [activeIndex, setActiveIndex] = useState<number>(0);
 
     return (
         <WindowBox
@@ -45,6 +52,7 @@ const Experience = ({
                     (item, index) =>
                         activeIndex === index && (
                             <ItemTab
+                                key={index}
                                 isActive={activeIndex === index}
                                 data={item}
                             />

@@ -1,20 +1,22 @@
+import React, { useEffect } from "react";
 import Container from "./components/Container";
 import styles from "./App.module.css";
 import Cam from "./assets/Cam.png";
-import { useEffect, useState } from "react";
-import AboutUs from "./components/AboutUs";
-import Projects from "./components/Projects";
 
-function App() {
+const App: React.FC = () => {
     console.log(
-      window.location.href.includes("https://arya-a-nair.github.io/new-personal-website/")
+        window.location.href.includes(
+            "https://arya-a-nair.github.io/new-personal-website/"
+        )
     );
+
     useEffect(() => {
         if (
-            window.location.href.includes("https://arya-a-nair.github.io/new-personal-website/")
+            window.location.href.includes(
+                "https://arya-a-nair.github.io/new-personal-website/"
+            )
         ) {
-            window.location.href =
-                "https://www.arya-nair.in/";
+            window.location.href = "https://www.arya-nair.in/";
         }
     }, []);
 
@@ -31,6 +33,6 @@ function App() {
             </div>
         </>
     );
-}
+};
 
 export default App;
