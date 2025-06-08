@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styles from "./Navbar.module.css";
-import popOs from "../../assets/popOs.png";
 import DateTime from "./DateTime";
 import BatteryContainer from "./BatteryContainer";
 import { FaApple } from "react-icons/fa6";
+import { useIsMobile } from "../../hooks/useIsMobile";
 
 interface NavbarProps {
     setBrightness: (brightness: number) => void;
@@ -11,15 +11,8 @@ interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = ({ setBrightness, brightness }) => {
-    const [isMobile, setIsMobile] = useState<boolean>(false);
-    useEffect(() => {
-        const handleResize = () => {
-            setIsMobile(window.innerWidth <= 600);
-        };
-        handleResize();
-        window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
-    }, []);
+    const isMobile = useIsMobile(600);
+
     return (
         <div className={styles.container}>
             {!isMobile && (

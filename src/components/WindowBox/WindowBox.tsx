@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Close from "../../assets/Close.png";
 import Zoom from "../../assets/Zoom.png";
 import Minimize from "../../assets/Minimise.png";
+import { useIsMobile } from "../../hooks/useIsMobile";
 
 interface WindowBoxProps {
     children: React.ReactNode;
@@ -36,7 +37,7 @@ const WindowBox: React.FC<WindowBoxProps> = ({
     activeElement,
     displayTextMobile,
 }) => {
-    const [isMobile, setIsMobile] = useState<boolean>(false);
+    const isMobile = useIsMobile(600);
     const [dimensions, setDimensions] = useState<Dimensions>({
         height: 80,
         width: 60,
@@ -45,20 +46,16 @@ const WindowBox: React.FC<WindowBoxProps> = ({
 
     useEffect(() => {
         const handleResize = () => {
-            if (window.innerWidth > 600) {
+            if (!isMobile) {
                 setDimensions({ height: 80, width: 60 });
                 setPosition({ x: "50%", y: "50%" });
-                setIsMobile(false);
             } else {
-                setIsMobile(true);
                 setDimensions({ height: 90, width: 100 });
                 setPosition({ x: 0, y: 0 });
             }
         };
         handleResize();
-        window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
-    }, []);
+    }, [isMobile]);
 
     const handleZoom = () => {
         if (dimensions.height === 80 && dimensions.width === 60) {

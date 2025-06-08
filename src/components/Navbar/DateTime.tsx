@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useIsMobile } from "../../hooks/useIsMobile";
 
 const DateTime: React.FC = () => {
     const [day, setDay] = useState<string>("Monday");
@@ -6,16 +7,7 @@ const DateTime: React.FC = () => {
     const [date, setDate] = useState<number>(1);
     const [hour, setHour] = useState<number>(0);
     const [minute, setMinute] = useState<number>(0);
-    const [isMobile, setIsMobile] = useState<boolean>(false);
-
-    useEffect(() => {
-        const handleResize = () => {
-            setIsMobile(window.innerWidth <= 600);
-        };
-        handleResize();
-        window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
-    }, []);
+    const isMobile = useIsMobile(600);
 
     useEffect(() => {
         const interval = setInterval(() => {
