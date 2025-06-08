@@ -50,7 +50,7 @@ const Container: React.FC = () => {
         <>
             {showPreloader && (
                 <img
-                    src={process.env.PUBLIC_URL + "/images/preloader.gif"}
+                    src="/images/preloader.gif"
                     alt="preloader"
                     className={styles.preloader}
                 />

@@ -87,10 +87,7 @@ const AboutUs: React.FC<AboutUsProps> = ({
                                 </div>
                                 <div className={styles.profileImg}>
                                     <img
-                                        src={
-                                            process.env.PUBLIC_URL +
-                                            "/images/profilePic.png"
-                                        }
+                                        src="/images/profilePic.png"
                                         alt="Profile Pic"
                                         className={styles.profilePicImage}
                                     />
