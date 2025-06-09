@@ -61,12 +61,33 @@ export const useWindowManager = () => {
         setActiveElement('');
     }, []);
 
-    // Active element change handler
-    useEffect(() => {
-        if (activeElement && windowComponentsConfig.find(config => config.id === activeElement)) {
-            activateWindow(activeElement);
+    // Separate function for opening windows without setting active element
+    const openWindow = useCallback((windowId: string) => {
+        setWindowStates(prev => ({
+            ...prev,
+            [windowId]: {
+                ...prev[windowId],
+                isVisible: true,
+                zIndex: zIndexCounter + appConfig.zIndex.increment,
+            },
+        }));
+        setZIndexCounter(prev => prev + appConfig.zIndex.increment);
+    }, [zIndexCounter]);
+
+    // Focus window handler (for bringing to front without opening)
+    const focusWindow = useCallback((windowId: string) => {
+        if (windowStates[windowId]?.isVisible) {
+            setWindowStates(prev => ({
+                ...prev,
+                [windowId]: {
+                    ...prev[windowId],
+                    zIndex: zIndexCounter + appConfig.zIndex.increment,
+                },
+            }));
+            setZIndexCounter(prev => prev + appConfig.zIndex.increment);
+            setActiveElement(windowId);
         }
-    }, [activeElement, activateWindow]);
+    }, [windowStates, zIndexCounter]);
 
     return {
         // State
@@ -78,6 +99,9 @@ export const useWindowManager = () => {
         // Actions
         setActiveElement,
         setBrightness,
+        activateWindow,
+        openWindow,
+        focusWindow,
         closeWindow,
 
         // Configuration

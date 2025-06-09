@@ -99,23 +99,46 @@ const WindowBox: React.FC<WindowBoxProps> = ({
                     boxShadow: activeElement
                         ? "0px 0px 32px 0px rgba(0, 0, 0, 0.50)"
                         : "0 0 10px rgba(0, 0, 0, 0.2)",
-                    border: activeElement ? "1px solid #131313" : "none",
-                    opacity: activeElement ? 1 : 0.9,
-                    filter: activeElement ? "blur(0px)" : "blur(0.8px)",
+                    border: activeElement ? "1px solid #131313" : "none"
                 }}
             >
                 <div className={styles.statBar}>
-                    <div className={styles.statBarIcons}>
-                        <img src={Close} alt="Close" onClick={onClickClose} />
-                        <img
-                            src={Minimize}
-                            alt="Minimize"
-                            onClick={onClickClose}
-                        />
-                        <img src={Zoom} alt="Zoom" onClick={handleZoom} />
-                    </div>
-                    <div>{isMobile ? displayTextMobile : displayText}</div>
-                    <div></div>
+                    {isMobile ? (
+                        <>
+                            <div
+                                className={styles.mobileBackButton}
+                                onClick={onClickClose}
+                            >
+                                <span className={styles.backArrow}>←</span>
+                            </div>
+                            <div className={styles.mobileTitle}>
+                                {displayTextMobile}
+                            </div>
+                            <div className={styles.mobileSpacer}></div>
+                        </>
+                    ) : (
+                        <>
+                            <div className={styles.statBarIcons}>
+                                <img
+                                    src={Close}
+                                    alt="Close"
+                                    onClick={onClickClose}
+                                />
+                                <img
+                                    src={Minimize}
+                                    alt="Minimize"
+                                    onClick={onClickClose}
+                                />
+                                <img
+                                    src={Zoom}
+                                    alt="Zoom"
+                                    onClick={handleZoom}
+                                />
+                            </div>
+                            <div>{displayText}</div>
+                            <div></div>
+                        </>
+                    )}
                 </div>
                 <div className={styles.ContentContainer}>{children}</div>
             </div>

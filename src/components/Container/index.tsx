@@ -13,6 +13,8 @@ const Container: React.FC = () => {
         showPreloader,
         setActiveElement,
         setBrightness,
+        activateWindow,
+        focusWindow,
         closeWindow,
         appConfig,
         windowComponentsConfig,
@@ -47,11 +49,11 @@ const Container: React.FC = () => {
                     }
                     activeElement={activeElement}
                     onClose={closeWindow}
-                    setActiveElement={setActiveElement}
+                    setActiveElement={focusWindow}
                 />
             ))}
 
-            <Toolbar selectActiveItem={setActiveElement} />
+            <Toolbar selectActiveItem={activateWindow} />
         </div>
     );
 };
