@@ -1,15 +1,12 @@
 import { useState, useEffect, useCallback } from 'react';
 import { windowComponentsConfig, appConfig } from '../config/windowComponents';
 
-// Window state interface
 interface WindowState {
     isVisible: boolean;
     zIndex: number;
 }
 
-// Window manager hook
 export const useWindowManager = () => {
-    // Initialize window states
     const [windowStates, setWindowStates] = useState<Record<string, WindowState>>(() => {
         const initialStates: Record<string, WindowState> = {};
         windowComponentsConfig.forEach(config => {
@@ -26,7 +23,6 @@ export const useWindowManager = () => {
     const [brightness, setBrightness] = useState<number>(appConfig.brightness.default);
     const [showPreloader, setShowPreloader] = useState<boolean>(true);
 
-    // Preloader management
     useEffect(() => {
         const timer = setTimeout(() => {
             setShowPreloader(false);
@@ -35,7 +31,6 @@ export const useWindowManager = () => {
         return () => clearTimeout(timer);
     }, []);
 
-    // Window activation handler
     const activateWindow = useCallback((windowId: string) => {
         setWindowStates(prev => ({
             ...prev,
@@ -49,7 +44,6 @@ export const useWindowManager = () => {
         setActiveElement(windowId);
     }, [zIndexCounter]);
 
-    // Window closing handler
     const closeWindow = useCallback((windowId: string) => {
         setWindowStates(prev => ({
             ...prev,
@@ -61,7 +55,6 @@ export const useWindowManager = () => {
         setActiveElement('');
     }, []);
 
-    // Separate function for opening windows without setting active element
     const openWindow = useCallback((windowId: string) => {
         setWindowStates(prev => ({
             ...prev,
@@ -74,7 +67,6 @@ export const useWindowManager = () => {
         setZIndexCounter(prev => prev + appConfig.zIndex.increment);
     }, [zIndexCounter]);
 
-    // Focus window handler (for bringing to front without opening)
     const focusWindow = useCallback((windowId: string) => {
         if (windowStates[windowId]?.isVisible) {
             setWindowStates(prev => ({
@@ -90,13 +82,11 @@ export const useWindowManager = () => {
     }, [windowStates, zIndexCounter]);
 
     return {
-        // State
         windowStates,
         activeElement,
         brightness,
         showPreloader,
 
-        // Actions
         setActiveElement,
         setBrightness,
         activateWindow,
@@ -104,7 +94,6 @@ export const useWindowManager = () => {
         focusWindow,
         closeWindow,
 
-        // Configuration
         appConfig,
         windowComponentsConfig,
     };
