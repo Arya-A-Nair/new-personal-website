@@ -119,9 +119,11 @@ const Notes: React.FC<NotesProps> = ({
                                         <h4 className={styles.noteTitle}>
                                             {note.title}
                                         </h4>
-                                        <span className={styles.noteDate}>
-                                            {note.date}
-                                        </span>
+                                        {note.date && (
+                                            <span className={styles.noteDate}>
+                                                {note.date}
+                                            </span>
+                                        )}
                                     </div>
                                     <p className={styles.notePreview}>
                                         {note.preview}
@@ -140,9 +142,13 @@ const Notes: React.FC<NotesProps> = ({
                                         {currentNote.title}
                                     </h2>
                                     <div className={styles.contentMeta}>
-                                        <span className={styles.contentDate}>
-                                            {currentNote.date}
-                                        </span>
+                                        {currentNote.date && (
+                                            <span
+                                                className={styles.contentDate}
+                                            >
+                                                {currentNote.date}
+                                            </span>
+                                        )}
                                         <span className={styles.contentSection}>
                                             {selectedSection}
                                         </span>
@@ -235,13 +241,15 @@ const Notes: React.FC<NotesProps> = ({
                                             >
                                                 {note.title}
                                             </h3>
-                                            <span
-                                                className={
-                                                    styles.mobileNoteDate
-                                                }
-                                            >
-                                                {note.date}
-                                            </span>
+                                            {note.date && (
+                                                <span
+                                                    className={
+                                                        styles.mobileNoteDate
+                                                    }
+                                                >
+                                                    {note.date}
+                                                </span>
+                                            )}
                                         </div>
                                         <p className={styles.mobileNotePreview}>
                                             {note.preview}
@@ -273,13 +281,15 @@ const Notes: React.FC<NotesProps> = ({
                                         <div
                                             className={styles.mobileContentMeta}
                                         >
-                                            <span
-                                                className={
-                                                    styles.mobileContentDate
-                                                }
-                                            >
-                                                {currentNote.date}
-                                            </span>
+                                            {currentNote.date && (
+                                                <span
+                                                    className={
+                                                        styles.mobileContentDate
+                                                    }
+                                                >
+                                                    {currentNote.date}
+                                                </span>
+                                            )}
                                             <span
                                                 className={
                                                     styles.mobileContentSection
