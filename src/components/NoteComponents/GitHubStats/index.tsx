@@ -372,8 +372,10 @@ const GitHubStats: React.FC = () => {
     if (loading) {
         return (
             <div className={styles.loadingContainer}>
-                <div className={styles.spinner}></div>
-                <div>Loading GitHub stats...</div>
+                <div className={styles.loadingContent}>
+                    <div className={styles.spinner}></div>
+                    Loading GitHub stats...
+                </div>
             </div>
         );
     }
