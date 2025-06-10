@@ -6,18 +6,34 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: #babbbf;
+    color: #ffffff;
     padding: 0 1rem;
-}
-.logoContainer {
-    height: 100%;
-}
-.logoContainer > img {
-    height: 90%;
+    align-items: center;
+
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display",
+        "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    user-select: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-@media screen and (max-width:600px) {
-    .container{
-        padding:0 0.5rem;
+.logoContainer {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.appleIcon {
+    font-size: 1rem;
+}
+
+@media screen and (max-width: 600px) {
+    .container {
+        padding: 0 0.75rem;
+        height: 1.75rem;
+    }
+
+    .appleIcon {
+        font-size: 0.9rem;
     }
 }

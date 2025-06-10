@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Close from "../../assets/Close.png";
 import Zoom from "../../assets/Zoom.png";
 import Minimize from "../../assets/Minimise.png";
+import { useIsMobile } from "../../hooks/useIsMobile";
 
 interface WindowBoxProps {
     children: React.ReactNode;
@@ -14,6 +15,8 @@ interface WindowBoxProps {
     displayText: string;
     activeElement: boolean;
     displayTextMobile: string;
+    initialWidth?: number;
+    initialHeight?: number;
 }
 
 interface Dimensions {
@@ -35,37 +38,38 @@ const WindowBox: React.FC<WindowBoxProps> = ({
     displayText,
     activeElement,
     displayTextMobile,
+    initialWidth = 60,
+    initialHeight = 80,
 }) => {
-    const [isMobile, setIsMobile] = useState<boolean>(false);
+    const isMobile = useIsMobile(600);
     const [dimensions, setDimensions] = useState<Dimensions>({
-        height: 80,
-        width: 60,
+        height: initialHeight,
+        width: initialWidth,
     });
     const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
 
     useEffect(() => {
         const handleResize = () => {
-            if (window.innerWidth > 600) {
-                setDimensions({ height: 80, width: 60 });
+            if (!isMobile) {
+                setDimensions({ height: initialHeight, width: initialWidth });
                 setPosition({ x: "50%", y: "50%" });
-                setIsMobile(false);
             } else {
-                setIsMobile(true);
                 setDimensions({ height: 90, width: 100 });
                 setPosition({ x: 0, y: 0 });
             }
         };
         handleResize();
-        window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
-    }, []);
+    }, [isMobile]);
 
     const handleZoom = () => {
-        if (dimensions.height === 80 && dimensions.width === 60) {
+        if (
+            dimensions.height === initialHeight &&
+            dimensions.width === initialWidth
+        ) {
             setDimensions({ height: 90, width: 100 });
             setPosition({ x: 0, y: 0 });
         } else {
-            setDimensions({ height: 80, width: 60 });
+            setDimensions({ height: initialHeight, width: initialWidth });
             setPosition({ x: "50%", y: "50%" });
         }
     };
@@ -103,22 +107,45 @@ const WindowBox: React.FC<WindowBoxProps> = ({
                         ? "0px 0px 32px 0px rgba(0, 0, 0, 0.50)"
                         : "0 0 10px rgba(0, 0, 0, 0.2)",
                     border: activeElement ? "1px solid #131313" : "none",
-                    opacity: activeElement ? 1 : 0.9,
-                    filter: activeElement ? "blur(0px)" : "blur(0.8px)",
                 }}
             >
                 <div className={styles.statBar}>
-                    <div className={styles.statBarIcons}>
-                        <img src={Close} alt="Close" onClick={onClickClose} />
-                        <img
-                            src={Minimize}
-                            alt="Minimize"
-                            onClick={onClickClose}
-                        />
-                        <img src={Zoom} alt="Zoom" onClick={handleZoom} />
-                    </div>
-                    <div>{isMobile ? displayTextMobile : displayText}</div>
-                    <div></div>
+                    {isMobile ? (
+                        <>
+                            <div
+                                className={styles.mobileBackButton}
+                                onClick={onClickClose}
+                            >
+                                <span className={styles.backArrow}>←</span>
+                            </div>
+                            <div className={styles.mobileTitle}>
+                                {displayTextMobile}
+                            </div>
+                            <div className={styles.mobileSpacer}></div>
+                        </>
+                    ) : (
+                        <>
+                            <div className={styles.statBarIcons}>
+                                <img
+                                    src={Close}
+                                    alt="Close"
+                                    onClick={onClickClose}
+                                />
+                                <img
+                                    src={Minimize}
+                                    alt="Minimize"
+                                    onClick={onClickClose}
+                                />
+                                <img
+                                    src={Zoom}
+                                    alt="Zoom"
+                                    onClick={handleZoom}
+                                />
+                            </div>
+                            <div>{displayText}</div>
+                            <div></div>
+                        </>
+                    )}
                 </div>
                 <div className={styles.ContentContainer}>{children}</div>
             </div>

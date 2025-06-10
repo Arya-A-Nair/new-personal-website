@@ -1,5 +1,4 @@
-/* eslint-disable no-restricted-globals */
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import batteryIcon from "../../assets/battery.png";
 import batteryCharging from "../../assets/batteryCharging.png";
 import styles from "./BatteryContianer.module.css";
@@ -11,6 +10,7 @@ import {
 } from "react-icons/bs";
 import { Slider } from "@mui/material";
 import { BatteryState } from "react-use/lib/useBattery";
+import { useIsMobile } from "../../hooks/useIsMobile";
 
 interface BatteryContainerProps {
     setBrightness: (brightness: number) => void;
@@ -23,20 +23,7 @@ const BatteryContainer: React.FC<BatteryContainerProps> = ({
 }) => {
     const [openMenu, setOpenMenu] = useState<boolean>(false);
     const battery = useBattery();
-    const [isMobile, setIsMobile] = useState<boolean>(false);
-
-    useEffect(() => {
-        const handleResize = () => {
-            if (window.innerWidth > 600) {
-                setIsMobile(false);
-            } else {
-                setIsMobile(true);
-            }
-        };
-        handleResize();
-        window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
-    }, []);
+    const isMobile = useIsMobile(600);
 
     const batteryState = battery as BatteryState & { isSupported: boolean };
     const level = batteryState.isSupported ? batteryState.level : 1;

@@ -1,8 +1,9 @@
 import React from "react";
 import styles from "./Navbar.module.css";
-import popOs from "../../assets/popOs.png";
 import DateTime from "./DateTime";
 import BatteryContainer from "./BatteryContainer";
+import { FaApple } from "react-icons/fa6";
+import { useIsMobile } from "../../hooks/useIsMobile";
 
 interface NavbarProps {
     setBrightness: (brightness: number) => void;
@@ -10,11 +11,15 @@ interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = ({ setBrightness, brightness }) => {
+    const isMobile = useIsMobile(600);
+
     return (
         <div className={styles.container}>
-            <div className={styles.logoContainer}>
-                <img src={popOs} alt="PopOS logo" />
-            </div>
+            {!isMobile && (
+                <div className={styles.logoContainer}>
+                    <FaApple className={styles.appleIcon} />
+                </div>
+            )}
             <DateTime />
 
             <BatteryContainer

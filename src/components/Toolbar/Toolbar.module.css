@@ -2,7 +2,6 @@
     position: absolute;
     bottom: 0;
     right: 50%;
-    z-index: 99999999;
     background: rgba(255, 255, 255, 0.2);
     border-radius: 10px 10px 0 0;
     height: 10%;
@@ -13,45 +12,91 @@
     text-align: center;
     display: flex;
     justify-content: center;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
-.container > div {
+.toolbarItem {
     position: relative;
-    /* display: inline-block; */
     height: 100%;
-    /* margin: 0 2rem; */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    padding: 0.25rem;
+    outline: none;
 }
 
-.container > div > img {
+.toolbarItem:focus {
+    outline: 2px solid rgba(0, 122, 255, 0.8);
+    outline-offset: 2px;
+}
+
+.toolbarIcon {
     height: 100%;
+    width: auto;
     -webkit-box-reflect: below 2px
         linear-gradient(transparent, transparent 70%, rgba(255, 255, 255, 0.5));
-    transition: all 0.3s;
-    transform-origin: 40% 70%;
+    transition: all 0.3s ease;
+    transform-origin: 50% 70%;
     aspect-ratio: 1/1;
+    border-radius: 4px;
 }
 
-.container > div:hover > img {
+.toolbarItem:hover .toolbarIcon {
     transform: scale(2);
     margin: 0 2em;
 }
 
-.container > div > span {
+.tooltip {
     display: none;
     position: absolute;
     bottom: 140%;
-    left: 0;
-    width: 100%;
-    background-color: #000;
-    z-index: 999999999;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.9);
+    color: #fff;
     border-radius: 0.4rem;
-    padding: 0.5rem;
+    padding: 0.5rem 0.75rem;
     white-space: nowrap;
-    overflow: hidden;
+    font-size: 0.8rem;
+    font-weight: 500;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.container > div:hover > span {
-    text-align: center;
+.toolbarItem:hover .tooltip {
     display: block;
-    color: #fff;
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        height: 8%;
+        gap: 1rem;
+        padding: 0.5rem 0.75rem;
+        border-radius: 8px 8px 0 0;
+    }
+
+    .toolbarItem:hover .toolbarIcon {
+        transform: scale(1.5);
+        margin: 0 1em;
+    }
+
+    .tooltip {
+        font-size: 0.7rem;
+        padding: 0.4rem 0.6rem;
+    }
 }

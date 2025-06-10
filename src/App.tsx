@@ -4,11 +4,6 @@ import styles from "./App.module.css";
 import Cam from "./assets/Cam.png";
 
 const App: React.FC = () => {
-    console.log(
-        window.location.href.includes(
-            "https://arya-a-nair.github.io/new-personal-website/"
-        )
-    );
 
     useEffect(() => {
         if (

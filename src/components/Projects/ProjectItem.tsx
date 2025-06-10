@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import styles from "./ProjectItem.module.css";
-import { FaGithub } from "react-icons/fa6";
+import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
 import { IconContext } from "react-icons";
 import { Project } from "../../assets/data";
 
@@ -11,27 +11,24 @@ interface ProjectItemProps {
 
 const animation = {
     hidden: {
-        x: 200,
         opacity: 0,
+        y: 20,
     },
     visible: {
-        x: 0,
         opacity: 1,
+        y: 0,
         transition: {
-            duration: 0.5,
+            duration: 0.4,
             type: "spring",
-            stiffness: 40,
-            damping: 10,
+            stiffness: 100,
+            damping: 15,
         },
     },
     exit: {
-        x: -200,
         opacity: 0,
+        y: -20,
         transition: {
-            duration: 0.5,
-            type: "spring",
-            stiffness: 40,
-            damping: 10,
+            duration: 0.3,
         },
     },
 };
@@ -45,47 +42,76 @@ const ProjectItem: React.FC<ProjectItemProps> = ({ data }) => {
             exit="exit"
             variants={animation}
         >
-            <div className={styles.imageContainer}>
-                <div
-                    style={{
-                        position: "relative",
-                    }}
-                >
-                    <img src={"/images/" + data.img} alt="Project" />
-                    <div className={styles.overlay}>
+            <div className={styles.projectHeader}>
+                <div className={styles.projectMeta}>
+                    <div className={styles.projectTitle}>{data.title}</div>
+                    <div className={styles.projectActions}>
                         <IconContext.Provider
                             value={{
-                                className: styles.icon,
-                                size: "2rem",
+                                className: styles.actionIcon,
+                                size: "1.2rem",
                             }}
                         >
                             <FaGithub
-                                style={{
-                                    cursor: "pointer",
-                                }}
                                 onClick={() => window.open(data.link)}
+                                title="View Source Code"
                             />
                         </IconContext.Provider>
                     </div>
                 </div>
             </div>
-            <div className={styles.childContainer}>
-                <div className={styles.projectTitle}>{data.title}</div>
-                <div className={styles.projectDescription}>
-                    <ul>
-                        {data.description.map((item, index) => (
-                            <li key={index}>{item}</li>
-                        ))}
-                    </ul>
+
+            <div className={styles.contentLayout}>
+                <div className={styles.imageContainer}>
+                    <div className={styles.imageWrapper}>
+                        <img src={"/images/" + data.img} alt={data.title} />
+                        <div className={styles.imageOverlay}>
+                            <IconContext.Provider
+                                value={{
+                                    className: styles.overlayIcon,
+                                    size: "2.5rem",
+                                }}
+                            >
+                                <FaExternalLinkAlt
+                                    onClick={() => window.open(data.link)}
+                                />
+                            </IconContext.Provider>
+                        </div>
+                    </div>
                 </div>
-                <div className={styles.projectTechStack}>
-                    <p>Technologies Interacted with</p>
-                    <div>
-                        {data.techStack.map((item, index) => (
-                            <div key={index} className={styles.item}>
-                                {item}
-                            </div>
-                        ))}
+
+                <div className={styles.projectContent}>
+                    <div className={styles.projectDescription}>
+                        <h4>About this project</h4>
+                        <ul>
+                            {data.description.map((item, index) => (
+                                <li key={index}>{item}</li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    <div className={styles.projectTechStack}>
+                        <h4>Technologies Used</h4>
+                        <div className={styles.techGrid}>
+                            {data.techStack.map((tech, index) => (
+                                <div key={index} className={styles.techItem}>
+                                    <span className={styles.techIcon}>⚡</span>
+                                    <span className={styles.techName}>
+                                        {tech}
+                                    </span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className={styles.projectLinks}>
+                        <button
+                            className={styles.secondaryButton}
+                            onClick={() => window.open(data.link)}
+                        >
+                            <FaExternalLinkAlt />
+                            View Project
+                        </button>
                     </div>
                 </div>
             </div>
