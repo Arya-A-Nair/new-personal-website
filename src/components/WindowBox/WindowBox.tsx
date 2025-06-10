@@ -15,6 +15,8 @@ interface WindowBoxProps {
     displayText: string;
     activeElement: boolean;
     displayTextMobile: string;
+    initialWidth?: number;
+    initialHeight?: number;
 }
 
 interface Dimensions {
@@ -36,18 +38,20 @@ const WindowBox: React.FC<WindowBoxProps> = ({
     displayText,
     activeElement,
     displayTextMobile,
+    initialWidth = 60,
+    initialHeight = 80,
 }) => {
     const isMobile = useIsMobile(600);
     const [dimensions, setDimensions] = useState<Dimensions>({
-        height: 80,
-        width: 60,
+        height: initialHeight,
+        width: initialWidth,
     });
     const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
 
     useEffect(() => {
         const handleResize = () => {
             if (!isMobile) {
-                setDimensions({ height: 80, width: 60 });
+                setDimensions({ height: initialHeight, width: initialWidth });
                 setPosition({ x: "50%", y: "50%" });
             } else {
                 setDimensions({ height: 90, width: 100 });
@@ -58,11 +62,14 @@ const WindowBox: React.FC<WindowBoxProps> = ({
     }, [isMobile]);
 
     const handleZoom = () => {
-        if (dimensions.height === 80 && dimensions.width === 60) {
+        if (
+            dimensions.height === initialHeight &&
+            dimensions.width === initialWidth
+        ) {
             setDimensions({ height: 90, width: 100 });
             setPosition({ x: 0, y: 0 });
         } else {
-            setDimensions({ height: 80, width: 60 });
+            setDimensions({ height: initialHeight, width: initialWidth });
             setPosition({ x: "50%", y: "50%" });
         }
     };
@@ -99,7 +106,7 @@ const WindowBox: React.FC<WindowBoxProps> = ({
                     boxShadow: activeElement
                         ? "0px 0px 32px 0px rgba(0, 0, 0, 0.50)"
                         : "0 0 10px rgba(0, 0, 0, 0.2)",
-                    border: activeElement ? "1px solid #131313" : "none"
+                    border: activeElement ? "1px solid #131313" : "none",
                 }}
             >
                 <div className={styles.statBar}>

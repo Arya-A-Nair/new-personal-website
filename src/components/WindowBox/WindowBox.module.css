@@ -63,7 +63,6 @@
     min-height: 0;
 }
 
-/* Mobile styles - Android-inspired */
 @media screen and (max-width: 600px) {
     .container {
         border-radius: 0;

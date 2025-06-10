@@ -2,13 +2,13 @@ import { ComponentType } from 'react';
 import AboutUs from '../components/AboutUs';
 import Projects from '../components/Projects';
 import Experience from '../components/Experience';
+import Notes from '../components/Notes';
 
-// Import toolbar icons
 import linux from '../assets/linux.png';
 import visualStudio from '../assets/visualStudio.png';
 import terminal from '../assets/terminal.png';
+import notes from '../assets/notes.png';
 
-// Window component interface
 export interface WindowComponentProps {
     onClickClose: () => void;
     setActiveElement: (element: string) => void;
@@ -19,12 +19,12 @@ export interface WindowComponentProps {
 export interface WindowConfig {
     id: string;
     name: string;
-    displayName: string; // For toolbar display
+    displayName: string;
     component: ComponentType<WindowComponentProps>;
-    icon: string; // Toolbar icon path
+    icon: string;
     defaultZIndex: number;
     preload?: boolean;
-    description?: string; // Optional description for accessibility
+    description?: string;
 }
 
 export interface AppConfig {
@@ -79,6 +79,16 @@ export const windowComponentsConfig: WindowConfig[] = [
         preload: false,
         description: 'Check out my work experience',
     },
+    {
+        id: 'Notes',
+        name: 'Notes',
+        displayName: 'Notes',
+        component: Notes,
+        icon: notes,
+        defaultZIndex: 1,
+        preload: false,
+        description: 'Browse my knowledge base and notes',
+    },
 ];
 
 export const appConfig: AppConfig = {
@@ -102,7 +112,6 @@ export const appConfig: AppConfig = {
     },
 };
 
-// Helper functions
 export const getWindowConfigById = (id: string): WindowConfig | undefined => {
     return windowComponentsConfig.find(config => config.id === id);
 };
@@ -116,10 +125,9 @@ export const getPreloadableWindows = (): WindowConfig[] => {
 };
 
 export const getToolbarItems = (): WindowConfig[] => {
-    return windowComponentsConfig; // All windows appear in toolbar by default
+    return windowComponentsConfig;
 };
 
-// Validation helpers
 export const validateWindowConfig = (config: WindowConfig): boolean => {
     const requiredFields = ['id', 'name', 'displayName', 'component', 'icon'];
     return requiredFields.every(field => field in config && config[field as keyof WindowConfig]);
@@ -135,7 +143,6 @@ export const getWindowIcon = (id: string): string | undefined => {
     return config?.icon;
 };
 
-// Type guards
 export const isValidWindowId = (id: string): boolean => {
     return getAllWindowIds().includes(id);
 }; 
