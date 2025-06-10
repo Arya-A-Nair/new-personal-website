@@ -84,15 +84,15 @@ const LeetCodeStats: React.FC = () => {
 
     const fetchLeetCodeData = async (): Promise<LeetCodeData> => {
         try {
-            // const cachedData = localStorage.getItem(CACHE_KEY);
-            // if (cachedData) {
-            //     const { data, timestamp } = JSON.parse(cachedData);
-            //     const isExpired = Date.now() - timestamp > CACHE_DURATION;
-            //     if (!isExpired) {
-            //         console.log("Using cached LeetCode data");
-            //         return data;
-            //     }
-            // }
+            const cachedData = localStorage.getItem(CACHE_KEY);
+            if (cachedData) {
+                const { data, timestamp } = JSON.parse(cachedData);
+                const isExpired = Date.now() - timestamp > CACHE_DURATION;
+                if (!isExpired) {
+                    console.log("Using cached LeetCode data");
+                    return data;
+                }
+            }
 
             const baseApiUrl = `https://alfa-leetcode-api-three.vercel.app`;
             let userData: any = null;
@@ -252,8 +252,7 @@ const LeetCodeStats: React.FC = () => {
                           contests: [],
                           bestRanking: 0,
                       },
-                recentSubmissions:
-                    submissionsData?.submission || [],
+                recentSubmissions: submissionsData?.submission || [],
                 badges: badgesData?.badges
                     ? badgesData.badges.map((badge) => {
                           if (badge.icon.startsWith("/static")) {
@@ -447,87 +446,153 @@ const LeetCodeStats: React.FC = () => {
 
             <div className={styles.section}>
                 <h4 className={styles.sectionTitle}>
-                    <span className={styles.sectionIcon}>🎯</span>
+                    <span className={styles.sectionIcon}>📊</span>
                     Problems Solved by Difficulty
                 </h4>
-                <div className={styles.difficultiesGrid}>
-                    <div
-                        className={styles.difficultyCard}
-                        style={{ borderLeftColor: "#34c759" }}
-                    >
-                        <div className={styles.difficultyHeader}>
+
+                <div className={styles.overallStats}>
+                    <div className={styles.totalSolved}>
+                        <span className={styles.totalNumber}>
+                            {leetcodeData.problemsSolved.solvedProblem}
+                        </span>
+                        <span className={styles.totalLabel}>Total Solved</span>
+                    </div>
+                </div>
+
+                <div className={styles.segmentedProgressContainer}>
+                    <div className={styles.segmentedProgressBar}>
+                        <div
+                            className={styles.progressSegment}
+                            style={{
+                                width: `${
+                                    leetcodeData.problemsSolved.solvedProblem >
+                                    0
+                                        ? (leetcodeData.problemsSolved
+                                              .easySolved /
+                                              leetcodeData.problemsSolved
+                                                  .solvedProblem) *
+                                          100
+                                        : 0
+                                }%`,
+                                backgroundColor: "#34c759",
+                            }}
+                        />
+                        <div
+                            className={styles.progressSegment}
+                            style={{
+                                width: `${
+                                    leetcodeData.problemsSolved.solvedProblem >
+                                    0
+                                        ? (leetcodeData.problemsSolved
+                                              .mediumSolved /
+                                              leetcodeData.problemsSolved
+                                                  .solvedProblem) *
+                                          100
+                                        : 0
+                                }%`,
+                                backgroundColor: "#ff9500",
+                            }}
+                        />
+                        <div
+                            className={styles.progressSegment}
+                            style={{
+                                width: `${
+                                    leetcodeData.problemsSolved.solvedProblem >
+                                    0
+                                        ? (leetcodeData.problemsSolved
+                                              .hardSolved /
+                                              leetcodeData.problemsSolved
+                                                  .solvedProblem) *
+                                          100
+                                        : 0
+                                }%`,
+                                backgroundColor: "#ff3b30",
+                            }}
+                        />
+                    </div>
+                </div>
+
+                <div className={styles.difficultyBreakdown}>
+                    <div className={styles.difficultyItem}>
+                        <div
+                            className={styles.difficultyIndicator}
+                            style={{ backgroundColor: "#34c759" }}
+                        ></div>
+                        <div className={styles.difficultyInfo}>
                             <span className={styles.difficultyName}>Easy</span>
-                            <span className={styles.difficultyCount}>
+                            <span className={styles.difficultyStats}>
                                 {leetcodeData.problemsSolved.easySolved}
+                                <span className={styles.difficultyPercentage}>
+                                    (
+                                    {leetcodeData.problemsSolved.solvedProblem >
+                                    0
+                                        ? Math.round(
+                                              (leetcodeData.problemsSolved
+                                                  .easySolved /
+                                                  leetcodeData.problemsSolved
+                                                      .solvedProblem) *
+                                                  100
+                                          )
+                                        : 0}
+                                    %)
+                                </span>
                             </span>
-                        </div>
-                        <div className={styles.progressBar}>
-                            <div
-                                className={styles.progressFill}
-                                style={{
-                                    width: `${
-                                        (leetcodeData.problemsSolved
-                                            .easySolved /
-                                            748) *
-                                        100
-                                    }%`,
-                                    backgroundColor: "#34c759",
-                                }}
-                            />
                         </div>
                     </div>
 
-                    <div
-                        className={styles.difficultyCard}
-                        style={{ borderLeftColor: "#ff9500" }}
-                    >
-                        <div className={styles.difficultyHeader}>
+                    <div className={styles.difficultyItem}>
+                        <div
+                            className={styles.difficultyIndicator}
+                            style={{ backgroundColor: "#ff9500" }}
+                        ></div>
+                        <div className={styles.difficultyInfo}>
                             <span className={styles.difficultyName}>
                                 Medium
                             </span>
-                            <span className={styles.difficultyCount}>
+                            <span className={styles.difficultyStats}>
                                 {leetcodeData.problemsSolved.mediumSolved}
+                                <span className={styles.difficultyPercentage}>
+                                    (
+                                    {leetcodeData.problemsSolved.solvedProblem >
+                                    0
+                                        ? Math.round(
+                                              (leetcodeData.problemsSolved
+                                                  .mediumSolved /
+                                                  leetcodeData.problemsSolved
+                                                      .solvedProblem) *
+                                                  100
+                                          )
+                                        : 0}
+                                    %)
+                                </span>
                             </span>
-                        </div>
-                        <div className={styles.progressBar}>
-                            <div
-                                className={styles.progressFill}
-                                style={{
-                                    width: `${
-                                        (leetcodeData.problemsSolved
-                                            .mediumSolved /
-                                            1552) *
-                                        100
-                                    }%`,
-                                    backgroundColor: "#ff9500",
-                                }}
-                            />
                         </div>
                     </div>
 
-                    <div
-                        className={styles.difficultyCard}
-                        style={{ borderLeftColor: "#ff3b30" }}
-                    >
-                        <div className={styles.difficultyHeader}>
+                    <div className={styles.difficultyItem}>
+                        <div
+                            className={styles.difficultyIndicator}
+                            style={{ backgroundColor: "#ff3b30" }}
+                        ></div>
+                        <div className={styles.difficultyInfo}>
                             <span className={styles.difficultyName}>Hard</span>
-                            <span className={styles.difficultyCount}>
+                            <span className={styles.difficultyStats}>
                                 {leetcodeData.problemsSolved.hardSolved}
+                                <span className={styles.difficultyPercentage}>
+                                    (
+                                    {leetcodeData.problemsSolved.solvedProblem >
+                                    0
+                                        ? Math.round(
+                                              (leetcodeData.problemsSolved
+                                                  .hardSolved /
+                                                  leetcodeData.problemsSolved
+                                                      .solvedProblem) *
+                                                  100
+                                          )
+                                        : 0}
+                                    %)
+                                </span>
                             </span>
-                        </div>
-                        <div className={styles.progressBar}>
-                            <div
-                                className={styles.progressFill}
-                                style={{
-                                    width: `${
-                                        (leetcodeData.problemsSolved
-                                            .hardSolved /
-                                            984) *
-                                        100
-                                    }%`,
-                                    backgroundColor: "#ff3b30",
-                                }}
-                            />
                         </div>
                     </div>
                 </div>
@@ -808,7 +873,8 @@ const LeetCodeStats: React.FC = () => {
                         <div className={styles.submissionsHeader}>
                             <div className={styles.submissionsInfo}>
                                 <span className={styles.submissionsCount}>
-                                    Recent {leetcodeData.recentSubmissions.length}{" "}
+                                    Recent{" "}
+                                    {leetcodeData.recentSubmissions.length}{" "}
                                     submissions
                                 </span>
                             </div>

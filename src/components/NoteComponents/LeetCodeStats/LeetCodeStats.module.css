@@ -152,62 +152,116 @@
 }
 
 /* Difficulties Grid */
-.difficultiesGrid {
+/* Overall Stats */
+.overallStats {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+
+.totalSolved {
+    text-align: center;
+    background: linear-gradient(135deg, #2a2a2a 0%, #333 100%);
+    border-radius: 12px;
+    padding: 20px 40px;
+    border: 1px solid #444;
+}
+
+.totalNumber {
+    display: block;
+    font-size: 48px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 4px;
+}
+
+.totalLabel {
+    font-size: 14px;
+    color: #94a3b8;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+/* Segmented Progress Bar */
+.segmentedProgressContainer {
+    margin-bottom: 24px;
+}
+
+.segmentedProgressBar {
+    display: flex;
+    height: 16px;
+    background: #1a1a1a;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #333;
+}
+
+.progressSegment {
+    height: 100%;
+    transition: width 0.8s ease;
+    border-right: 1px solid #1a1a1a;
+}
+
+.progressSegment:last-child {
+    border-right: none;
+}
+
+/* Difficulty Breakdown */
+.difficultyBreakdown {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 16px;
 }
 
-.difficultyCard {
-    background: #2a2a2a;
+.difficultyItem {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(135deg, #2a2a2a 0%, #333 100%);
     border-radius: 8px;
-    padding: 20px;
+    padding: 16px;
+    border: 1px solid #444;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    border-left: 4px solid;
 }
 
-.difficultyCard:hover {
+.difficultyItem:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
-.difficultyHeader {
+.difficultyIndicator {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.difficultyInfo {
+    flex: 1;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
+    flex-direction: column;
+    gap: 4px;
 }
 
 .difficultyName {
     font-weight: 600;
     color: #fff;
-    font-size: 16px;
-}
-
-.difficultyCount {
-    font-weight: 700;
-    color: #fff;
-    font-size: 24px;
-}
-
-.progressBar {
-    height: 6px;
-    background: #374151;
-    border-radius: 3px;
-    overflow: hidden;
-    margin-bottom: 8px;
-}
-
-.progressFill {
-    height: 100%;
-    border-radius: 3px;
-    transition: width 0.8s ease;
+    font-size: 14px;
 }
 
 .difficultyStats {
-    font-size: 14px;
+    font-weight: 700;
+    font-size: 18px;
+    color: #ff9500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.difficultyPercentage {
+    font-size: 12px;
     color: #94a3b8;
-    text-align: right;
+    font-weight: 500;
 }
 
 /* Contest Performance */
@@ -548,17 +602,41 @@
         font-size: 18px;
     }
 
-    .difficultiesGrid {
-        grid-template-columns: 1fr;
+    .overallStats {
+        margin-bottom: 20px;
+    }
+
+    .totalSolved {
+        padding: 16px 24px;
+    }
+
+    .totalNumber {
+        font-size: 36px;
+    }
+
+    .totalLabel {
+        font-size: 12px;
+    }
+
+    .segmentedProgressContainer {
+        margin-bottom: 20px;
+    }
+
+    .segmentedProgressBar {
+        height: 14px;
+    }
+
+    .difficultyBreakdown {
+        grid-template-columns: repeat(2, 1fr);
         gap: 12px;
     }
 
-    .difficultyCard {
-        padding: 16px;
+    .difficultyItem {
+        padding: 12px;
     }
 
-    .difficultyCount {
-        font-size: 20px;
+    .difficultyStats {
+        font-size: 16px;
     }
 
     .contestSummary {
@@ -682,16 +760,55 @@
         margin-bottom: 12px;
     }
 
-    .difficultyCard {
-        padding: 12px;
+    .overallStats {
+        margin-bottom: 16px;
+    }
+
+    .totalSolved {
+        padding: 12px 20px;
+    }
+
+    .totalNumber {
+        font-size: 28px;
+    }
+
+    .totalLabel {
+        font-size: 11px;
+    }
+
+    .segmentedProgressContainer {
+        margin-bottom: 16px;
+    }
+
+    .segmentedProgressBar {
+        height: 12px;
+    }
+
+    .difficultyBreakdown {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .difficultyItem {
+        padding: 10px;
+        gap: 8px;
+    }
+
+    .difficultyIndicator {
+        width: 12px;
+        height: 12px;
     }
 
     .difficultyName {
+        font-size: 12px;
+    }
+
+    .difficultyStats {
         font-size: 14px;
     }
 
-    .difficultyCount {
-        font-size: 18px;
+    .difficultyPercentage {
+        font-size: 10px;
     }
 
     .contestSummary {
