@@ -1,5 +1,9 @@
 import React from "react";
-import { WakatimeStats, GitHubStats } from "../components/NoteComponents";
+import {
+    WakatimeStats,
+    GitHubStats,
+    LeetCodeStats,
+} from "../components/NoteComponents";
 
 export interface Note {
     id: string;
@@ -31,6 +35,14 @@ export const notesData: NotesData = {
             content: <GitHubStats />,
         },
     ],
-    DSA: [],
+    DSA: [
+        {
+            id: "dsa-1",
+            title: "LeetCode Problem Solving Stats",
+            preview:
+                "Comprehensive LeetCode statistics showing problem-solving progress, contest performance, and submission activity with beautiful visualizations.",
+            content: <LeetCodeStats />,
+        },
+    ],
     Achievements: [],
 };
