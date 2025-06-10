@@ -124,6 +124,9 @@ const WakatimeStats: React.FC = () => {
             monthName: new Date(month + "-01").toLocaleDateString("en", {
                 month: "short",
             }),
+            year: new Date(month + "-01").toLocaleDateString("en", {
+                year: "numeric",
+            }),
         }));
 
     const maxDailyHours = Math.max(...days.map((day) => day.total / 3600));
@@ -172,9 +175,11 @@ const WakatimeStats: React.FC = () => {
                 <h4 className={styles.yearlyTitle}>Yearly Coding Activity</h4>
 
                 <div className={styles.monthsGrid}>
-                    {last12Months.map(({ month, hours, monthName }) => (
+                    {last12Months.reverse().map(({ month, hours, monthName, year }) => (
                         <div key={month} className={styles.monthCard}>
-                            <div className={styles.monthName}>{monthName}</div>
+                            <div className={styles.monthName}>
+                                {monthName} {year}
+                            </div>
                             <div className={styles.monthHours}>{hours}h</div>
                         </div>
                     ))}
