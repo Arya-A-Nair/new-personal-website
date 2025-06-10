@@ -74,7 +74,7 @@ interface CachedGitHubData {
 }
 
 const GITHUB_USERNAME = "Arya-A-Nair";
-const CACHE_KEY = "github_data";
+const CACHE_KEY = "github_data_v2";
 const CACHE_DURATION = 1000 * 60 * 30;
 
 const GitHubStats: React.FC = () => {
@@ -356,27 +356,42 @@ const GitHubStats: React.FC = () => {
                 </div>
             </div>
 
-            <div className={styles.section}>
-                <h4 className={styles.sectionTitle}>
-                    <span className={styles.sectionIcon}>🏢</span>
-                    Member Organizations
-                </h4>
-                <div className={styles.orgsGrid}>
-                    {githubData.organizations.map((org) => (
-                        <div key={org.name} className={styles.orgCard}>
-                            <div className={styles.orgLogo}>
-                                {org.avatar_url ? (
-                                    <img src={org.avatar_url} alt={org.name} />
-                                ) : (
-                                    org.logo
-                                )}
+            {githubData.organizations.length > 0 ? (
+                <div className={styles.section}>
+                    <h4 className={styles.sectionTitle}>
+                        <span className={styles.sectionIcon}>🏢</span>
+                        Member Organizations
+                    </h4>
+                    <div className={styles.orgsGrid}>
+                        {githubData.organizations.map((org) => (
+                            <div key={org.name} className={styles.orgCard}>
+                                <div className={styles.orgLogo}>
+                                    {org.avatar_url ? (
+                                        <img
+                                            src={org.avatar_url}
+                                            alt={org.name}
+                                        />
+                                    ) : (
+                                        org.logo
+                                    )}
+                                </div>
+                                <div className={styles.orgName}>{org.name}</div>
+                                <div className={styles.orgRole}>{org.role}</div>
                             </div>
-                            <div className={styles.orgName}>{org.name}</div>
-                            <div className={styles.orgRole}>{org.role}</div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
-            </div>
+            ) : (
+                <div className={styles.section}>
+                    <h4 className={styles.sectionTitle}>
+                        <span className={styles.sectionIcon}>🏢</span>
+                        Member Organizations
+                    </h4>
+                    <div className={styles.emptyState}>
+                        <p>No public organization memberships found</p>
+                    </div>
+                </div>
+            )}
 
             {githubData.contributedOrgs &&
                 githubData.contributedOrgs.length > 0 && (

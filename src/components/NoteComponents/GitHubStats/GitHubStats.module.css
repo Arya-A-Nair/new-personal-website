@@ -217,17 +217,21 @@
 
 .orgsGrid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     gap: 16px;
 }
 
 .orgCard {
     background: #2a2a2a;
     border-radius: 8px;
-    padding: 20px;
+    padding: 18px 16px 20px 16px;
     text-align: center;
     transition: transform 0.2s ease;
     border: 1px solid #374151;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .orgCard:hover {
@@ -261,6 +265,13 @@
     color: #fff;
     font-weight: 600;
     margin-bottom: 4px;
+    font-size: 14px;
+    line-height: 1.2;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    max-width: 100%;
+    text-align: center;
 }
 
 .orgRole {
@@ -271,11 +282,15 @@
 .contributedOrgCard {
     background: #2a2a2a;
     border-radius: 8px;
-    padding: 20px;
+    padding: 18px 16px 20px 16px;
     text-align: center;
     transition: transform 0.2s ease;
     border: 1px solid #374151;
     position: relative;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .contributedOrgCard:hover {
@@ -382,56 +397,300 @@
 }
 
 @media (max-width: 600px) {
+    .container {
+        padding: 0;
+    }
+
     .headerSection {
-        padding: 20px;
+        padding: 16px;
+        margin-bottom: 16px;
     }
 
     .profileInfo {
         gap: 12px;
-        margin-bottom: 20px;
+        margin-bottom: 16px;
     }
 
     .avatar {
-        width: 80px;
-        height: 80px;
-        font-size: 28px;
+        width: 70px;
+        height: 70px;
+        font-size: 24px;
         border-width: 3px;
+        margin-bottom: 4px;
     }
 
     .userDetails h3 {
-        font-size: 24px;
+        font-size: 20px;
     }
 
     .username {
-        font-size: 16px;
+        font-size: 14px;
     }
 
     .bio {
-        font-size: 14px;
-        max-width: 300px;
+        font-size: 12px;
+        max-width: 280px;
+        line-height: 1.4;
     }
 
     .statsOverview {
         grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
+        gap: 8px;
+    }
+
+    .statItem {
+        padding: 12px 8px;
+        border-radius: 6px;
+    }
+
+    .statNumber {
+        font-size: 18px;
+        margin-bottom: 2px;
+    }
+
+    .statLabel {
+        font-size: 10px;
     }
 
     .section {
-        padding: 20px;
+        padding: 16px;
+        margin-bottom: 16px;
+        border-radius: 8px;
     }
 
-    .languagesGrid {
-        grid-template-columns: 1fr;
+    .activitySection {
+        padding: 16px;
+        margin-bottom: 16px;
+    }
+
+    .sectionTitle {
+        font-size: 16px;
+        margin-bottom: 12px;
+    }
+
+    .sectionIcon {
+        font-size: 16px;
+    }
+
+    .activityGrid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        margin-top: 12px;
+    }
+
+    .activityCard {
+        padding: 14px 12px;
+        border-radius: 8px;
+    }
+
+    .activityNumber {
+        font-size: 20px;
+        margin-bottom: 4px;
+    }
+
+    .activityLabel {
+        font-size: 11px;
     }
 
     .orgsGrid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .orgCard,
+    .contributedOrgCard {
+        padding: 12px;
+        border-radius: 6px;
+    }
+
+    .orgLogo {
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
+        margin-bottom: 8px;
+        border-radius: 6px;
+    }
+
+    .orgName {
+        font-size: 11px;
+        font-weight: 500;
+        margin-bottom: 2px;
+        line-height: 1.2;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+        text-align: center;
+    }
+
+    .orgRole {
+        font-size: 10px;
+    }
+
+    .contributedOrgCard::before {
+        top: 6px;
+        right: 6px;
+        font-size: 12px;
+    }
+
+    .languagesGrid {
+        grid-template-columns: 1fr;
         gap: 12px;
+    }
+
+    .languageCard {
+        padding: 12px;
+        border-radius: 6px;
+    }
+
+    .languageHeader {
+        gap: 8px;
+        margin-bottom: 8px;
+    }
+
+    .languageDot {
+        width: 10px;
+        height: 10px;
+    }
+
+    .languageName {
+        font-size: 14px;
+    }
+
+    .languagePercentage {
+        font-size: 12px;
+    }
+
+    .chartPlaceholder {
+        padding: 20px;
+        font-size: 12px;
+        line-height: 1.4;
+    }
+}
+
+/* Tablet responsiveness */
+@media (max-width: 900px) and (min-width: 601px) {
+    .headerSection {
+        padding: 20px;
+    }
+
+    .statsOverview {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+    }
+
+    .activityGrid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+
+    .orgsGrid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+    }
+
+    .section,
+    .activitySection {
+        padding: 20px;
+    }
+}
+
+/* Small mobile responsiveness */
+@media (max-width: 400px) {
+    .headerSection {
+        padding: 12px;
+    }
+
+    .avatar {
+        width: 60px;
+        height: 60px;
+        font-size: 20px;
+    }
+
+    .userDetails h3 {
+        font-size: 18px;
+    }
+
+    .username {
+        font-size: 12px;
+    }
+
+    .bio {
+        font-size: 11px;
+        max-width: 240px;
+    }
+
+    .statsOverview {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .statItem {
+        padding: 10px;
+    }
+
+    .statNumber {
+        font-size: 16px;
+    }
+
+    .statLabel {
+        font-size: 9px;
     }
 
     .activityGrid {
         grid-template-columns: 1fr;
-        gap: 16px;
+        gap: 10px;
+    }
+
+    .activityCard {
+        padding: 12px 10px;
+    }
+
+    .activityNumber {
+        font-size: 18px;
+    }
+
+    .activityLabel {
+        font-size: 10px;
+    }
+
+    .orgsGrid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .orgCard,
+    .contributedOrgCard {
+        padding: 10px;
+    }
+
+    .orgLogo {
+        width: 32px;
+        height: 32px;
+        font-size: 14px;
+        margin-bottom: 6px;
+    }
+
+    .orgName {
+        font-size: 10px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+        line-height: 1.1;
+    }
+
+    .orgRole {
+        font-size: 9px;
+    }
+
+    .section,
+    .activitySection {
+        padding: 12px;
+        margin-bottom: 12px;
+    }
+
+    .sectionTitle {
+        font-size: 14px;
+        margin-bottom: 10px;
     }
 }
 
@@ -459,4 +718,16 @@
 
 .errorContainer p {
     color: #94a3b8;
+}
+
+.emptyState {
+    text-align: center;
+    padding: 40px 20px;
+    color: #94a3b8;
+    font-style: italic;
+}
+
+.emptyState p {
+    margin: 0;
+    font-size: 14px;
 }

@@ -303,47 +303,128 @@
 }
 
 @media (max-width: 600px) {
-    .chartEmbed {
-        height: 160px;
+    .container {
+        padding: 0;
     }
 
-    .chartFigure {
-        padding: 12px;
+    .statsGrid {
+        gap: 12px;
+        margin-bottom: 20px;
     }
 
-    .yearlyChartContainer {
+    .statCard {
         padding: 16px;
+    }
+
+    .statValue {
+        font-size: 24px;
+    }
+
+    .statLabel {
+        font-size: 12px;
+    }
+
+    .chartContainer {
+        padding: 16px;
+        margin-bottom: 20px;
+    }
+
+    .chartTitle {
+        font-size: 16px;
+        margin-bottom: 12px;
+    }
+
+    .chartBars {
+        height: 60px;
+        gap: 1px;
+    }
+
+    .chartLabels {
+        font-size: 10px;
+        margin-top: 6px;
     }
 
     .yearlyContainer {
         padding: 16px;
+        margin-bottom: 20px;
+    }
+
+    .yearlyTitle {
+        font-size: 16px;
+        margin-bottom: 16px;
     }
 
     .monthsGrid {
         grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
         gap: 8px;
+        margin-bottom: 12px;
     }
 
     .monthCard {
         padding: 8px 4px;
     }
 
+    .monthName {
+        font-size: 10px;
+    }
+
+    .monthHours {
+        font-size: 14px;
+    }
+
     .yearlyHeatmap {
-        grid-template-columns: repeat(auto-fit, minmax(8px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(6px, 1fr));
         gap: 1px;
+        margin-top: 12px;
     }
 
     .heatmapDay {
+        width: 6px;
+        height: 6px;
+    }
+
+    .heatmapLegend {
+        font-size: 10px;
+        margin-top: 8px;
+        gap: 6px;
+    }
+
+    .legendSquare {
         width: 8px;
         height: 8px;
     }
 
-    .chartContainer {
-        padding: 16px;
-    }
-
     .summaryContainer {
         padding: 16px;
+        margin-bottom: 20px;
+    }
+
+    .summaryTitle {
+        font-size: 14px;
+        margin-bottom: 6px;
+    }
+
+    .summaryText {
+        font-size: 12px;
+        line-height: 1.4;
+    }
+
+    .chartEmbed {
+        height: 140px;
+    }
+
+    .chartFigure {
+        padding: 8px;
+    }
+
+    .yearlyChartContainer {
+        padding: 16px;
+        margin-bottom: 20px;
+    }
+
+    .yearlyChartTitle {
+        font-size: 16px;
+        margin-bottom: 16px;
     }
 }
 
@@ -352,6 +433,74 @@
     max-width: 600px;
     height: auto;
     border-radius: 8px;
+}
+
+/* Tablet responsiveness */
+@media (max-width: 900px) and (min-width: 601px) {
+    .statsGrid {
+        gap: 14px;
+    }
+
+    .statCard {
+        padding: 18px;
+    }
+
+    .monthsGrid {
+        grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+        gap: 10px;
+    }
+
+    .chartContainer,
+    .yearlyContainer,
+    .summaryContainer,
+    .yearlyChartContainer {
+        padding: 18px;
+    }
+}
+
+/* Small mobile responsiveness */
+@media (max-width: 400px) {
+    .statsGridMobile {
+        grid-template-columns: 1fr;
+    }
+
+    .statCard {
+        padding: 14px;
+    }
+
+    .statValue {
+        font-size: 22px;
+    }
+
+    .monthsGrid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 6px;
+    }
+
+    .monthCard {
+        padding: 6px 2px;
+    }
+
+    .monthName {
+        font-size: 9px;
+    }
+
+    .monthHours {
+        font-size: 12px;
+    }
+
+    .chartBars {
+        gap: 0.5px;
+    }
+
+    .heatmapDay {
+        width: 4px;
+        height: 4px;
+    }
+
+    .yearlyHeatmap {
+        grid-template-columns: repeat(auto-fit, minmax(4px, 1fr));
+    }
 }
 
 @keyframes spin {
