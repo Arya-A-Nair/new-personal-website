@@ -25,6 +25,13 @@ interface GitHubRepo {
     stargazers_count: number;
     size: number;
     fork: boolean;
+    parent?: {
+        owner: {
+            login: string;
+            avatar_url: string;
+            type: string;
+        };
+    };
 }
 
 interface GitHubOrg {
@@ -43,6 +50,15 @@ interface GitHubEvent {
         login: string;
         avatar_url: string;
     };
+}
+
+interface ContributedRepo {
+    name: string;
+    owner: string;
+    url: string;
+    prs: number;
+    issues: number;
+    isOwn: boolean;
 }
 
 interface GitHubData {
@@ -66,6 +82,7 @@ interface GitHubData {
     };
     organizations: Organization[];
     contributedOrgs?: Organization[];
+    contributedRepos?: ContributedRepo[];
 }
 
 interface CachedGitHubData {
@@ -121,44 +138,159 @@ const GitHubStats: React.FC = () => {
             avatar_url: org.avatar_url,
         }));
 
-        // Find organizations from contributed repositories (via events and forks)
-        const contributedOrgSet = new Set<string>();
-        const contributedOrgMap = new Map<string, GitHubOrg>();
+        const contributedRepos: ContributedRepo[] = [];
 
-        // Process events to find organizations user has contributed to
-        events.forEach((event) => {
-            if (
-                event.org &&
-                !orgs.find((org) => org.login === event.org!.login)
-            ) {
-                contributedOrgSet.add(event.org.login);
-                contributedOrgMap.set(event.org.login, event.org);
-            }
-        });
+        try {
+            const prSearchResponse = await fetch(
+                `${baseUrl}/search/issues?q=author:${GITHUB_USERNAME}+type:pr&per_page=100&sort=created&order=desc`
+            );
+            const prSearchData = prSearchResponse.ok
+                ? await prSearchResponse.json()
+                : { items: [] };
 
-        repos.forEach((repo) => {
-            if (repo.fork && repo.name.includes("/")) {
-                const repoOwner = repo.name.split("/")[0];
-                if (
-                    !orgs.find((org) => org.login === repoOwner) &&
-                    !contributedOrgSet.has(repoOwner)
-                ) {
-                    contributedOrgSet.add(repoOwner);
+            const issueSearchResponse = await fetch(
+                `${baseUrl}/search/issues?q=author:${GITHUB_USERNAME}+type:issue&per_page=100&sort=created&order=desc`
+            );
+            const issueSearchData = issueSearchResponse.ok
+                ? await issueSearchResponse.json()
+                : { items: [] };
+
+            const repoContributions = new Map<
+                string,
+                {
+                    prs: number;
+                    issues: number;
+                    url: string;
+                    owner: string;
+                    name: string;
                 }
+            >();
+
+            prSearchData.items?.forEach((pr: any) => {
+                const repoFullName = pr.repository_url
+                    .split("/")
+                    .slice(-2)
+                    .join("/");
+                const [owner, name] = repoFullName.split("/");
+                const key = repoFullName;
+
+                if (!repoContributions.has(key)) {
+                    repoContributions.set(key, {
+                        prs: 0,
+                        issues: 0,
+                        url: `https://github.com/${repoFullName}`,
+                        owner,
+                        name,
+                    });
+                }
+                repoContributions.get(key)!.prs++;
+            });
+
+            issueSearchData.items?.forEach((issue: any) => {
+                const repoFullName = issue.repository_url
+                    .split("/")
+                    .slice(-2)
+                    .join("/");
+                const [owner, name] = repoFullName.split("/");
+                const key = repoFullName;
+
+                if (!repoContributions.has(key)) {
+                    repoContributions.set(key, {
+                        prs: 0,
+                        issues: 0,
+                        url: `https://github.com/${repoFullName}`,
+                        owner,
+                        name,
+                    });
+                }
+                repoContributions.get(key)!.issues++;
+            });
+
+            Array.from(repoContributions.entries()).forEach(
+                ([repoFullName, data]) => {
+                    const isOwnRepo = data.owner === GITHUB_USERNAME;
+
+                    contributedRepos.push({
+                        name: data.name,
+                        owner: data.owner,
+                        url: data.url,
+                        prs: data.prs,
+                        issues: data.issues,
+                        isOwn: isOwnRepo,
+                    });
+                }
+            );
+
+            contributedRepos.sort(
+                (a, b) => b.prs + b.issues - (a.prs + a.issues)
+            );
+        } catch (error) {
+            console.error("Error fetching contribution data:", error);
+        }
+
+        const contributedOrgSet = new Set<string>();
+        const contributedOrgData = new Map<
+            string,
+            { avatar_url?: string; totalContributions: number }
+        >();
+
+        const externalOwners = new Set<string>();
+        contributedRepos.forEach((repo) => {
+            if (!repo.isOwn && repo.owner !== GITHUB_USERNAME) {
+                externalOwners.add(repo.owner);
             }
         });
+
+        try {
+            for (const owner of Array.from(externalOwners).slice(0, 20)) {
+                try {
+                    const ownerResponse = await fetch(
+                        `${baseUrl}/users/${owner}`
+                    );
+                    if (ownerResponse.ok) {
+                        const ownerData = await ownerResponse.json();
+                        if (ownerData.type === "Organization") {
+                            const totalContributions = contributedRepos
+                                .filter((repo) => repo.owner === owner)
+                                .reduce(
+                                    (sum, repo) => sum + repo.prs + repo.issues,
+                                    0
+                                );
+
+                            contributedOrgData.set(owner, {
+                                avatar_url: ownerData.avatar_url,
+                                totalContributions,
+                            });
+                            contributedOrgSet.add(owner);
+                        }
+                    }
+                } catch (error) {
+                    console.error(`Error checking owner ${owner}:`, error);
+                }
+                await new Promise((resolve) => setTimeout(resolve, 50));
+            }
+        } catch (error) {
+            console.error("Error checking organization types:", error);
+        }
 
         const contributedOrgs: Organization[] = Array.from(contributedOrgSet)
-            .slice(0, 6)
             .map((orgName) => {
-                const orgData = contributedOrgMap.get(orgName);
+                const orgData = contributedOrgData.get(orgName);
                 return {
                     name: orgName,
                     role: "Contributor",
                     logo: orgName.substring(0, 2).toUpperCase(),
                     avatar_url: orgData?.avatar_url,
                 };
-            });
+            })
+            .sort((a, b) => {
+                const aContribs =
+                    contributedOrgData.get(a.name)?.totalContributions || 0;
+                const bContribs =
+                    contributedOrgData.get(b.name)?.totalContributions || 0;
+                return bContribs - aContribs;
+            })
+            .slice(0, 6);
 
         const accountAge = Math.floor(
             (Date.now() - new Date(user.created_at).getTime()) /
@@ -193,13 +325,13 @@ const GitHubStats: React.FC = () => {
             },
             organizations,
             contributedOrgs,
+            contributedRepos,
         };
     };
 
     React.useEffect(() => {
         const loadGitHubData = async () => {
             try {
-                // Check cache first
                 const cachedData = localStorage.getItem(CACHE_KEY);
                 if (cachedData) {
                     const parsed: CachedGitHubData = JSON.parse(cachedData);
@@ -212,10 +344,8 @@ const GitHubStats: React.FC = () => {
                     }
                 }
 
-                // Fetch fresh data
                 const data = await fetchGitHubData();
 
-                // Cache the data
                 const cacheData: CachedGitHubData = {
                     data,
                     timestamp: Date.now(),
@@ -224,7 +354,6 @@ const GitHubStats: React.FC = () => {
 
                 setGithubData(data);
             } catch (err) {
-                // Try to use cached data as fallback
                 const cachedData = localStorage.getItem(CACHE_KEY);
                 if (cachedData) {
                     const parsed: CachedGitHubData = JSON.parse(cachedData);
@@ -262,7 +391,7 @@ const GitHubStats: React.FC = () => {
 
     return (
         <div className={styles.container}>
-            {/* Profile Header */}
+            {}
             <div className={styles.headerSection}>
                 <div className={styles.profileInfo}>
                     <div className={styles.avatar}>
@@ -314,7 +443,7 @@ const GitHubStats: React.FC = () => {
                 </div>
             </div>
 
-            {/* Coding Activity */}
+            {}
             <div className={styles.activitySection}>
                 <h4 className={styles.sectionTitle}>
                     <span className={styles.sectionIcon}>📈</span>
@@ -424,6 +553,80 @@ const GitHubStats: React.FC = () => {
                                     </div>
                                 </div>
                             ))}
+                        </div>
+                    </div>
+                )}
+
+            {}
+            {githubData.contributedRepos &&
+                githubData.contributedRepos.length > 0 && (
+                    <div className={styles.section}>
+                        <h4 className={styles.sectionTitle}>
+                            <span className={styles.sectionIcon}>🏆</span>
+                            All-Time Repository Contributions
+                        </h4>
+                        <div className={styles.contributedRepos}>
+                            {githubData.contributedRepos
+                                .slice(0, 12)
+                                .map((repo, index) => (
+                                    <div
+                                        key={`${repo.owner}/${repo.name}`}
+                                        className={styles.contributedRepo}
+                                    >
+                                        <div className={styles.repoInfo}>
+                                            <a
+                                                href={repo.url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className={styles.repoLink}
+                                            >
+                                                <span
+                                                    className={styles.repoOwner}
+                                                >
+                                                    {repo.owner}/
+                                                </span>
+                                                <span
+                                                    className={styles.repoName}
+                                                >
+                                                    {repo.name}
+                                                </span>
+                                            </a>
+                                            {repo.isOwn && (
+                                                <span
+                                                    className={
+                                                        styles.ownRepoTag
+                                                    }
+                                                >
+                                                    Own
+                                                </span>
+                                            )}
+                                        </div>
+                                        <div
+                                            className={styles.contributionStats}
+                                        >
+                                            {repo.prs > 0 && (
+                                                <span
+                                                    className={styles.prCount}
+                                                >
+                                                    {repo.prs} PR
+                                                    {repo.prs !== 1 ? "s" : ""}
+                                                </span>
+                                            )}
+                                            {repo.issues > 0 && (
+                                                <span
+                                                    className={
+                                                        styles.issueCount
+                                                    }
+                                                >
+                                                    {repo.issues} Issue
+                                                    {repo.issues !== 1
+                                                        ? "s"
+                                                        : ""}
+                                                </span>
+                                            )}
+                                        </div>
+                                    </div>
+                                ))}
                         </div>
                     </div>
                 )}

@@ -567,7 +567,6 @@
     }
 }
 
-/* Tablet responsiveness */
 @media (max-width: 900px) and (min-width: 601px) {
     .headerSection {
         padding: 20px;
@@ -594,7 +593,6 @@
     }
 }
 
-/* Small mobile responsiveness */
 @media (max-width: 400px) {
     .headerSection {
         padding: 12px;
@@ -730,4 +728,147 @@
 .emptyState p {
     margin: 0;
     font-size: 14px;
+}
+
+.contributedRepos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+}
+
+.contributedRepo {
+    background: #2a2a2a;
+    border-radius: 8px;
+    padding: 16px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-left: 4px solid #007aff;
+    position: relative;
+}
+
+.contributedRepo:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.repoInfo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.repoLink {
+    text-decoration: none;
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+    transition: color 0.2s ease;
+    flex: 1;
+    word-break: break-all;
+}
+
+.repoLink:hover {
+    color: #007aff;
+}
+
+.repoOwner {
+    color: #94a3b8;
+    font-weight: 500;
+}
+
+.repoName {
+    color: #fff;
+    font-weight: 600;
+}
+
+.ownRepoTag {
+    background: linear-gradient(135deg, #34c759, #30a14e);
+    color: white;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.contributionStats {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.prCount {
+    background: linear-gradient(135deg, #007aff, #0056b3);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.issueCount {
+    background: linear-gradient(135deg, #ff9500, #e6850e);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+@media (max-width: 600px) {
+    .contributedRepos {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .contributedRepo {
+        padding: 12px;
+    }
+
+    .repoLink {
+        font-size: 13px;
+    }
+
+    .contributionStats {
+        gap: 8px;
+    }
+
+    .prCount,
+    .issueCount {
+        font-size: 11px;
+        padding: 3px 6px;
+    }
+
+    .ownRepoTag {
+        font-size: 9px;
+        padding: 2px 4px;
+    }
+}
+
+@media (max-width: 400px) {
+    .contributedRepos {
+        gap: 8px;
+    }
+
+    .contributedRepo {
+        padding: 10px;
+        border-left-width: 3px;
+    }
+
+    .repoInfo {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        margin-bottom: 8px;
+    }
+
+    .repoLink {
+        font-size: 12px;
+    }
+
+    .contributionStats {
+        gap: 6px;
+        justify-content: flex-start;
+    }
 }

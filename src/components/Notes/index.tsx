@@ -54,9 +54,9 @@ const Notes: React.FC<NotesProps> = ({
             initialHeight={85}
         >
             <div className={styles.notesContainer}>
-                {/* Desktop Layout */}
+                {}
                 <div className={styles.desktopLayout}>
-                    {/* Sidebar */}
+                    {}
                     <div className={styles.sidebar}>
                         <div className={styles.sidebarHeader}>
                             <h3 className={styles.sidebarTitle}>Folders</h3>
@@ -93,7 +93,7 @@ const Notes: React.FC<NotesProps> = ({
                         </div>
                     </div>
 
-                    {/* Notes List */}
+                    {}
                     <div className={styles.notesList}>
                         <div className={styles.notesHeader}>
                             <h3 className={styles.notesTitle}>
@@ -133,7 +133,7 @@ const Notes: React.FC<NotesProps> = ({
                         </div>
                     </div>
 
-                    {/* Note Content */}
+                    {}
                     <div className={styles.noteContent}>
                         {currentNote ? (
                             <>
@@ -181,7 +181,7 @@ const Notes: React.FC<NotesProps> = ({
                     </div>
                 </div>
 
-                {/* Mobile Layout */}
+                {}
                 <div className={styles.mobileLayout}>
                     {!selectedNote ? (
                         <>

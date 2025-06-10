@@ -1,4 +1,3 @@
-/* Base Container */
 .notesContainer {
     display: flex;
     flex-direction: column;
@@ -10,7 +9,6 @@
     overflow: hidden;
 }
 
-/* Desktop Layout */
 .desktopLayout {
     display: flex;
     height: 100%;
@@ -21,7 +19,6 @@
     display: none;
 }
 
-/* Sidebar */
 .sidebar {
     width: 160px;
     min-width: 160px;
@@ -95,7 +92,6 @@
     background: rgba(255, 255, 255, 0.2);
 }
 
-/* Notes List */
 .notesList {
     width: 320px;
     min-width: 320px;
@@ -200,7 +196,6 @@
     font-weight: 500;
 }
 
-/* Note Content */
 .noteContent {
     flex: 1;
     background: #1e1e1e;
@@ -288,7 +283,6 @@
     font-weight: 500;
 }
 
-/* Empty State */
 .emptyContent {
     flex: 1;
     display: flex;
@@ -319,7 +313,6 @@
     line-height: 1.5;
 }
 
-/* Scrollbar Styling */
 .notesGrid::-webkit-scrollbar,
 .contentBody::-webkit-scrollbar,
 .sectionList::-webkit-scrollbar {
@@ -345,7 +338,6 @@
     background: #666666;
 }
 
-/* Mobile Styles */
 @media screen and (max-width: 600px) {
     .notesContainer {
         background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);

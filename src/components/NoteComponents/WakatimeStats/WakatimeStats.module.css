@@ -435,7 +435,6 @@
     border-radius: 8px;
 }
 
-/* Tablet responsiveness */
 @media (max-width: 900px) and (min-width: 601px) {
     .statsGrid {
         gap: 14px;
@@ -458,7 +457,6 @@
     }
 }
 
-/* Small mobile responsiveness */
 @media (max-width: 400px) {
     .statsGridMobile {
         grid-template-columns: 1fr;
