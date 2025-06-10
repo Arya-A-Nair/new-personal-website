@@ -598,7 +598,6 @@ const LeetCodeStats: React.FC = () => {
                 </div>
             </div>
 
-            {/* Contest Performance */}
             {leetcodeData.contest.contests &&
                 leetcodeData.contest.contests.length > 0 && (
                     <div className={styles.section}>
@@ -607,7 +606,6 @@ const LeetCodeStats: React.FC = () => {
                             Contest Performance
                         </h4>
 
-                        {/* Contest Summary Stats */}
                         <div className={styles.contestSummary}>
                             <div className={styles.summaryCard}>
                                 <div className={styles.summaryValue}>
@@ -647,7 +645,6 @@ const LeetCodeStats: React.FC = () => {
                             </div>
                         </div>
 
-                        {/* Contest List */}
                         <div className={styles.contestList}>
                             <div className={styles.contestListHeader}>
                                 <h5>Recent Contests</h5>
