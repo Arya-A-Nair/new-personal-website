@@ -204,6 +204,30 @@
     overflow: hidden;
 }
 
+/* Grouped layout styles for "All" view */
+.sectionGroup {
+    margin-bottom: 16px;
+}
+
+.groupHeader {
+    padding: 12px 0 6px 0;
+    margin-bottom: 12px;
+}
+
+.groupTitle {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -0.3px;
+}
+
+.groupNotes {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
 .contentHeader {
     padding: 24px 24px 16px 24px;
     border-bottom: 1px solid #404040;
@@ -455,6 +479,30 @@
         gap: 16px;
         display: flex;
         flex-direction: column;
+    }
+
+    /* Mobile grouped layout styles */
+    .mobileSectionGroup {
+        margin-bottom: 12px;
+    }
+
+    .mobileGroupHeader {
+        padding: 8px 0 4px 0;
+        margin-bottom: 8px;
+    }
+
+    .mobileGroupTitle {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 700;
+        color: #ffffff;
+        letter-spacing: -0.3px;
+    }
+
+    .mobileGroupNotes {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
     }
 
     .mobileNoteCard {
