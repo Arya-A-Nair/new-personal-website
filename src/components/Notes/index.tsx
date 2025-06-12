@@ -64,9 +64,7 @@ const Notes: React.FC<NotesProps> = ({
             initialHeight={85}
         >
             <div className={styles.notesContainer}>
-                {}
                 <div className={styles.desktopLayout}>
-                    {}
                     <div className={styles.sidebar}>
                         <div className={styles.sidebarHeader}>
                             <h3 className={styles.sidebarTitle}>Folders</h3>
@@ -319,7 +317,6 @@ const Notes: React.FC<NotesProps> = ({
                             </div>
 
                             <div className={styles.mobileSectionSelector}>
-                                {/* All sections option */}
                                 <div
                                     className={`${styles.mobileSectionChip} ${
                                         selectedSection === null
@@ -368,7 +365,7 @@ const Notes: React.FC<NotesProps> = ({
 
                             <div className={styles.mobileNotesList}>
                                 {selectedSection === null
-                                    ? // Grouped view for "All" - consistent with desktop
+                                    ? 
                                       sections.map(
                                           (section) =>
                                               notesData[section] &&
@@ -452,7 +449,7 @@ const Notes: React.FC<NotesProps> = ({
                                                   </div>
                                               )
                                       )
-                                    : // Regular view for specific section
+                                    : 
                                       currentNotes.map((note) => (
                                           <div
                                               key={note.id}
