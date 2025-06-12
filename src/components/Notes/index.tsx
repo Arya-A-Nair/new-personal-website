@@ -16,7 +16,7 @@ const Notes: React.FC<NotesProps> = ({
     zIndexVal,
     activeElement,
 }) => {
-    const [selectedSection, setSelectedSection] = useState<string>("Dev");
+    const [selectedSection, setSelectedSection] = useState<string | null>(null); // null means "All"
     const [selectedNote, setSelectedNote] = useState<string | null>(null);
 
     useEffect(() => {
@@ -36,7 +36,17 @@ const Notes: React.FC<NotesProps> = ({
     }, [activeElement, onClickClose]);
 
     const sections = Object.keys(notesData);
-    const currentNotes = notesData[selectedSection] || [];
+
+    // Get notes based on selection
+    const getCurrentNotes = () => {
+        if (!selectedSection) {
+            // Show all notes when no section is selected
+            return Object.values(notesData).flat();
+        }
+        return notesData[selectedSection] || [];
+    };
+
+    const currentNotes = getCurrentNotes();
     const currentNote = selectedNote
         ? currentNotes.find((note) => note.id === selectedNote)
         : null;
@@ -54,14 +64,31 @@ const Notes: React.FC<NotesProps> = ({
             initialHeight={85}
         >
             <div className={styles.notesContainer}>
-                {}
                 <div className={styles.desktopLayout}>
-                    {}
                     <div className={styles.sidebar}>
                         <div className={styles.sidebarHeader}>
                             <h3 className={styles.sidebarTitle}>Folders</h3>
                         </div>
                         <div className={styles.sectionList}>
+                            {/* All sections option */}
+                            <div
+                                className={`${styles.sectionItem} ${
+                                    selectedSection === null
+                                        ? styles.selected
+                                        : ""
+                                }`}
+                                onClick={() => {
+                                    setSelectedSection(null);
+                                    setSelectedNote(null);
+                                }}
+                            >
+                                <span className={styles.sectionIcon}>📚</span>
+                                <span className={styles.sectionName}>All</span>
+                                <span className={styles.noteCount}>
+                                    {Object.values(notesData).flat().length}
+                                </span>
+                            </div>
+
                             {sections.map((section) => (
                                 <div
                                     key={section}
@@ -97,7 +124,7 @@ const Notes: React.FC<NotesProps> = ({
                     <div className={styles.notesList}>
                         <div className={styles.notesHeader}>
                             <h3 className={styles.notesTitle}>
-                                {selectedSection}
+                                {selectedSection || "All Notes"}
                             </h3>
                             <span className={styles.notesCount}>
                                 {currentNotes.length} note
@@ -105,31 +132,128 @@ const Notes: React.FC<NotesProps> = ({
                             </span>
                         </div>
                         <div className={styles.notesGrid}>
-                            {currentNotes.map((note) => (
-                                <div
-                                    key={note.id}
-                                    className={`${styles.noteCard} ${
-                                        selectedNote === note.id
-                                            ? styles.selectedNote
-                                            : ""
-                                    }`}
-                                    onClick={() => setSelectedNote(note.id)}
-                                >
-                                    <div className={styles.noteHeader}>
-                                        <h4 className={styles.noteTitle}>
-                                            {note.title}
-                                        </h4>
-                                        {note.date && (
-                                            <span className={styles.noteDate}>
-                                                {note.date}
-                                            </span>
-                                        )}
-                                    </div>
-                                    <p className={styles.notePreview}>
-                                        {note.preview}
-                                    </p>
-                                </div>
-                            ))}
+                            {selectedSection === null
+                                ? // Grouped view for "All" - consistent UI for all sections
+                                  sections.map(
+                                      (section) =>
+                                          notesData[section] &&
+                                          notesData[section].length > 0 && (
+                                              <div
+                                                  key={section}
+                                                  className={
+                                                      styles.sectionGroup
+                                                  }
+                                              >
+                                                  <div
+                                                      className={
+                                                          styles.groupHeader
+                                                      }
+                                                  >
+                                                      <h4
+                                                          className={
+                                                              styles.groupTitle
+                                                          }
+                                                      >
+                                                          {section}
+                                                      </h4>
+                                                  </div>
+                                                  <div
+                                                      className={
+                                                          styles.groupNotes
+                                                      }
+                                                  >
+                                                      {notesData[section].map(
+                                                          (note) => (
+                                                              <div
+                                                                  key={note.id}
+                                                                  className={`${
+                                                                      styles.noteCard
+                                                                  } ${
+                                                                      selectedNote ===
+                                                                      note.id
+                                                                          ? styles.selectedNote
+                                                                          : ""
+                                                                  }`}
+                                                                  onClick={() =>
+                                                                      setSelectedNote(
+                                                                          note.id
+                                                                      )
+                                                                  }
+                                                              >
+                                                                  <div
+                                                                      className={
+                                                                          styles.noteHeader
+                                                                      }
+                                                                  >
+                                                                      <h4
+                                                                          className={
+                                                                              styles.noteTitle
+                                                                          }
+                                                                      >
+                                                                          {
+                                                                              note.title
+                                                                          }
+                                                                      </h4>
+                                                                      {note.date && (
+                                                                          <span
+                                                                              className={
+                                                                                  styles.noteDate
+                                                                              }
+                                                                          >
+                                                                              {
+                                                                                  note.date
+                                                                              }
+                                                                          </span>
+                                                                      )}
+                                                                  </div>
+                                                                  <p
+                                                                      className={
+                                                                          styles.notePreview
+                                                                      }
+                                                                  >
+                                                                      {
+                                                                          note.preview
+                                                                      }
+                                                                  </p>
+                                                              </div>
+                                                          )
+                                                      )}
+                                                  </div>
+                                              </div>
+                                          )
+                                  )
+                                : // Regular view for specific section
+                                  currentNotes.map((note) => (
+                                      <div
+                                          key={note.id}
+                                          className={`${styles.noteCard} ${
+                                              selectedNote === note.id
+                                                  ? styles.selectedNote
+                                                  : ""
+                                          }`}
+                                          onClick={() =>
+                                              setSelectedNote(note.id)
+                                          }
+                                      >
+                                          <div className={styles.noteHeader}>
+                                              <h4 className={styles.noteTitle}>
+                                                  {note.title}
+                                              </h4>
+                                              {note.date && (
+                                                  <span
+                                                      className={
+                                                          styles.noteDate
+                                                      }
+                                                  >
+                                                      {note.date}
+                                                  </span>
+                                              )}
+                                          </div>
+                                          <p className={styles.notePreview}>
+                                              {note.preview}
+                                          </p>
+                                      </div>
+                                  ))}
                         </div>
                     </div>
 
@@ -193,6 +317,21 @@ const Notes: React.FC<NotesProps> = ({
                             </div>
 
                             <div className={styles.mobileSectionSelector}>
+                                <div
+                                    className={`${styles.mobileSectionChip} ${
+                                        selectedSection === null
+                                            ? styles.selected
+                                            : ""
+                                    }`}
+                                    onClick={() => setSelectedSection(null)}
+                                >
+                                    <span className={styles.chipIcon}>📚</span>
+                                    <span className={styles.chipText}>All</span>
+                                    <span className={styles.chipCount}>
+                                        {Object.values(notesData).flat().length}
+                                    </span>
+                                </div>
+
                                 {sections.map((section) => (
                                     <div
                                         key={section}
@@ -225,37 +364,131 @@ const Notes: React.FC<NotesProps> = ({
                             </div>
 
                             <div className={styles.mobileNotesList}>
-                                {currentNotes.map((note) => (
-                                    <div
-                                        key={note.id}
-                                        className={styles.mobileNoteCard}
-                                        onClick={() => setSelectedNote(note.id)}
-                                    >
-                                        <div
-                                            className={styles.mobileNoteHeader}
-                                        >
-                                            <h3
-                                                className={
-                                                    styles.mobileNoteTitle
-                                                }
-                                            >
-                                                {note.title}
-                                            </h3>
-                                            {note.date && (
-                                                <span
-                                                    className={
-                                                        styles.mobileNoteDate
-                                                    }
-                                                >
-                                                    {note.date}
-                                                </span>
-                                            )}
-                                        </div>
-                                        <p className={styles.mobileNotePreview}>
-                                            {note.preview}
-                                        </p>
-                                    </div>
-                                ))}
+                                {selectedSection === null
+                                    ? 
+                                      sections.map(
+                                          (section) =>
+                                              notesData[section] &&
+                                              notesData[section].length > 0 && (
+                                                  <div
+                                                      key={section}
+                                                      className={
+                                                          styles.mobileSectionGroup
+                                                      }
+                                                  >
+                                                      <div
+                                                          className={
+                                                              styles.mobileGroupHeader
+                                                          }
+                                                      >
+                                                          <h4
+                                                              className={
+                                                                  styles.mobileGroupTitle
+                                                              }
+                                                          >
+                                                              {section}
+                                                          </h4>
+                                                      </div>
+                                                      <div
+                                                          className={
+                                                              styles.mobileGroupNotes
+                                                          }
+                                                      >
+                                                          {notesData[
+                                                              section
+                                                          ].map((note) => (
+                                                              <div
+                                                                  key={note.id}
+                                                                  className={
+                                                                      styles.mobileNoteCard
+                                                                  }
+                                                                  onClick={() =>
+                                                                      setSelectedNote(
+                                                                          note.id
+                                                                      )
+                                                                  }
+                                                              >
+                                                                  <div
+                                                                      className={
+                                                                          styles.mobileNoteHeader
+                                                                      }
+                                                                  >
+                                                                      <h3
+                                                                          className={
+                                                                              styles.mobileNoteTitle
+                                                                          }
+                                                                      >
+                                                                          {
+                                                                              note.title
+                                                                          }
+                                                                      </h3>
+                                                                      {note.date && (
+                                                                          <span
+                                                                              className={
+                                                                                  styles.mobileNoteDate
+                                                                              }
+                                                                          >
+                                                                              {
+                                                                                  note.date
+                                                                              }
+                                                                          </span>
+                                                                      )}
+                                                                  </div>
+                                                                  <p
+                                                                      className={
+                                                                          styles.mobileNotePreview
+                                                                      }
+                                                                  >
+                                                                      {
+                                                                          note.preview
+                                                                      }
+                                                                  </p>
+                                                              </div>
+                                                          ))}
+                                                      </div>
+                                                  </div>
+                                              )
+                                      )
+                                    : 
+                                      currentNotes.map((note) => (
+                                          <div
+                                              key={note.id}
+                                              className={styles.mobileNoteCard}
+                                              onClick={() =>
+                                                  setSelectedNote(note.id)
+                                              }
+                                          >
+                                              <div
+                                                  className={
+                                                      styles.mobileNoteHeader
+                                                  }
+                                              >
+                                                  <h3
+                                                      className={
+                                                          styles.mobileNoteTitle
+                                                      }
+                                                  >
+                                                      {note.title}
+                                                  </h3>
+                                                  {note.date && (
+                                                      <span
+                                                          className={
+                                                              styles.mobileNoteDate
+                                                          }
+                                                      >
+                                                          {note.date}
+                                                      </span>
+                                                  )}
+                                              </div>
+                                              <p
+                                                  className={
+                                                      styles.mobileNotePreview
+                                                  }
+                                              >
+                                                  {note.preview}
+                                              </p>
+                                          </div>
+                                      ))}
                             </div>
                         </>
                     ) : (

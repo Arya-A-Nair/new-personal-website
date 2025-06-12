@@ -123,6 +123,9 @@
     flex: 1;
     overflow-y: auto;
     padding: 8px;
+    gap: 0.5rem;
+    display: flex;
+    flex-direction: column;
 }
 
 .noteCard {
@@ -202,6 +205,26 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
+}
+
+
+
+.groupHeader {
+    padding: 0 0 0.5rem 0;
+}
+
+.groupTitle {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #999999;
+    letter-spacing: -0.3px;
+}
+
+.groupNotes {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .contentHeader {
@@ -452,9 +475,27 @@
         flex: 1;
         padding: 20px;
         overflow-y: auto;
-        gap: 16px;
+        gap: 1.5rem;
         display: flex;
         flex-direction: column;
+    }
+
+    .mobileGroupHeader {
+        padding: 0 0 0.5rem 0;
+    }
+
+    .mobileGroupTitle {
+        margin: 0;
+        font-size: 1rem;
+        font-weight: 700;
+        color: #999999;
+        letter-spacing: -0.3px;
+    }
+
+    .mobileGroupNotes {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
     }
 
     .mobileNoteCard {
