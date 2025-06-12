@@ -52,7 +52,7 @@ export const useWindowManager = () => {
                 isVisible: false,
             },
         }));
-        setActiveElement('');
+        setActiveElement(prev => prev === windowId ? '' : prev);
     }, []);
 
     const openWindow = useCallback((windowId: string) => {

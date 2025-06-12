@@ -5,9 +5,14 @@ import { WindowConfig } from "../../config/windowComponents";
 interface ToolbarItemProps {
     config: WindowConfig;
     onSelect: (windowId: string) => void;
+    isActive: boolean;
 }
 
-const ToolbarItem: React.FC<ToolbarItemProps> = ({ config, onSelect }) => {
+const ToolbarItem: React.FC<ToolbarItemProps> = ({
+    config,
+    onSelect,
+    isActive,
+}) => {
     const handleClick = () => {
         onSelect(config.id);
     };
@@ -21,7 +26,7 @@ const ToolbarItem: React.FC<ToolbarItemProps> = ({ config, onSelect }) => {
 
     return (
         <div
-            className={styles.toolbarItem}
+            className={`${styles.toolbarItem} ${isActive ? styles.active : ""}`}
             onClick={handleClick}
             onKeyDown={handleKeyDown}
             tabIndex={0}

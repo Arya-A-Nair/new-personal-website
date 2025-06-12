@@ -5,9 +5,13 @@ import { getToolbarItems, appConfig } from "../../config/windowComponents";
 
 interface ToolbarProps {
     selectActiveItem: (item: string) => void;
+    activeElement: string;
 }
 
-const Toolbar: React.FC<ToolbarProps> = ({ selectActiveItem }) => {
+const Toolbar: React.FC<ToolbarProps> = ({
+    selectActiveItem,
+    activeElement,
+}) => {
     const toolbarItems = getToolbarItems();
 
     return (
@@ -24,6 +28,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ selectActiveItem }) => {
                     key={config.id}
                     config={config}
                     onSelect={selectActiveItem}
+                    isActive={activeElement === config.id}
                 />
             ))}
         </div>
