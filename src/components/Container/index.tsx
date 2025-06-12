@@ -53,7 +53,10 @@ const Container: React.FC = () => {
                 />
             ))}
 
-            <Toolbar selectActiveItem={activateWindow} />
+            <Toolbar
+                selectActiveItem={activateWindow}
+                activeElement={activeElement}
+            />
         </div>
     );
 };
