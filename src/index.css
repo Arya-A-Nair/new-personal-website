@@ -1,18 +1,18 @@
 @import url("https://fonts.cdnfonts.com/css/sf-mono");
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "SF Mono", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "SF Mono", sans-serif;
 }
 
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-size: auto;
-    background-image: url("/images/Background.png");
-    height: 100vh;
-    width: 100vw;
-    background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: auto;
+  background-image: url("/images/Background.png");
+  height: 100vh;
+  width: 100vw;
+  background-size: cover;
 }

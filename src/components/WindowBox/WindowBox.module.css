@@ -1,137 +1,137 @@
 .container {
-    background-color: #10162c;
-    position: absolute;
-    border-radius: 12px;
-    overflow: hidden;
-    animation: width 1s ease-in-out;
-    display: flex;
-    flex-direction: column;
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  background-color: #10162c;
+  position: absolute;
+  border-radius: 12px;
+  overflow: hidden;
+  animation: width 1s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 .statBar {
-    width: 100%;
-    height: 2rem;
-    background: linear-gradient(
-        180deg,
-        rgba(55, 55, 55, 0.95) 0%,
-        rgba(45, 45, 45, 0.95) 100%
-    );
-    backdrop-filter: blur(20px);
-    top: 0%;
-    left: 0%;
-    padding: 0.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: #ffffff;
-    flex-shrink: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui,
-        sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  width: 100%;
+  height: 2rem;
+  background: linear-gradient(
+    180deg,
+    rgba(55, 55, 55, 0.95) 0%,
+    rgba(45, 45, 45, 0.95) 100%
+  );
+  backdrop-filter: blur(20px);
+  top: 0%;
+  left: 0%;
+  padding: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #ffffff;
+  flex-shrink: 0;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .statBarIcons {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .statBarIcons > img {
-    cursor: pointer;
-    width: 12px;
-    height: 12px;
-    transition: all 0.2s ease;
+  cursor: pointer;
+  width: 12px;
+  height: 12px;
+  transition: all 0.2s ease;
 }
 
 .statBarIcons > img:hover {
-    transform: scale(1.1);
+  transform: scale(1.1);
 }
 
 .ContentContainer {
-    display: flex;
-    justify-content: center;
-    align-items: stretch;
-    flex: 1;
-    width: 100%;
-    overflow: hidden;
-    min-height: 0;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex: 1;
+  width: 100%;
+  overflow: hidden;
+  min-height: 0;
 }
 
 @media screen and (max-width: 600px) {
-    .container {
-        border-radius: 0;
-        border: none;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-        backdrop-filter: none;
-    }
+  .container {
+    border-radius: 0;
+    border: none;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    backdrop-filter: none;
+  }
 
-    .statBar {
-        background: linear-gradient(135deg, #1a1a1a 0%, #2d2d30 100%);
-        color: #ffffff;
-        font-family: "Roboto", "Google Sans", system-ui, sans-serif;
-        font-size: 16px;
-        font-weight: 600;
-        height: 56px;
-        padding: 0 16px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-        position: relative;
-    }
+  .statBar {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d30 100%);
+    color: #ffffff;
+    font-family: "Roboto", "Google Sans", system-ui, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    height: 56px;
+    padding: 0 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    position: relative;
+  }
 
-    .statBarIcons {
-        display: none;
-    }
+  .statBarIcons {
+    display: none;
+  }
 
-    .mobileBackButton {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        cursor: pointer;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        margin-right: 8px;
-    }
+  .mobileBackButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-right: 8px;
+  }
 
-    .mobileBackButton:hover {
-        background: rgba(255, 255, 255, 0.1);
-        transform: scale(1.1);
-    }
+  .mobileBackButton:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.1);
+  }
 
-    .mobileBackButton:active {
-        background: rgba(255, 255, 255, 0.2);
-        transform: scale(0.95);
-    }
+  .mobileBackButton:active {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(0.95);
+  }
 
-    .backArrow {
-        font-size: 24px;
-        font-weight: 300;
-        color: #ffffff;
-        user-select: none;
-        line-height: 1;
-    }
+  .backArrow {
+    font-size: 24px;
+    font-weight: 300;
+    color: #ffffff;
+    user-select: none;
+    line-height: 1;
+  }
 
-    .mobileTitle {
-        flex: 1;
-        text-align: center;
-        font-size: 16px;
-        font-weight: 600;
-        color: #ffffff;
-        margin: 0 8px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
+  .mobileTitle {
+    flex: 1;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 
-    .mobileSpacer {
-        width: 40px;
-        height: 40px;
-    }
+  .mobileSpacer {
+    width: 40px;
+    height: 40px;
+  }
 }

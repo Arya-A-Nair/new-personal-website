@@ -7,46 +7,43 @@ import { BsGrid3X3Gap } from "react-icons/bs";
 import { useIsMobile } from "../../hooks/useIsMobile";
 
 interface NavbarProps {
-    setBrightness: (brightness: number) => void;
-    brightness: number;
-    onCommandCentreToggle?: () => void;
+  setBrightness: (brightness: number) => void;
+  brightness: number;
+  onCommandCentreToggle?: () => void;
 }
 
 const Navbar: React.FC<NavbarProps> = ({
-    setBrightness,
-    brightness,
-    onCommandCentreToggle,
+  setBrightness,
+  brightness,
+  onCommandCentreToggle,
 }) => {
-    const isMobile = useIsMobile(600);
+  const isMobile = useIsMobile(600);
 
-    return (
-        <div className={styles.container}>
-            <div className={styles.leftSection}>
-                {!isMobile && (
-                    <div className={styles.logoContainer}>
-                        <FaApple className={styles.appleIcon} />
-                    </div>
-                )}
-                {onCommandCentreToggle && (
-                    <button
-                        className={styles.commandCentreButton}
-                        onClick={onCommandCentreToggle}
-                        title="Command Centre"
-                        aria-label="Open Command Centre"
-                    >
-                        <BsGrid3X3Gap className={styles.commandCentreIcon} />
-                    </button>
-                )}
-            </div>
+  return (
+    <div className={styles.container}>
+      <div className={styles.leftSection}>
+        {!isMobile && (
+          <div className={styles.logoContainer}>
+            <FaApple className={styles.appleIcon} />
+          </div>
+        )}
+        {onCommandCentreToggle && (
+          <button
+            className={styles.commandCentreButton}
+            onClick={onCommandCentreToggle}
+            title="Command Centre"
+            aria-label="Open Command Centre"
+          >
+            <BsGrid3X3Gap className={styles.commandCentreIcon} />
+          </button>
+        )}
+      </div>
 
-            <DateTime />
+      <DateTime />
 
-            <BatteryContainer
-                setBrightness={setBrightness}
-                brightness={brightness}
-            />
-        </div>
-    );
+      <BatteryContainer setBrightness={setBrightness} brightness={brightness} />
+    </div>
+  );
 };
 
 export default Navbar;

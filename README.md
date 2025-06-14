@@ -10,10 +10,10 @@ This project has been migrated from Create React App to Vite for better performa
 
 ### Available Scripts
 
--   `npm run dev` - Start the development server
--   `npm run build` - Build the project for production
--   `npm run preview` - Preview the production build locally
--   `npm run deploy` - Deploy to GitHub Pages
+- `npm run dev` - Start the development server
+- `npm run build` - Build the project for production
+- `npm run preview` - Preview the production build locally
+- `npm run deploy` - Deploy to GitHub Pages
 
 ### Getting Started
 
@@ -23,9 +23,9 @@ This project has been migrated from Create React App to Vite for better performa
 
 ### Tech Stack
 
--   React 18
--   TypeScript
--   Vite
--   Framer Motion
--   Material-UI
--   CSS Modules
+- React 18
+- TypeScript
+- Vite
+- Framer Motion
+- Material-UI
+- CSS Modules

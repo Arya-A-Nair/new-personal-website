@@ -1,1161 +1,1161 @@
 .sr-only {
-    position: absolute !important;
-    width: 1px !important;
-    height: 1px !important;
-    padding: 0 !important;
-    margin: -1px !important;
-    overflow: hidden !important;
-    clip: rect(0, 0, 0, 0) !important;
-    white-space: nowrap !important;
-    border: 0 !important;
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
 }
 
 .container {
-    display: flex;
-    width: 100%;
-    height: 100%;
-    background: #1e1e1e;
-    overflow: hidden;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  background: #1e1e1e;
+  overflow: hidden;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .desktopLayout {
-    display: flex;
-    width: 100%;
-    height: 100%;
+  display: flex;
+  width: 100%;
+  height: 100%;
 }
 
 .explorer {
-    display: flex;
-    background: #252526;
-    border-right: 1px solid #3c3c3c;
-    overflow: hidden;
+  display: flex;
+  background: #252526;
+  border-right: 1px solid #3c3c3c;
+  overflow: hidden;
 }
 
 .activityBar {
-    width: 48px;
-    background: #2c2c2c;
-    border-right: 1px solid #3c3c3c;
-    display: flex;
-    flex-direction: column;
-    padding: 8px 0;
+  width: 48px;
+  background: #2c2c2c;
+  border-right: 1px solid #3c3c3c;
+  display: flex;
+  flex-direction: column;
+  padding: 8px 0;
 }
 
 .activityItem {
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    color: #858585;
-    transition: all 0.2s ease;
-    position: relative;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #858585;
+  transition: all 0.2s ease;
+  position: relative;
 }
 
 .activityItem:hover {
-    color: #ffffff;
+  color: #ffffff;
 }
 
 .activityItem.active {
-    color: #ffffff;
+  color: #ffffff;
 }
 
 .activityItem.active::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: #007acc;
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #007acc;
 }
 
 .explorerPanel {
-    width: 300px;
-    background: #252526;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
+  width: 300px;
+  background: #252526;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .explorerHeader {
-    padding: 8px 20px;
-    background: #252526;
-    border-bottom: 1px solid #3c3c3c;
+  padding: 8px 20px;
+  background: #252526;
+  border-bottom: 1px solid #3c3c3c;
 }
 
 .explorerTitle {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 11px;
-    font-weight: 600;
-    color: #cccccc;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    cursor: pointer;
-    user-select: none;
-    padding: 4px 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #cccccc;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  user-select: none;
+  padding: 4px 0;
 }
 
 .explorerTitle:hover {
-    color: #ffffff;
+  color: #ffffff;
 }
 
 .projectCount {
-    margin-left: auto;
-    color: #858585;
-    font-weight: 400;
+  margin-left: auto;
+  color: #858585;
+  font-weight: 400;
 }
 
 .searchContainer {
-    padding: 8px 20px 12px;
-    background: #252526;
+  padding: 8px 20px 12px;
+  background: #252526;
 }
 
 .searchWrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-    background: #3c3c3c;
-    border: 1px solid #464647;
-    border-radius: 3px;
-    transition: border-color 0.2s ease;
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: #3c3c3c;
+  border: 1px solid #464647;
+  border-radius: 3px;
+  transition: border-color 0.2s ease;
 }
 
 .searchWrapper:focus-within {
-    border-color: #007acc;
+  border-color: #007acc;
 }
 
 .searchIcon {
-    color: #858585;
-    margin-left: 8px;
-    flex-shrink: 0;
+  color: #858585;
+  margin-left: 8px;
+  flex-shrink: 0;
 }
 
 .searchInput {
-    background: transparent;
-    border: none;
-    padding: 6px 8px;
-    font-size: 13px;
-    color: #cccccc;
-    width: 100%;
-    outline: none;
+  background: transparent;
+  border: none;
+  padding: 6px 8px;
+  font-size: 13px;
+  color: #cccccc;
+  width: 100%;
+  outline: none;
 }
 
 .searchInput::placeholder {
-    color: #858585;
+  color: #858585;
 }
 
 .clearSearch {
-    background: none;
-    border: none;
-    color: #858585;
-    cursor: pointer;
-    padding: 4px 8px;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  background: none;
+  border: none;
+  color: #858585;
+  cursor: pointer;
+  padding: 4px 8px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .clearSearch:hover {
-    color: #cccccc;
+  color: #cccccc;
 }
 
 .fileTree {
-    flex: 1;
-    overflow-y: auto;
-    padding: 4px 0;
+  flex: 1;
+  overflow-y: auto;
+  padding: 4px 0;
 }
 
 .projectFolder {
-    margin-bottom: 2px;
+  margin-bottom: 2px;
 }
 
 .folderItem {
-    display: flex;
-    align-items: center;
-    padding: 4px 20px;
-    cursor: pointer;
-    font-size: 13px;
-    color: #cccccc;
-    user-select: none;
-    transition: background-color 0.15s ease;
-    position: relative;
-    min-height: 22px;
+  display: flex;
+  align-items: center;
+  padding: 4px 20px;
+  cursor: pointer;
+  font-size: 13px;
+  color: #cccccc;
+  user-select: none;
+  transition: background-color 0.15s ease;
+  position: relative;
+  min-height: 22px;
 }
 
 .folderItem:hover {
-    background: #2a2d2e;
+  background: #2a2d2e;
 }
 
 .folderItem.expanded {
-    background: #094771;
-    color: #ffffff;
+  background: #094771;
+  color: #ffffff;
 }
 
 .folderIcon {
-    margin-right: 6px;
-    color: #dcb67a;
-    flex-shrink: 0;
-    width: 16px;
-    height: 16px;
+  margin-right: 6px;
+  color: #dcb67a;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
 }
 
 .folderName {
-    flex: 1;
-    margin-right: 8px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  flex: 1;
+  margin-right: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .techIndicator {
-    display: flex;
-    gap: 2px;
-    align-items: center;
-    flex-wrap: wrap;
+  display: flex;
+  gap: 2px;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .techBadge {
-    background: rgba(0, 122, 204, 0.15);
-    color: #007acc;
-    font-size: 9px;
-    padding: 1px 4px;
-    border-radius: 2px;
-    font-weight: 500;
-    white-space: nowrap;
+  background: rgba(0, 122, 204, 0.15);
+  color: #007acc;
+  font-size: 9px;
+  padding: 1px 4px;
+  border-radius: 2px;
+  font-weight: 500;
+  white-space: nowrap;
 }
 
 .fileList {
-    padding-left: 20px;
-    background: rgba(0, 0, 0, 0.1);
+  padding-left: 20px;
+  background: rgba(0, 0, 0, 0.1);
 }
 
 .fileItem {
-    display: flex;
-    align-items: center;
-    padding: 2px 20px;
-    font-size: 13px;
-    color: #cccccc;
-    min-height: 20px;
+  display: flex;
+  align-items: center;
+  padding: 2px 20px;
+  font-size: 13px;
+  color: #cccccc;
+  min-height: 20px;
 }
 
 .readmeIcon {
-    margin-right: 6px;
-    color: #519aba;
-    flex-shrink: 0;
-    width: 16px;
-    height: 16px;
+  margin-right: 6px;
+  color: #519aba;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
 }
 
 .fileName {
-    color: #cccccc;
-    font-size: 13px;
+  color: #cccccc;
+  font-size: 13px;
 }
 
 .noResults {
-    padding: 20px;
-    text-align: center;
-    color: #858585;
-    font-size: 13px;
-    font-style: italic;
+  padding: 20px;
+  text-align: center;
+  color: #858585;
+  font-size: 13px;
+  font-style: italic;
 }
 
 .mainContent {
-    flex: 1;
-    background: #1e1e1e;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
+  flex: 1;
+  background: #1e1e1e;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .projectDetails {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .tabBar {
-    background: #2d2d30;
-    border-bottom: 1px solid #3c3c3c;
-    display: flex;
-    align-items: center;
-    min-height: 35px;
+  background: #2d2d30;
+  border-bottom: 1px solid #3c3c3c;
+  display: flex;
+  align-items: center;
+  min-height: 35px;
 }
 
 .tab {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 16px;
-    background: #1e1e1e;
-    border-right: 1px solid #3c3c3c;
-    font-size: 13px;
-    color: #ffffff;
-    max-width: 250px;
-    position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: #1e1e1e;
+  border-right: 1px solid #3c3c3c;
+  font-size: 13px;
+  color: #ffffff;
+  max-width: 250px;
+  position: relative;
 }
 
 .tab::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: #007acc;
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: #007acc;
 }
 
 .tabIcon {
-    color: #519aba;
-    flex-shrink: 0;
+  color: #519aba;
+  flex-shrink: 0;
 }
 
 .tabPath {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
 }
 
 .closeTab {
-    background: none;
-    border: none;
-    color: #858585;
-    cursor: pointer;
-    padding: 2px;
-    margin-left: auto;
-    font-size: 16px;
-    border-radius: 2px;
-    transition: all 0.2s ease;
-    flex-shrink: 0;
+  background: none;
+  border: none;
+  color: #858585;
+  cursor: pointer;
+  padding: 2px;
+  margin-left: auto;
+  font-size: 16px;
+  border-radius: 2px;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
 }
 
 .closeTab:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: #cccccc;
+  background: rgba(255, 255, 255, 0.1);
+  color: #cccccc;
 }
 
 .breadcrumbBar {
-    background: #2d2d30;
-    border-bottom: 1px solid #3c3c3c;
-    padding: 6px 16px;
+  background: #2d2d30;
+  border-bottom: 1px solid #3c3c3c;
+  padding: 6px 16px;
 }
 
 .breadcrumb {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 12px;
-    color: #cccccc;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #cccccc;
 }
 
 .breadcrumbIcon {
-    color: #dcb67a;
-    flex-shrink: 0;
+  color: #dcb67a;
+  flex-shrink: 0;
 }
 
 .breadcrumb span {
-    color: #cccccc;
+  color: #cccccc;
 }
 
 .welcomeScreen {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 1rem;
-    overflow-y: auto;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem;
+  overflow-y: auto;
 }
 
 .welcomeContent {
-    width: 100%;
-    max-width: 600px;
+  width: 100%;
+  max-width: 600px;
 }
 
 .vscodeWelcome {
-    text-align: center;
+  text-align: center;
 }
 
 .vscodeWelcome h2 {
-    color: #ffffff;
-    font-size: 32px;
-    margin-bottom: 16px;
-    font-weight: 300;
+  color: #ffffff;
+  font-size: 32px;
+  margin-bottom: 16px;
+  font-weight: 300;
 }
 
 .vscodeWelcome p {
-    color: #cccccc;
-    font-size: 14px;
-    margin-bottom: 32px;
+  color: #cccccc;
+  font-size: 14px;
+  margin-bottom: 32px;
 }
 
 .quickActions {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: left;
 }
 
 .quickAction {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 16px;
-    background: #2d2d30;
-    border: 1px solid #3c3c3c;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: #2d2d30;
+  border: 1px solid #3c3c3c;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .quickAction:hover {
-    border-color: #007acc;
-    background: #2a2a2b;
+  border-color: #007acc;
+  background: #2a2a2b;
 }
 
 .quickAction svg {
-    color: #007acc;
-    font-size: 20px;
+  color: #007acc;
+  font-size: 20px;
 }
 
 .quickAction strong {
-    color: #ffffff;
-    font-size: 14px;
-    margin-bottom: 4px;
-    display: block;
+  color: #ffffff;
+  font-size: 14px;
+  margin-bottom: 4px;
+  display: block;
 }
 
 .quickAction span {
-    color: #cccccc;
-    font-size: 12px;
+  color: #cccccc;
+  font-size: 12px;
 }
 
 .repositoryView {
-    height: 100%;
+  height: 100%;
 }
 
 .repoHeader {
-    margin-bottom: 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.5rem;
-    border-bottom: 1px solid #3c3c3c;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+  border-bottom: 1px solid #3c3c3c;
 }
 
 .repoHeader h2 {
-    color: #ffffff;
-    font-size: 24px;
-    font-weight: 400;
-    margin: 0;
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: 400;
+  margin: 0;
 }
 
 .repoStats {
-    color: #858585;
-    font-size: 14px;
+  color: #858585;
+  font-size: 14px;
 }
 
 .projectGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 16px;
 }
 
 .repoCard {
-    background: #2d2d30;
-    border: 1px solid #3c3c3c;
-    border-radius: 6px;
-    padding: 16px;
-    cursor: pointer;
-    transition: all 0.2s ease;
+  background: #2d2d30;
+  border: 1px solid #3c3c3c;
+  border-radius: 6px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .repoCard:hover {
-    border-color: #007acc;
-    transform: translateY(-1px);
+  border-color: #007acc;
+  transform: translateY(-1px);
 }
 
 .repoCardHeader {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
 }
 
 .repoIcon {
-    color: #858585;
+  color: #858585;
 }
 
 .repoCardHeader h3 {
-    color: #007acc;
-    font-size: 16px;
-    font-weight: 600;
-    margin: 0;
+  color: #007acc;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
 }
 
 .repoDescription {
-    color: #cccccc;
-    font-size: 14px;
-    line-height: 1.5;
-    margin-bottom: 12px;
+  color: #cccccc;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 12px;
 }
 
 .repoFooter {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .repoTech {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    flex: 1;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  flex: 1;
 }
 
 .techTag {
-    background: rgba(0, 122, 204, 0.15);
-    color: #007acc;
-    font-size: 12px;
-    padding: 2px 6px;
-    border-radius: 12px;
-    font-weight: 500;
+  background: rgba(0, 122, 204, 0.15);
+  color: #007acc;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 12px;
+  font-weight: 500;
 }
 
 .repoMeta {
-    display: flex;
-    align-items: center;
-    color: #858585;
-    margin-left: 8px;
+  display: flex;
+  align-items: center;
+  color: #858585;
+  margin-left: 8px;
 }
 
 .mobileLayout {
-    display: none;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-    background: #121212;
-    font-family: "Roboto", "Segoe UI", sans-serif;
+  display: none;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background: #121212;
+  font-family: "Roboto", "Segoe UI", sans-serif;
 }
 
 .mobileHeader {
-    background: #1e1e1e;
-    padding: 16px 16px 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-    border-bottom: 1px solid #333333;
+  background: #1e1e1e;
+  padding: 16px 16px 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid #333333;
 }
 
 .mobileHeaderTop {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
 }
 
 .mobileHeaderTop h1 {
-    color: #ffffff;
-    font-size: 24px;
-    font-weight: 500;
-    margin: 0;
-    letter-spacing: 0.15px;
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: 500;
+  margin: 0;
+  letter-spacing: 0.15px;
 }
 
 .mobileHeaderActions {
-    display: flex;
-    gap: 4px;
+  display: flex;
+  gap: 4px;
 }
 
 .viewToggle {
-    background: none;
-    border: none;
-    padding: 8px;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    color: #b3b3b3;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  background: none;
+  border: none;
+  padding: 8px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #b3b3b3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .viewToggle.active {
-    background: rgba(72, 209, 253, 0.2);
-    color: #48d1fd;
+  background: rgba(72, 209, 253, 0.2);
+  color: #48d1fd;
 }
 
 .viewToggle:hover {
-    background: #2a2a2a;
+  background: #2a2a2a;
 }
 
 .viewToggle.active:hover {
-    background: rgba(72, 209, 253, 0.25);
+  background: rgba(72, 209, 253, 0.25);
 }
 
 .mobileSearchContainer {
-    margin-bottom: 12px;
+  margin-bottom: 12px;
 }
 
 .mobileSearchBar {
-    display: flex;
-    align-items: center;
-    background: #2a2a2a;
-    border-radius: 28px;
-    padding: 8px 16px;
-    border: 1px solid transparent;
-    transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  background: #2a2a2a;
+  border-radius: 28px;
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
 }
 
 .mobileSearchBar:focus-within {
-    background: #333333;
-    border-color: #48d1fd;
-    box-shadow: 0 2px 8px rgba(72, 209, 253, 0.2);
+  background: #333333;
+  border-color: #48d1fd;
+  box-shadow: 0 2px 8px rgba(72, 209, 253, 0.2);
 }
 
 .mobileSearchIcon {
-    color: #b3b3b3;
-    margin-right: 12px;
-    font-size: 20px;
+  color: #b3b3b3;
+  margin-right: 12px;
+  font-size: 20px;
 }
 
 .mobileSearchInput {
-    background: transparent;
-    border: none;
-    outline: none;
-    flex: 1;
-    font-size: 16px;
-    color: #ffffff;
-    font-family: "Roboto", sans-serif;
+  background: transparent;
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 16px;
+  color: #ffffff;
+  font-family: "Roboto", sans-serif;
 }
 
 .mobileSearchInput::placeholder {
-    color: #888888;
+  color: #888888;
 }
 
 .mobileClearButton {
-    background: none;
-    border: none;
-    color: #b3b3b3;
-    cursor: pointer;
-    padding: 4px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease;
+  background: none;
+  border: none;
+  color: #b3b3b3;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
 }
 
 .mobileClearButton:hover {
-    background: #3a3a3a;
-    color: #ffffff;
+  background: #3a3a3a;
+  color: #ffffff;
 }
 
 .mobileStats {
-    color: #b3b3b3;
-    font-size: 14px;
-    margin-bottom: 8px;
-    font-weight: 400;
+  color: #b3b3b3;
+  font-size: 14px;
+  margin-bottom: 8px;
+  font-weight: 400;
 }
 
 .mobileProjectList {
-    flex: 1;
-    overflow-y: auto;
-    padding: 8px 16px 16px;
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 16px 16px;
 }
 
 .mobileGridView {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
 }
 
 .mobileListView {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .mobileProjectCard {
-    background: #1e1e1e;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-    overflow: hidden;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    cursor: pointer;
-    position: relative;
-    border: 1px solid #333333;
+  background: #1e1e1e;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  position: relative;
+  border: 1px solid #333333;
 }
 
 .mobileProjectCard:hover {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
-    transform: translateY(-2px);
-    border-color: #48d1fd;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+  transform: translateY(-2px);
+  border-color: #48d1fd;
 }
 
 .mobileProjectCard:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
 .mobileCardImageContainer {
-    position: relative;
-    overflow: hidden;
+  position: relative;
+  overflow: hidden;
 }
 
 .mobileCardImageContainer img {
-    width: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
+  width: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
 }
 
 .mobileProjectCard:hover .mobileCardImageContainer img {
-    transform: scale(1.05);
+  transform: scale(1.05);
 }
 
 .mobileCardOverlay {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    opacity: 0;
-    transition: opacity 0.2s ease;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
 }
 
 .mobileProjectCard:hover .mobileCardOverlay {
-    opacity: 1;
+  opacity: 1;
 }
 
 .favoriteButton {
-    background: rgba(30, 30, 30, 0.9);
-    border: none;
-    border-radius: 50%;
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    color: #b3b3b3;
-    transition: all 0.2s ease;
-    backdrop-filter: blur(4px);
-    border: 1px solid #333333;
+  background: rgba(30, 30, 30, 0.9);
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #b3b3b3;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(4px);
+  border: 1px solid #333333;
 }
 
 .favoriteButton:hover {
-    background: rgba(30, 30, 30, 1);
-    color: #ff4444;
-    transform: scale(1.1);
-    border-color: #ff4444;
+  background: rgba(30, 30, 30, 1);
+  color: #ff4444;
+  transform: scale(1.1);
+  border-color: #ff4444;
 }
 
 .mobileCardContent {
-    padding: 16px;
+  padding: 16px;
 }
 
 .mobileCardHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
 }
 
 .mobileCardHeader h3 {
-    color: #ffffff;
-    font-size: 18px;
-    font-weight: 500;
-    margin: 0;
-    line-height: 1.3;
-    flex: 1;
-    margin-right: 8px;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0;
+  line-height: 1.3;
+  flex: 1;
+  margin-right: 8px;
 }
 
 .starIcon {
-    color: #ffc107;
-    font-size: 20px;
-    flex-shrink: 0;
+  color: #ffc107;
+  font-size: 20px;
+  flex-shrink: 0;
 }
 
 .mobileCardContent p {
-    color: #b3b3b3;
-    font-size: 14px;
-    line-height: 1.5;
-    margin: 0 0 12px 0;
+  color: #b3b3b3;
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0 0 12px 0;
 }
 
 .mobileTechStack {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-bottom: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
 }
 
 .mobileTechChip {
-    background: rgba(72, 209, 253, 0.15);
-    color: #48d1fd;
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.25px;
-    border: 1px solid rgba(72, 209, 253, 0.3);
+  background: rgba(72, 209, 253, 0.15);
+  color: #48d1fd;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.25px;
+  border: 1px solid rgba(72, 209, 253, 0.3);
 }
 
 .mobileTechMore {
-    background: #333333;
-    color: #b3b3b3;
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: 500;
-    border: 1px solid #444444;
+  background: #333333;
+  color: #b3b3b3;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid #444444;
 }
 
 .mobileCardActions {
-    display: flex;
-    gap: 8px;
+  display: flex;
+  gap: 8px;
 }
 
 .mobileActionButton {
-    background: none;
-    border: 1px solid #444444;
-    border-radius: 20px;
-    padding: 8px 16px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    font-size: 14px;
-    font-weight: 500;
-    color: #48d1fd;
-    flex: 1;
-    justify-content: center;
+  background: none;
+  border: 1px solid #444444;
+  border-radius: 20px;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 14px;
+  font-weight: 500;
+  color: #48d1fd;
+  flex: 1;
+  justify-content: center;
 }
 
 .mobileActionButton:hover {
-    background: rgba(72, 209, 253, 0.1);
-    border-color: #48d1fd;
+  background: rgba(72, 209, 253, 0.1);
+  border-color: #48d1fd;
 }
 
 .mobileActionButton:active {
-    background: rgba(72, 209, 253, 0.2);
+  background: rgba(72, 209, 253, 0.2);
 }
 
 .mobileProjectListItem {
-    background: #1e1e1e;
-    border-radius: 8px;
-    padding: 16px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-    border: 1px solid #333333;
+  background: #1e1e1e;
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  border: 1px solid #333333;
 }
 
 .mobileProjectListItem:hover {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-    transform: translateY(-1px);
-    border-color: #48d1fd;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  transform: translateY(-1px);
+  border-color: #48d1fd;
 }
 
 .mobileProjectListItem:active {
-    transform: translateY(0);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  transform: translateY(0);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .mobileListItemIcon {
-    width: 40px;
-    height: 40px;
-    background: rgba(72, 209, 253, 0.2);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #48d1fd;
-    font-size: 20px;
-    flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  background: rgba(72, 209, 253, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #48d1fd;
+  font-size: 20px;
+  flex-shrink: 0;
 }
 
 .mobileListItemContent {
-    flex: 1;
-    min-width: 0;
+  flex: 1;
+  min-width: 0;
 }
 
 .mobileListItemHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
 }
 
 .mobileListItemHeader h3 {
-    color: #ffffff;
-    font-size: 16px;
-    font-weight: 500;
-    margin: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    flex: 1;
-    margin-right: 8px;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+  margin-right: 8px;
 }
 
 .mobileListItemTime {
-    color: #888888;
-    font-size: 12px;
-    font-weight: 400;
-    flex-shrink: 0;
+  color: #888888;
+  font-size: 12px;
+  font-weight: 400;
+  flex-shrink: 0;
 }
 
 .mobileListItemContent p {
-    color: #b3b3b3;
-    font-size: 14px;
-    line-height: 1.4;
-    margin: 0 0 8px 0;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+  color: #b3b3b3;
+  font-size: 14px;
+  line-height: 1.4;
+  margin: 0 0 8px 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .mobileListItemTech {
-    display: flex;
-    gap: 4px;
-    flex-wrap: wrap;
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
 }
 
 .mobileListTechChip {
-    background: #333333;
-    color: #b3b3b3;
-    padding: 2px 6px;
-    border-radius: 8px;
-    font-size: 11px;
-    font-weight: 500;
-    border: 1px solid #444444;
+  background: #333333;
+  color: #b3b3b3;
+  padding: 2px 6px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 500;
+  border: 1px solid #444444;
 }
 
 .mobileListItemAction {
-    background: rgba(72, 209, 253, 0.2);
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    color: #48d1fd;
-    transition: all 0.2s ease;
-    flex-shrink: 0;
+  background: rgba(72, 209, 253, 0.2);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #48d1fd;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
 }
 
 .mobileListItemAction:hover {
-    background: rgba(72, 209, 253, 0.3);
-    transform: scale(1.1);
+  background: rgba(72, 209, 253, 0.3);
+  transform: scale(1.1);
 }
 
 .mobileListItemAction:active {
-    transform: scale(1);
+  transform: scale(1);
 }
 
 .mobileNoResults {
-    text-align: center;
-    padding: 48px 24px;
-    color: #b3b3b3;
+  text-align: center;
+  padding: 48px 24px;
+  color: #b3b3b3;
 }
 
 .noResultsIcon {
-    font-size: 48px;
-    color: #666666;
-    margin-bottom: 16px;
+  font-size: 48px;
+  color: #666666;
+  margin-bottom: 16px;
 }
 
 .mobileNoResults h3 {
-    color: #ffffff;
-    font-size: 18px;
-    font-weight: 500;
-    margin: 0 0 8px 0;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0 0 8px 0;
 }
 
 .mobileNoResults p {
-    color: #b3b3b3;
-    font-size: 14px;
-    margin: 0;
+  color: #b3b3b3;
+  font-size: 14px;
+  margin: 0;
 }
 
 .mobileProjectDetail {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    background: #1e1e1e;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #1e1e1e;
 }
 
 .mobileDetailHeader {
-    display: flex;
-    padding: 8px 4px 8px 8px;
-    background: #1e1e1e;
-    border-bottom: 1px solid #333333;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  display: flex;
+  padding: 8px 4px 8px 8px;
+  background: #1e1e1e;
+  border-bottom: 1px solid #333333;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .backButton {
-    background: none;
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    color: #ffffff;
-    transition: all 0.2s ease;
-    margin-right: 8px;
+  background: none;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #ffffff;
+  transition: all 0.2s ease;
+  margin-right: 8px;
 }
 
 .backButton:hover {
-    background: #2a2a2a;
+  background: #2a2a2a;
 }
 
 .backButton:active {
-    background: #333333;
+  background: #333333;
 }
 
 .detailTitle {
-    flex: 1;
-    min-width: 0;
+  flex: 1;
+  min-width: 0;
 }
 
 .detailTitle h2 {
-    color: #ffffff;
-    font-size: 20px;
-    font-weight: 500;
-    margin: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .detailTitle span {
-    color: #b3b3b3;
-    font-size: 14px;
-    font-weight: 400;
+  color: #b3b3b3;
+  font-size: 14px;
+  font-weight: 400;
 }
 
 .moreButton {
-    background: none;
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    color: #ffffff;
-    transition: all 0.2s ease;
+  background: none;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #ffffff;
+  transition: all 0.2s ease;
 }
 
 .moreButton:hover {
-    background: #2a2a2a;
+  background: #2a2a2a;
 }
 
 .moreButton:active {
-    background: #333333;
+  background: #333333;
 }
 
 .mobileDetailContent {
-    flex: 1;
-    overflow-y: auto;
-    background: #121212;
+  flex: 1;
+  overflow-y: auto;
+  background: #121212;
 }
 
 @media screen and (max-width: 768px) {
-    .desktopLayout {
-        display: none;
-    }
+  .desktopLayout {
+    display: none;
+  }
 
-    .mobileLayout {
-        display: flex;
-    }
+  .mobileLayout {
+    display: flex;
+  }
 }
 
 @media screen and (min-width: 769px) and (max-width: 1024px) {
-    .explorerPanel {
-        width: 250px;
-    }
+  .explorerPanel {
+    width: 250px;
+  }
 
-    .projectGrid {
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    }
+  .projectGrid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
 
-    .tab {
-        max-width: 200px;
-    }
+  .tab {
+    max-width: 200px;
+  }
 }
 
 @media screen and (min-width: 1024px) and (max-width: 1440px) {
-    .explorerPanel {
-        width: 280px;
-    }
+  .explorerPanel {
+    width: 280px;
+  }
 }
 
 @media screen and (max-width: 480px) {
-    .mobileGridView {
-        grid-template-columns: 1fr;
-    }
+  .mobileGridView {
+    grid-template-columns: 1fr;
+  }
 
-    .mobileHeader {
-        padding: 12px;
-    }
+  .mobileHeader {
+    padding: 12px;
+  }
 
-    .mobileHeaderTop h1 {
-        font-size: 20px;
-    }
+  .mobileHeaderTop h1 {
+    font-size: 20px;
+  }
 
-    .mobileProjectList {
-        padding: 8px 12px 16px;
-    }
+  .mobileProjectList {
+    padding: 8px 12px 16px;
+  }
 }
 
 .fileTree::-webkit-scrollbar {
-    width: 6px;
+  width: 6px;
 }
 
 .fileTree::-webkit-scrollbar-track {
-    background: transparent;
+  background: transparent;
 }
 
 .fileTree::-webkit-scrollbar-thumb {
-    background: #424242;
-    border-radius: 3px;
+  background: #424242;
+  border-radius: 3px;
 }
 
 .fileTree::-webkit-scrollbar-thumb:hover {
-    background: #4e4e4e;
+  background: #4e4e4e;
 }
 
 .mobileProjectList::-webkit-scrollbar,
 .mobileDetailContent::-webkit-scrollbar {
-    width: 4px;
+  width: 4px;
 }
 
 .mobileProjectList::-webkit-scrollbar-track,
 .mobileDetailContent::-webkit-scrollbar-track {
-    background: transparent;
+  background: transparent;
 }
 
 .mobileProjectList::-webkit-scrollbar-thumb,
 .mobileDetailContent::-webkit-scrollbar-thumb {
-    background: #bdbdbd;
-    border-radius: 2px;
+  background: #bdbdbd;
+  border-radius: 2px;
 }
 
 .mobileProjectList::-webkit-scrollbar-thumb:hover,
 .mobileDetailContent::-webkit-scrollbar-thumb:hover {
-    background: #9e9e9e;
+  background: #9e9e9e;
 }
