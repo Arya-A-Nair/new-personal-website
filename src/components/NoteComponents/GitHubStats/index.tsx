@@ -393,7 +393,6 @@ const GitHubStats: React.FC = () => {
 
     return (
         <div className={styles.container}>
-            {}
             <div className={styles.headerSection}>
                 <div className={styles.profileInfo}>
                     <div className={styles.avatar}>
