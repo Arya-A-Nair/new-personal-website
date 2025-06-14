@@ -13,7 +13,6 @@ const Container: React.FC = () => {
         brightness,
         showPreloader,
         showCommandCentre,
-        setActiveElement,
         setBrightness,
         activateWindow,
         focusWindow,

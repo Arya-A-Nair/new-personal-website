@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import styles from "./Projects.module.css";
 import WindowBox from "../WindowBox/WindowBox";
-import { projects } from "../../assets/data";
+import { projects } from "../../data";
 import ProjectItem from "./ProjectItem";
 import {
     VscFolder,

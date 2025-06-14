@@ -3,8 +3,8 @@ import {
     WakatimeStats,
     GitHubStats,
     LeetCodeStats,
-} from "../components/NoteComponents";
-import Achievement from "../components/NoteComponents/Achievement";
+} from "./components/NoteComponents";
+import Achievement from "./components/NoteComponents/Achievement";
 
 export interface Note {
     id: string;

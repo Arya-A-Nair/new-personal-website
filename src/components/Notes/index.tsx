@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import styles from "./Notes.module.css";
 import WindowBox from "../WindowBox/WindowBox";
-import { notesData } from "../../assets/notesData";
+import { notesData } from "../../notesData";
 
 interface NotesProps {
     onClickClose: () => void;

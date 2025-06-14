@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import styles from "./ProjectItem.module.css";
 import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
 import { IconContext } from "react-icons";
-import { Project } from "../../assets/data";
+import { Project } from "../../data";
 
 interface ProjectItemProps {
     data: Project;
