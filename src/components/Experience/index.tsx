@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Experience.module.css";
 import WindowBox from "../WindowBox/WindowBox";
-import { experience } from "../../assets/data";
+import { experience } from "../../data";
 
 interface ExperienceProps {
     onClickClose: () => void;

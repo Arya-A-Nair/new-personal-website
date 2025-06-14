@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import styles from "./ProjectItem.module.css";
 import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
 import { IconContext } from "react-icons";
-import { Project } from "../../assets/data";
+import { Project } from "../../data";
 
 interface ProjectItemProps {
     data: Project;
@@ -52,10 +52,14 @@ const ProjectItem: React.FC<ProjectItemProps> = ({ data }) => {
                                 size: "1.2rem",
                             }}
                         >
-                            <FaGithub
+                            <button
+                                className={styles.githubButton}
                                 onClick={() => window.open(data.link)}
+                                aria-label={`View source code for ${data.title} on GitHub`}
                                 title="View Source Code"
-                            />
+                            >
+                                <FaGithub aria-hidden="true" />
+                            </button>
                         </IconContext.Provider>
                     </div>
                 </div>
@@ -64,7 +68,10 @@ const ProjectItem: React.FC<ProjectItemProps> = ({ data }) => {
             <div className={styles.contentLayout}>
                 <div className={styles.imageContainer}>
                     <div className={styles.imageWrapper}>
-                        <img src={"/images/" + data.img} alt={data.title} />
+                        <img
+                            src={"/images/" + data.img}
+                            alt={`Screenshot of ${data.title} project`}
+                        />
                         <div className={styles.imageOverlay}>
                             <IconContext.Provider
                                 value={{
@@ -72,9 +79,14 @@ const ProjectItem: React.FC<ProjectItemProps> = ({ data }) => {
                                     size: "2.5rem",
                                 }}
                             >
-                                <FaExternalLinkAlt
+                                <button
+                                    className={styles.viewProjectButton}
                                     onClick={() => window.open(data.link)}
-                                />
+                                    aria-label={`View ${data.title} project live`}
+                                    title={`View ${data.title} project`}
+                                >
+                                    <FaExternalLinkAlt aria-hidden="true" />
+                                </button>
                             </IconContext.Provider>
                         </div>
                     </div>
@@ -83,19 +95,34 @@ const ProjectItem: React.FC<ProjectItemProps> = ({ data }) => {
                 <div className={styles.projectContent}>
                     <div className={styles.projectDescription}>
                         <h4>About this project</h4>
-                        <ul>
+                        <ul role="list">
                             {data.description.map((item, index) => (
-                                <li key={index}>{item}</li>
+                                <li key={index} role="listitem">
+                                    {item}
+                                </li>
                             ))}
                         </ul>
                     </div>
 
                     <div className={styles.projectTechStack}>
                         <h4>Technologies Used</h4>
-                        <div className={styles.techGrid}>
+                        <div
+                            className={styles.techGrid}
+                            role="list"
+                            aria-label="Technologies used in this project"
+                        >
                             {data.techStack.map((tech, index) => (
-                                <div key={index} className={styles.techItem}>
-                                    <span className={styles.techIcon}>⚡</span>
+                                <div
+                                    key={index}
+                                    className={styles.techItem}
+                                    role="listitem"
+                                >
+                                    <span
+                                        className={styles.techIcon}
+                                        aria-hidden="true"
+                                    >
+                                        ⚡
+                                    </span>
                                     <span className={styles.techName}>
                                         {tech}
                                     </span>
@@ -108,8 +135,9 @@ const ProjectItem: React.FC<ProjectItemProps> = ({ data }) => {
                         <button
                             className={styles.secondaryButton}
                             onClick={() => window.open(data.link)}
+                            aria-label={`View ${data.title} project live`}
                         >
-                            <FaExternalLinkAlt />
+                            <FaExternalLinkAlt aria-hidden="true" />
                             View Project
                         </button>
                     </div>

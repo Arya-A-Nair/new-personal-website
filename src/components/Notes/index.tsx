@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import styles from "./Notes.module.css";
 import WindowBox from "../WindowBox/WindowBox";
-import { notesData } from "../../assets/notesData";
+import { notesData } from "../../notesData";
 
 interface NotesProps {
     onClickClose: () => void;
@@ -16,31 +16,13 @@ const Notes: React.FC<NotesProps> = ({
     zIndexVal,
     activeElement,
 }) => {
-    const [selectedSection, setSelectedSection] = useState<string | null>(null); // null means "All"
+    const [selectedSection, setSelectedSection] = useState<string | null>(null);
     const [selectedNote, setSelectedNote] = useState<string | null>(null);
-
-    useEffect(() => {
-        const handleKeyDown = (event: KeyboardEvent) => {
-            if (activeElement !== "Notes") return;
-
-            switch (event.key) {
-                case "Escape":
-                    event.preventDefault();
-                    onClickClose();
-                    break;
-            }
-        };
-
-        window.addEventListener("keydown", handleKeyDown);
-        return () => window.removeEventListener("keydown", handleKeyDown);
-    }, [activeElement, onClickClose]);
 
     const sections = Object.keys(notesData);
 
-    // Get notes based on selection
     const getCurrentNotes = () => {
         if (!selectedSection) {
-            // Show all notes when no section is selected
             return Object.values(notesData).flat();
         }
         return notesData[selectedSection] || [];
@@ -50,6 +32,108 @@ const Notes: React.FC<NotesProps> = ({
     const currentNote = selectedNote
         ? currentNotes.find((note) => note.id === selectedNote)
         : null;
+
+    const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
+    const noteRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+    useEffect(() => {
+        if (activeElement === "Notes" && sectionRefs.current[0]) {
+            const timer = setTimeout(() => {
+                sectionRefs.current[0]?.focus();
+            }, 100);
+            return () => clearTimeout(timer);
+        }
+    }, [activeElement]);
+
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.key === "Escape" && activeElement === "Notes") {
+                if (selectedNote) {
+                    setSelectedNote(null);
+                } else {
+                    onClickClose();
+                }
+            }
+        };
+
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [activeElement, onClickClose, selectedNote]);
+
+    const handleSectionKeyDown = useCallback(
+        (event: React.KeyboardEvent, index: number) => {
+            switch (event.key) {
+                case "Enter":
+                case " ":
+                    event.preventDefault();
+                    const sectionName =
+                        index === 0 ? null : sections[index - 1];
+                    setSelectedSection(sectionName);
+                    setSelectedNote(null);
+                    break;
+                case "ArrowDown":
+                    event.preventDefault();
+                    const nextIndex = Math.min(index + 1, sections.length);
+                    sectionRefs.current[nextIndex]?.focus();
+                    break;
+                case "ArrowUp":
+                    event.preventDefault();
+                    const prevIndex = Math.max(index - 1, 0);
+                    sectionRefs.current[prevIndex]?.focus();
+                    break;
+                case "ArrowRight":
+                    event.preventDefault();
+                    if (noteRefs.current[0]) {
+                        noteRefs.current[0].focus();
+                    }
+                    break;
+            }
+        },
+        [sections]
+    );
+
+    const handleNoteKeyDown = useCallback(
+        (event: React.KeyboardEvent, index: number) => {
+            switch (event.key) {
+                case "Enter":
+                case " ":
+                    event.preventDefault();
+                    const note = currentNotes[index];
+                    setSelectedNote(note.id);
+                    break;
+                case "ArrowDown":
+                    event.preventDefault();
+                    const nextIndex = Math.min(
+                        index + 1,
+                        currentNotes.length - 1
+                    );
+                    noteRefs.current[nextIndex]?.focus();
+                    break;
+                case "ArrowUp":
+                    event.preventDefault();
+                    const prevIndex = Math.max(index - 1, 0);
+                    noteRefs.current[prevIndex]?.focus();
+                    break;
+                case "ArrowLeft":
+                    event.preventDefault();
+                    const targetSectionIndex = selectedSection
+                        ? sections.indexOf(selectedSection) + 1
+                        : 0;
+                    sectionRefs.current[targetSectionIndex]?.focus();
+                    break;
+            }
+        },
+        [currentNotes, selectedSection, sections]
+    );
+
+    const handleSectionSelect = (sectionName: string | null) => {
+        setSelectedSection(sectionName);
+        setSelectedNote(null);
+    };
+
+    const handleNoteSelect = (noteId: string) => {
+        setSelectedNote(noteId);
+    };
 
     return (
         <WindowBox
@@ -63,46 +147,69 @@ const Notes: React.FC<NotesProps> = ({
             initialWidth={85}
             initialHeight={85}
         >
-            <div className={styles.notesContainer}>
+            <div
+                className={styles.notesContainer}
+                role="main"
+                aria-label="Notes application"
+            >
                 <div className={styles.desktopLayout}>
-                    <div className={styles.sidebar}>
+                    <div className={styles.sidebar} role="navigation" aria-label="Note categories">
                         <div className={styles.sidebarHeader}>
                             <h3 className={styles.sidebarTitle}>Folders</h3>
                         </div>
-                        <div className={styles.sectionList}>
-                            {/* All sections option */}
+                        <div
+                            className={styles.sectionList}
+                            role="list"
+                            aria-label="Note categories"
+                        >
                             <div
+                                ref={(el) => (sectionRefs.current[0] = el)}
                                 className={`${styles.sectionItem} ${
                                     selectedSection === null
                                         ? styles.selected
                                         : ""
                                 }`}
-                                onClick={() => {
-                                    setSelectedSection(null);
-                                    setSelectedNote(null);
-                                }}
+                                onClick={() => handleSectionSelect(null)}
+                                onKeyDown={(e) => handleSectionKeyDown(e, 0)}
+                                role="listitem"
+                                tabIndex={0}
+                                aria-selected={selectedSection === null}
                             >
-                                <span className={styles.sectionIcon}>📚</span>
+                                <span
+                                    className={styles.sectionIcon}
+                                    aria-hidden="true"
+                                >
+                                    📚
+                                </span>
                                 <span className={styles.sectionName}>All</span>
                                 <span className={styles.noteCount}>
                                     {Object.values(notesData).flat().length}
                                 </span>
                             </div>
 
-                            {sections.map((section) => (
+                            {sections.map((section, index) => (
                                 <div
                                     key={section}
+                                    ref={(el) =>
+                                        (sectionRefs.current[index + 1] = el)
+                                    }
                                     className={`${styles.sectionItem} ${
                                         selectedSection === section
                                             ? styles.selected
                                             : ""
                                     }`}
-                                    onClick={() => {
-                                        setSelectedSection(section);
-                                        setSelectedNote(null);
-                                    }}
+                                    onClick={() => handleSectionSelect(section)}
+                                    onKeyDown={(e) =>
+                                        handleSectionKeyDown(e, index + 1)
+                                    }
+                                    role="listitem"
+                                    tabIndex={0}
+                                    aria-selected={selectedSection === section}
                                 >
-                                    <span className={styles.sectionIcon}>
+                                    <span
+                                        className={styles.sectionIcon}
+                                        aria-hidden="true"
+                                    >
                                         {section === "Dev"
                                             ? "💻"
                                             : section === "DSA"
@@ -120,8 +227,11 @@ const Notes: React.FC<NotesProps> = ({
                         </div>
                     </div>
 
-                    {}
-                    <div className={styles.notesList}>
+                    <div
+                        className={styles.notesList}
+                        role="region"
+                        aria-label="Notes list"
+                    >
                         <div className={styles.notesHeader}>
                             <h3 className={styles.notesTitle}>
                                 {selectedSection || "All Notes"}
@@ -131,10 +241,13 @@ const Notes: React.FC<NotesProps> = ({
                                 {currentNotes.length !== 1 ? "s" : ""}
                             </span>
                         </div>
-                        <div className={styles.notesGrid}>
+                        <div
+                            className={styles.notesGrid}
+                            role="list"
+                            aria-label="Available notes"
+                        >
                             {selectedSection === null
-                                ? // Grouped view for "All" - consistent UI for all sections
-                                  sections.map(
+                                ? sections.map(
                                       (section) =>
                                           notesData[section] &&
                                           notesData[section].length > 0 && (
@@ -143,6 +256,8 @@ const Notes: React.FC<NotesProps> = ({
                                                   className={
                                                       styles.sectionGroup
                                                   }
+                                                  role="group"
+                                                  aria-labelledby={`group-${section}`}
                                               >
                                                   <div
                                                       className={
@@ -150,6 +265,7 @@ const Notes: React.FC<NotesProps> = ({
                                                       }
                                                   >
                                                       <h4
+                                                          id={`group-${section}`}
                                                           className={
                                                               styles.groupTitle
                                                           }
@@ -163,76 +279,124 @@ const Notes: React.FC<NotesProps> = ({
                                                       }
                                                   >
                                                       {notesData[section].map(
-                                                          (note) => (
-                                                              <div
-                                                                  key={note.id}
-                                                                  className={`${
-                                                                      styles.noteCard
-                                                                  } ${
-                                                                      selectedNote ===
-                                                                      note.id
-                                                                          ? styles.selectedNote
-                                                                          : ""
-                                                                  }`}
-                                                                  onClick={() =>
-                                                                      setSelectedNote(
-                                                                          note.id
-                                                                      )
-                                                                  }
-                                                              >
+                                                          (note, noteIndex) => {
+                                                              const globalIndex =
+                                                                  Object.values(
+                                                                      notesData
+                                                                  )
+                                                                      .flat()
+                                                                      .findIndex(
+                                                                          (n) =>
+                                                                              n.id ===
+                                                                              note.id
+                                                                      );
+                                                              return (
                                                                   <div
-                                                                      className={
-                                                                          styles.noteHeader
+                                                                      key={
+                                                                          note.id
+                                                                      }
+                                                                      ref={(
+                                                                          el
+                                                                      ) =>
+                                                                          (noteRefs.current[
+                                                                              globalIndex
+                                                                          ] =
+                                                                              el)
+                                                                      }
+                                                                      className={`${
+                                                                          styles.noteCard
+                                                                      } ${
+                                                                          selectedNote ===
+                                                                          note.id
+                                                                              ? styles.selectedNote
+                                                                              : ""
+                                                                      }`}
+                                                                      onClick={() =>
+                                                                          handleNoteSelect(
+                                                                              note.id
+                                                                          )
+                                                                      }
+                                                                      onKeyDown={(
+                                                                          e
+                                                                      ) =>
+                                                                          handleNoteKeyDown(
+                                                                              e,
+                                                                              globalIndex
+                                                                          )
+                                                                      }
+                                                                      role="listitem"
+                                                                      tabIndex={
+                                                                          0
+                                                                      }
+                                                                      aria-selected={
+                                                                          selectedNote ===
+                                                                          note.id
                                                                       }
                                                                   >
-                                                                      <h4
+                                                                      <div
                                                                           className={
-                                                                              styles.noteTitle
+                                                                              styles.noteHeader
                                                                           }
                                                                       >
-                                                                          {
-                                                                              note.title
-                                                                          }
-                                                                      </h4>
-                                                                      {note.date && (
-                                                                          <span
+                                                                          <h4
                                                                               className={
-                                                                                  styles.noteDate
+                                                                                  styles.noteTitle
                                                                               }
                                                                           >
                                                                               {
-                                                                                  note.date
+                                                                                  note.title
                                                                               }
-                                                                          </span>
-                                                                      )}
+                                                                          </h4>
+                                                                          {note.date && (
+                                                                              <span
+                                                                                  className={
+                                                                                      styles.noteDate
+                                                                                  }
+                                                                              >
+                                                                                  {
+                                                                                      note.date
+                                                                                  }
+                                                                              </span>
+                                                                          )}
+                                                                      </div>
+                                                                      <p
+                                                                          className={
+                                                                              styles.notePreview
+                                                                          }
+                                                                      >
+                                                                          {
+                                                                              note.preview
+                                                                          }
+                                                                      </p>
                                                                   </div>
-                                                                  <p
-                                                                      className={
-                                                                          styles.notePreview
-                                                                      }
-                                                                  >
-                                                                      {
-                                                                          note.preview
-                                                                      }
-                                                                  </p>
-                                                              </div>
-                                                          )
+                                                              );
+                                                          }
                                                       )}
                                                   </div>
                                               </div>
                                           )
                                   )
-                                : // Regular view for specific section
-                                  currentNotes.map((note) => (
+                                : currentNotes.map((note, noteIndex) => (
                                       <div
                                           key={note.id}
+                                          ref={(el) =>
+                                              (noteRefs.current[noteIndex] = el)
+                                          }
                                           className={`${styles.noteCard} ${
                                               selectedNote === note.id
                                                   ? styles.selectedNote
                                                   : ""
                                           }`}
                                           onClick={() =>
-                                              setSelectedNote(note.id)
+                                              handleNoteSelect(note.id)
+                                          }
+                                          onKeyDown={(e) =>
+                                              handleNoteKeyDown(e, noteIndex)
+                                          }
+                                          role="listitem"
+                                          tabIndex={0}
+                                          aria-selected={
+                                              selectedNote === note.id
                                           }
                                       >
                                           <div className={styles.noteHeader}>
@@ -257,8 +421,11 @@ const Notes: React.FC<NotesProps> = ({
                         </div>
                     </div>
 
-                    {}
-                    <div className={styles.noteContent}>
+                    <div
+                        className={styles.noteContent}
+                        role="main"
+                        aria-label="Note content"
+                    >
                         {currentNote ? (
                             <>
                                 <div className={styles.contentHeader}>
@@ -282,7 +449,7 @@ const Notes: React.FC<NotesProps> = ({
                                     <div className={styles.contentImage}>
                                         <img
                                             src={currentNote.image}
-                                            alt={currentNote.title}
+                                            alt={`Visual content for ${currentNote.title}`}
                                         />
                                     </div>
                                 )}
@@ -292,7 +459,12 @@ const Notes: React.FC<NotesProps> = ({
                             </>
                         ) : (
                             <div className={styles.emptyContent}>
-                                <div className={styles.emptyIcon}>📝</div>
+                                <div
+                                    className={styles.emptyIcon}
+                                    aria-hidden="true"
+                                >
+                                    📝
+                                </div>
                                 <h3 className={styles.emptyTitle}>
                                     Select a note
                                 </h3>
@@ -305,17 +477,13 @@ const Notes: React.FC<NotesProps> = ({
                     </div>
                 </div>
 
-                {}
-                <div className={styles.mobileLayout}>
+                <div
+                    className={styles.mobileLayout}
+                    role="main"
+                    aria-label="Mobile notes view"
+                >
                     {!selectedNote ? (
                         <>
-                            <div className={styles.mobileHeader}>
-                                <h1 className={styles.mobileTitle}>Notes</h1>
-                                <p className={styles.mobileSubtitle}>
-                                    Knowledge Base
-                                </p>
-                            </div>
-
                             <div className={styles.mobileSectionSelector}>
                                 <div
                                     className={`${styles.mobileSectionChip} ${
@@ -323,9 +491,11 @@ const Notes: React.FC<NotesProps> = ({
                                             ? styles.selected
                                             : ""
                                     }`}
-                                    onClick={() => setSelectedSection(null)}
+                                    onClick={() => handleSectionSelect(null)}
+                                    role="tab"
+                                    tabIndex={0}
+                                    aria-selected={selectedSection === null}
                                 >
-                                    <span className={styles.chipIcon}>📚</span>
                                     <span className={styles.chipText}>All</span>
                                     <span className={styles.chipCount}>
                                         {Object.values(notesData).flat().length}
@@ -343,16 +513,14 @@ const Notes: React.FC<NotesProps> = ({
                                                 : ""
                                         }`}
                                         onClick={() =>
-                                            setSelectedSection(section)
+                                            handleSectionSelect(section)
+                                        }
+                                        role="tab"
+                                        tabIndex={0}
+                                        aria-selected={
+                                            selectedSection === section
                                         }
                                     >
-                                        <span className={styles.chipIcon}>
-                                            {section === "Dev"
-                                                ? "💻"
-                                                : section === "DSA"
-                                                ? "🧮"
-                                                : "🏆"}
-                                        </span>
                                         <span className={styles.chipText}>
                                             {section}
                                         </span>
@@ -364,193 +532,62 @@ const Notes: React.FC<NotesProps> = ({
                             </div>
 
                             <div className={styles.mobileNotesList}>
-                                {selectedSection === null
-                                    ? 
-                                      sections.map(
-                                          (section) =>
-                                              notesData[section] &&
-                                              notesData[section].length > 0 && (
-                                                  <div
-                                                      key={section}
-                                                      className={
-                                                          styles.mobileSectionGroup
-                                                      }
-                                                  >
-                                                      <div
-                                                          className={
-                                                              styles.mobileGroupHeader
-                                                          }
-                                                      >
-                                                          <h4
-                                                              className={
-                                                                  styles.mobileGroupTitle
-                                                              }
-                                                          >
-                                                              {section}
-                                                          </h4>
-                                                      </div>
-                                                      <div
-                                                          className={
-                                                              styles.mobileGroupNotes
-                                                          }
-                                                      >
-                                                          {notesData[
-                                                              section
-                                                          ].map((note) => (
-                                                              <div
-                                                                  key={note.id}
-                                                                  className={
-                                                                      styles.mobileNoteCard
-                                                                  }
-                                                                  onClick={() =>
-                                                                      setSelectedNote(
-                                                                          note.id
-                                                                      )
-                                                                  }
-                                                              >
-                                                                  <div
-                                                                      className={
-                                                                          styles.mobileNoteHeader
-                                                                      }
-                                                                  >
-                                                                      <h3
-                                                                          className={
-                                                                              styles.mobileNoteTitle
-                                                                          }
-                                                                      >
-                                                                          {
-                                                                              note.title
-                                                                          }
-                                                                      </h3>
-                                                                      {note.date && (
-                                                                          <span
-                                                                              className={
-                                                                                  styles.mobileNoteDate
-                                                                              }
-                                                                          >
-                                                                              {
-                                                                                  note.date
-                                                                              }
-                                                                          </span>
-                                                                      )}
-                                                                  </div>
-                                                                  <p
-                                                                      className={
-                                                                          styles.mobileNotePreview
-                                                                      }
-                                                                  >
-                                                                      {
-                                                                          note.preview
-                                                                      }
-                                                                  </p>
-                                                              </div>
-                                                          ))}
-                                                      </div>
-                                                  </div>
-                                              )
-                                      )
-                                    : 
-                                      currentNotes.map((note) => (
-                                          <div
-                                              key={note.id}
-                                              className={styles.mobileNoteCard}
-                                              onClick={() =>
-                                                  setSelectedNote(note.id)
-                                              }
-                                          >
-                                              <div
-                                                  className={
-                                                      styles.mobileNoteHeader
-                                                  }
-                                              >
-                                                  <h3
-                                                      className={
-                                                          styles.mobileNoteTitle
-                                                      }
-                                                  >
-                                                      {note.title}
-                                                  </h3>
-                                                  {note.date && (
-                                                      <span
-                                                          className={
-                                                              styles.mobileNoteDate
-                                                          }
-                                                      >
-                                                          {note.date}
-                                                      </span>
-                                                  )}
-                                              </div>
-                                              <p
-                                                  className={
-                                                      styles.mobileNotePreview
-                                                  }
-                                              >
-                                                  {note.preview}
-                                              </p>
-                                          </div>
-                                      ))}
+                                {currentNotes.map((note) => (
+                                    <div
+                                        key={note.id}
+                                        className={styles.mobileNoteCard}
+                                        onClick={() =>
+                                            handleNoteSelect(note.id)
+                                        }
+                                        role="button"
+                                        tabIndex={0}
+                                    >
+                                        <div className={styles.noteHeader}>
+                                            <h4 className={styles.noteTitle}>
+                                                {note.title}
+                                            </h4>
+                                            {note.date && (
+                                                <span
+                                                    className={styles.noteDate}
+                                                >
+                                                    {note.date}
+                                                </span>
+                                            )}
+                                        </div>
+                                        <p className={styles.notePreview}>
+                                            {note.preview}
+                                        </p>
+                                    </div>
+                                ))}
                             </div>
                         </>
                     ) : (
                         <div className={styles.mobileNoteView}>
-                            <div
-                                className={styles.mobileBackButton}
-                                onClick={() => setSelectedNote(null)}
-                            >
-                                <span className={styles.backArrow}>←</span>
-                                <span className={styles.backText}>Back</span>
+                            <div className={styles.mobileHeader}>
+                                <button
+                                    className={styles.backButton}
+                                    onClick={() => setSelectedNote(null)}
+                                    aria-label="Back to notes list"
+                                >
+                                    ← Back
+                                </button>
+                                <h2 className={styles.mobileTitle}>
+                                    {currentNote?.title}
+                                </h2>
                             </div>
-
-                            {currentNote && (
-                                <>
-                                    <div className={styles.mobileContentHeader}>
-                                        <h2
-                                            className={
-                                                styles.mobileContentTitle
-                                            }
-                                        >
-                                            {currentNote.title}
-                                        </h2>
-                                        <div
-                                            className={styles.mobileContentMeta}
-                                        >
-                                            {currentNote.date && (
-                                                <span
-                                                    className={
-                                                        styles.mobileContentDate
-                                                    }
-                                                >
-                                                    {currentNote.date}
-                                                </span>
-                                            )}
-                                            <span
-                                                className={
-                                                    styles.mobileContentSection
-                                                }
-                                            >
-                                                {selectedSection}
-                                            </span>
-                                        </div>
+                            <div className={styles.mobileContentSection}>
+                                {currentNote?.image && (
+                                    <div className={styles.contentImage}>
+                                        <img
+                                            src={currentNote.image}
+                                            alt={`Visual content for ${currentNote.title}`}
+                                        />
                                     </div>
-
-                                    {currentNote.image && (
-                                        <div
-                                            className={
-                                                styles.mobileContentImage
-                                            }
-                                        >
-                                            <img
-                                                src={currentNote.image}
-                                                alt={currentNote.title}
-                                            />
-                                        </div>
-                                    )}
-
-                                    <div className={styles.mobileContentBody}>
-                                        {currentNote.content}
-                                    </div>
-                                </>
-                            )}
+                                )}
+                                <div className={styles.contentBody}>
+                                    {currentNote?.content}
+                                </div>
+                            </div>
                         </div>
                     )}
                 </div>

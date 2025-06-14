@@ -86,7 +86,7 @@
     transform: translateX(2px);
 }
 
-/* Mobile responsiveness */
+
 @media (max-width: 768px) {
     .noteTitle {
         font-size: 22px;
