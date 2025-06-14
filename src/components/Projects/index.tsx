@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import styles from "./Projects.module.css";
 import WindowBox from "../WindowBox/WindowBox";
 import { projects } from "../../assets/data";
@@ -56,6 +56,13 @@ const Projects: React.FC<ProjectsProps> = ({
         number | null
     >(null);
 
+    const [focusedProjectIndex, setFocusedProjectIndex] = useState<number>(-1);
+    const [focusedActivityIndex, setFocusedActivityIndex] = useState<number>(0);
+    const projectRefs = useRef<(HTMLDivElement | null)[]>([]);
+    const activityBarRef = useRef<HTMLDivElement>(null);
+    const searchInputRef = useRef<HTMLInputElement>(null);
+    const mobileSearchInputRef = useRef<HTMLInputElement>(null);
+
     useEffect(() => {
         if (searchTerm.trim() === "") {
             setFilteredProjects(projects);
@@ -74,18 +81,116 @@ const Projects: React.FC<ProjectsProps> = ({
             );
             setFilteredProjects(filtered);
         }
+        setFocusedProjectIndex(-1);
     }, [searchTerm]);
+
+    const handleProjectKeyDown = useCallback(
+        (event: React.KeyboardEvent, index: number) => {
+            switch (event.key) {
+                case "Enter":
+                case " ":
+                    event.preventDefault();
+                    handleProjectSelect(index);
+                    break;
+                case "ArrowDown":
+                    event.preventDefault();
+                    const nextIndex = Math.min(
+                        index + 1,
+                        filteredProjects.length - 1
+                    );
+                    setFocusedProjectIndex(nextIndex);
+                    projectRefs.current[nextIndex]?.focus();
+                    break;
+                case "ArrowUp":
+                    event.preventDefault();
+                    const prevIndex = Math.max(index - 1, 0);
+                    setFocusedProjectIndex(prevIndex);
+                    projectRefs.current[prevIndex]?.focus();
+                    break;
+                case "Home":
+                    event.preventDefault();
+                    setFocusedProjectIndex(0);
+                    projectRefs.current[0]?.focus();
+                    break;
+                case "End":
+                    event.preventDefault();
+                    const lastIndex = filteredProjects.length - 1;
+                    setFocusedProjectIndex(lastIndex);
+                    projectRefs.current[lastIndex]?.focus();
+                    break;
+                case "Escape":
+                    if (selectedProject !== null) {
+                        setSelectedProject(null);
+                        projectRefs.current[index]?.focus();
+                    }
+                    break;
+            }
+        },
+        [filteredProjects.length, selectedProject]
+    );
+
+    const handleActivityBarKeyDown = useCallback(
+        (event: React.KeyboardEvent) => {
+            switch (event.key) {
+                case "ArrowDown":
+                case "ArrowRight":
+                    event.preventDefault();
+                    setFocusedActivityIndex(1);
+                    break;
+                case "ArrowUp":
+                case "ArrowLeft":
+                    event.preventDefault();
+                    setFocusedActivityIndex(0);
+                    break;
+                case "Enter":
+                case " ":
+                    event.preventDefault();
+                    if (focusedActivityIndex === 0) {
+                        handleViewModeChange("explorer");
+                    } else {
+                        handleViewModeChange("grid");
+                    }
+                    break;
+            }
+        },
+        [focusedActivityIndex]
+    );
+
+    const handleSearchKeyDown = useCallback(
+        (event: React.KeyboardEvent) => {
+            if (event.key === "Escape") {
+                clearSearch();
+                searchInputRef.current?.blur();
+            } else if (
+                event.key === "ArrowDown" &&
+                filteredProjects.length > 0
+            ) {
+                event.preventDefault();
+                setFocusedProjectIndex(0);
+                projectRefs.current[0]?.focus();
+            }
+        },
+        [filteredProjects.length]
+    );
 
     const handleProjectSelect = (index: number) => {
         const actualIndex = projects.findIndex(
             (p) => p.title === filteredProjects[index].title
         );
         setSelectedProject(actualIndex);
+
+        const projectTitle = filteredProjects[index].title;
+        const announcement = `Opened project ${projectTitle}`;
+        announceToScreenReader(announcement);
     };
 
     const handleViewModeChange = (mode: "explorer" | "grid") => {
         setViewMode(mode);
         setSelectedProject(null);
+        setFocusedProjectIndex(-1);
+
+        const announcement = `Switched to ${mode} view`;
+        announceToScreenReader(announcement);
     };
 
     const handleMobileProjectSelect = (index: number) => {
@@ -93,10 +198,39 @@ const Projects: React.FC<ProjectsProps> = ({
             (p) => p.title === filteredProjects[index].title
         );
         setSelectedMobileProject(actualIndex);
+
+        const projectTitle = filteredProjects[index].title;
+        const announcement = `Opened project details for ${projectTitle}`;
+        announceToScreenReader(announcement);
     };
 
     const clearSearch = () => {
         setSearchTerm("");
+        announceToScreenReader("Search cleared");
+    };
+
+    const announceToScreenReader = (message: string) => {
+        const announcement = document.createElement("div");
+        announcement.setAttribute("aria-live", "polite");
+        announcement.setAttribute("aria-atomic", "true");
+        announcement.className = "sr-only";
+        announcement.style.position = "absolute";
+        announcement.style.left = "-10000px";
+        announcement.style.width = "1px";
+        announcement.style.height = "1px";
+        announcement.style.overflow = "hidden";
+        announcement.textContent = message;
+
+        document.body.appendChild(announcement);
+        setTimeout(() => document.body.removeChild(announcement), 1000);
+    };
+
+    const handleExplorerToggle = () => {
+        setIsExplorerOpen(!isExplorerOpen);
+        const announcement = `Explorer ${
+            !isExplorerOpen ? "expanded" : "collapsed"
+        }`;
+        announceToScreenReader(announcement);
     };
 
     return (
@@ -110,10 +244,19 @@ const Projects: React.FC<ProjectsProps> = ({
                 activeElement={activeElement === "Projects"}
                 displayTextMobile={"Projects"}
             >
-                <div className={styles.container}>
+                <div
+                    className={styles.container}
+                    role="main"
+                    aria-label="Projects showcase"
+                >
                     <div className={styles.desktopLayout}>
                         <div className={styles.explorer}>
-                            <div className={styles.activityBar}>
+                            <div
+                                className={styles.activityBar}
+                                ref={activityBarRef}
+                                role="tablist"
+                                aria-label="View mode selector"
+                            >
                                 <div
                                     className={`${styles.activityItem} ${
                                         viewMode === "explorer"
@@ -123,36 +266,76 @@ const Projects: React.FC<ProjectsProps> = ({
                                     onClick={() =>
                                         handleViewModeChange("explorer")
                                     }
+                                    onKeyDown={handleActivityBarKeyDown}
+                                    role="tab"
+                                    tabIndex={
+                                        focusedActivityIndex === 0 ? 0 : -1
+                                    }
+                                    aria-selected={viewMode === "explorer"}
+                                    aria-controls="explorer-panel"
+                                    aria-label="Explorer view"
                                     title="Explorer"
                                 >
-                                    <VscFolder />
+                                    <VscFolder aria-hidden="true" />
                                 </div>
                                 <div
                                     className={`${styles.activityItem} ${
                                         viewMode === "grid" ? styles.active : ""
                                     }`}
                                     onClick={() => handleViewModeChange("grid")}
+                                    onKeyDown={handleActivityBarKeyDown}
+                                    role="tab"
+                                    tabIndex={
+                                        focusedActivityIndex === 1 ? 0 : -1
+                                    }
+                                    aria-selected={viewMode === "grid"}
+                                    aria-controls="grid-panel"
+                                    aria-label="Repository grid view"
                                     title="Repository View"
                                 >
-                                    <VscRepo />
+                                    <VscRepo aria-hidden="true" />
                                 </div>
                             </div>
 
-                            <div className={styles.explorerPanel}>
+                            <div
+                                className={styles.explorerPanel}
+                                id="explorer-panel"
+                                role="tabpanel"
+                                aria-labelledby="activity-item-0"
+                            >
                                 <div className={styles.explorerHeader}>
                                     <div
                                         className={styles.explorerTitle}
-                                        onClick={() =>
-                                            setIsExplorerOpen(!isExplorerOpen)
-                                        }
+                                        onClick={handleExplorerToggle}
+                                        onKeyDown={(e) => {
+                                            if (
+                                                e.key === "Enter" ||
+                                                e.key === " "
+                                            ) {
+                                                e.preventDefault();
+                                                handleExplorerToggle();
+                                            }
+                                        }}
+                                        role="button"
+                                        tabIndex={0}
+                                        aria-expanded={isExplorerOpen}
+                                        aria-controls="projects-tree"
+                                        aria-label={`${
+                                            isExplorerOpen
+                                                ? "Collapse"
+                                                : "Expand"
+                                        } projects list`}
                                     >
                                         {isExplorerOpen ? (
-                                            <VscChevronDown />
+                                            <VscChevronDown aria-hidden="true" />
                                         ) : (
-                                            <VscChevronRight />
+                                            <VscChevronRight aria-hidden="true" />
                                         )}
                                         <span>PROJECTS</span>
-                                        <span className={styles.projectCount}>
+                                        <span
+                                            className={styles.projectCount}
+                                            aria-label={`${filteredProjects.length} projects`}
+                                        >
                                             ({filteredProjects.length})
                                         </span>
                                     </div>
@@ -160,7 +343,11 @@ const Projects: React.FC<ProjectsProps> = ({
 
                                 {isExplorerOpen && (
                                     <>
-                                        <div className={styles.searchContainer}>
+                                        <div
+                                            className={styles.searchContainer}
+                                            role="search"
+                                            aria-label="Search projects"
+                                        >
                                             <div
                                                 className={styles.searchWrapper}
                                             >
@@ -168,8 +355,10 @@ const Projects: React.FC<ProjectsProps> = ({
                                                     className={
                                                         styles.searchIcon
                                                     }
+                                                    aria-hidden="true"
                                                 />
                                                 <input
+                                                    ref={searchInputRef}
                                                     type="text"
                                                     placeholder="Search projects..."
                                                     value={searchTerm}
@@ -178,9 +367,14 @@ const Projects: React.FC<ProjectsProps> = ({
                                                             e.target.value
                                                         )
                                                     }
+                                                    onKeyDown={
+                                                        handleSearchKeyDown
+                                                    }
                                                     className={
                                                         styles.searchInput
                                                     }
+                                                    aria-label="Search projects by name, description, or technology"
+                                                    aria-describedby="search-results-count"
                                                 />
                                                 {searchTerm && (
                                                     <button
@@ -189,6 +383,7 @@ const Projects: React.FC<ProjectsProps> = ({
                                                         }
                                                         onClick={clearSearch}
                                                         title="Clear search"
+                                                        aria-label="Clear search"
                                                     >
                                                         ×
                                                     </button>
@@ -196,10 +391,34 @@ const Projects: React.FC<ProjectsProps> = ({
                                             </div>
                                         </div>
 
-                                        <div className={styles.fileTree}>
+                                        <div
+                                            className={styles.fileTree}
+                                            id="projects-tree"
+                                            role="tree"
+                                            aria-label="Projects list"
+                                        >
+                                            <div
+                                                id="search-results-count"
+                                                className="sr-only"
+                                                aria-live="polite"
+                                                aria-atomic="true"
+                                            >
+                                                {filteredProjects.length === 0
+                                                    ? "No projects found"
+                                                    : `${
+                                                          filteredProjects.length
+                                                      } project${
+                                                          filteredProjects.length ===
+                                                          1
+                                                              ? ""
+                                                              : "s"
+                                                      } found`}
+                                            </div>
                                             {filteredProjects.length === 0 ? (
                                                 <div
                                                     className={styles.noResults}
+                                                    role="status"
+                                                    aria-live="polite"
                                                 >
                                                     No projects found
                                                 </div>
@@ -220,8 +439,18 @@ const Projects: React.FC<ProjectsProps> = ({
                                                                 className={
                                                                     styles.projectFolder
                                                                 }
+                                                                role="treeitem"
+                                                                aria-expanded={
+                                                                    selectedProject ===
+                                                                    actualIndex
+                                                                }
                                                             >
                                                                 <div
+                                                                    ref={(el) =>
+                                                                        (projectRefs.current[
+                                                                            index
+                                                                        ] = el)
+                                                                    }
                                                                     className={`${
                                                                         styles.folderItem
                                                                     } ${
@@ -235,6 +464,49 @@ const Projects: React.FC<ProjectsProps> = ({
                                                                             index
                                                                         )
                                                                     }
+                                                                    onKeyDown={(
+                                                                        e
+                                                                    ) =>
+                                                                        handleProjectKeyDown(
+                                                                            e,
+                                                                            index
+                                                                        )
+                                                                    }
+                                                                    tabIndex={
+                                                                        focusedProjectIndex ===
+                                                                        index
+                                                                            ? 0
+                                                                            : -1
+                                                                    }
+                                                                    role="button"
+                                                                    aria-label={`${
+                                                                        project.title
+                                                                    } project. ${
+                                                                        selectedProject ===
+                                                                        actualIndex
+                                                                            ? "Expanded"
+                                                                            : "Collapsed"
+                                                                    }. Technologies: ${project.techStack
+                                                                        .slice(
+                                                                            0,
+                                                                            3
+                                                                        )
+                                                                        .join(
+                                                                            ", "
+                                                                        )}${
+                                                                        project
+                                                                            .techStack
+                                                                            .length >
+                                                                        3
+                                                                            ? ` and ${
+                                                                                  project
+                                                                                      .techStack
+                                                                                      .length -
+                                                                                  3
+                                                                              } more`
+                                                                            : ""
+                                                                    }`}
+                                                                    aria-describedby={`project-${index}-tech`}
                                                                 >
                                                                     {selectedProject ===
                                                                     actualIndex ? (
@@ -242,12 +514,14 @@ const Projects: React.FC<ProjectsProps> = ({
                                                                             className={
                                                                                 styles.folderIcon
                                                                             }
+                                                                            aria-hidden="true"
                                                                         />
                                                                     ) : (
                                                                         <VscFolder
                                                                             className={
                                                                                 styles.folderIcon
                                                                             }
+                                                                            aria-hidden="true"
                                                                         />
                                                                     )}
                                                                     <span
@@ -263,6 +537,10 @@ const Projects: React.FC<ProjectsProps> = ({
                                                                         className={
                                                                             styles.techIndicator
                                                                         }
+                                                                        id={`project-${index}-tech`}
+                                                                        aria-label={`Technologies: ${project.techStack.join(
+                                                                            ", "
+                                                                        )}`}
                                                                     >
                                                                         {project.techStack
                                                                             .slice(
@@ -312,16 +590,20 @@ const Projects: React.FC<ProjectsProps> = ({
                                                                         className={
                                                                             styles.fileList
                                                                         }
+                                                                        role="group"
+                                                                        aria-label="Project files"
                                                                     >
                                                                         <div
                                                                             className={
                                                                                 styles.fileItem
                                                                             }
+                                                                            role="treeitem"
                                                                         >
                                                                             <VscMarkdown
                                                                                 className={
                                                                                     styles.readmeIcon
                                                                                 }
+                                                                                aria-hidden="true"
                                                                             />
                                                                             <span
                                                                                 className={
@@ -344,15 +626,35 @@ const Projects: React.FC<ProjectsProps> = ({
                             </div>
                         </div>
 
-                        <div className={styles.mainContent}>
+                        <div
+                            className={styles.mainContent}
+                            role="main"
+                            aria-label="Project details"
+                        >
                             {selectedProject !== null ? (
-                                <div className={styles.projectDetails}>
-                                    <div className={styles.tabBar}>
-                                        <div className={styles.tab}>
+                                <div
+                                    className={styles.projectDetails}
+                                    role="article"
+                                    aria-labelledby="selected-project-title"
+                                >
+                                    <div
+                                        className={styles.tabBar}
+                                        role="tablist"
+                                        aria-label="Open project files"
+                                    >
+                                        <div
+                                            className={styles.tab}
+                                            role="tab"
+                                            aria-selected="true"
+                                        >
                                             <VscMarkdown
                                                 className={styles.tabIcon}
+                                                aria-hidden="true"
                                             />
-                                            <span className={styles.tabPath}>
+                                            <span
+                                                className={styles.tabPath}
+                                                id="selected-project-title"
+                                            >
                                                 {
                                                     projects[selectedProject]
                                                         ?.title
@@ -364,17 +666,23 @@ const Projects: React.FC<ProjectsProps> = ({
                                                 onClick={() =>
                                                     setSelectedProject(null)
                                                 }
+                                                aria-label={`Close ${projects[selectedProject]?.title} project`}
+                                                title="Close project"
                                             >
                                                 ×
                                             </button>
                                         </div>
                                     </div>
                                     <div className={styles.breadcrumbBar}>
-                                        <div className={styles.breadcrumb}>
+                                        <nav
+                                            className={styles.breadcrumb}
+                                            aria-label="File navigation breadcrumb"
+                                        >
                                             <VscFolder
                                                 className={
                                                     styles.breadcrumbIcon
                                                 }
+                                                aria-hidden="true"
                                             />
                                             <span>
                                                 {
@@ -382,14 +690,15 @@ const Projects: React.FC<ProjectsProps> = ({
                                                         ?.title
                                                 }
                                             </span>
-                                            <VscChevronRight />
+                                            <VscChevronRight aria-hidden="true" />
                                             <VscMarkdown
                                                 className={
                                                     styles.breadcrumbIcon
                                                 }
+                                                aria-hidden="true"
                                             />
                                             <span>README.md</span>
-                                        </div>
+                                        </nav>
                                     </div>
                                     <ProjectItem
                                         data={projects[selectedProject]}
@@ -486,7 +795,11 @@ const Projects: React.FC<ProjectsProps> = ({
                                                     </span>
                                                 </div>
                                             </div>
-                                            <div className={styles.projectGrid}>
+                                            <div
+                                                className={styles.projectGrid}
+                                                role="grid"
+                                                aria-label="Repository grid view"
+                                            >
                                                 {filteredProjects.map(
                                                     (project, index) => {
                                                         const actualIndex =
@@ -508,6 +821,33 @@ const Projects: React.FC<ProjectsProps> = ({
                                                                         actualIndex
                                                                     )
                                                                 }
+                                                                onKeyDown={(
+                                                                    e
+                                                                ) => {
+                                                                    if (
+                                                                        e.key ===
+                                                                            "Enter" ||
+                                                                        e.key ===
+                                                                            " "
+                                                                    ) {
+                                                                        e.preventDefault();
+                                                                        setSelectedProject(
+                                                                            actualIndex
+                                                                        );
+                                                                    }
+                                                                }}
+                                                                role="gridcell"
+                                                                tabIndex={0}
+                                                                aria-label={`${
+                                                                    project.title
+                                                                } repository. ${project.description[0].substring(
+                                                                    0,
+                                                                    100
+                                                                )}... Technologies: ${project.techStack
+                                                                    .slice(0, 3)
+                                                                    .join(
+                                                                        ", "
+                                                                    )}`}
                                                             >
                                                                 <div
                                                                     className={
@@ -518,6 +858,7 @@ const Projects: React.FC<ProjectsProps> = ({
                                                                         className={
                                                                             styles.repoIcon
                                                                         }
+                                                                        aria-hidden="true"
                                                                     />
                                                                     <h3>
                                                                         {
@@ -591,20 +932,30 @@ const Projects: React.FC<ProjectsProps> = ({
                         </div>
                     </div>
 
-                    <div className={styles.mobileLayout}>
+                    <div
+                        className={styles.mobileLayout}
+                        role="main"
+                        aria-label="Mobile projects view"
+                    >
                         {selectedMobileProject !== null ? (
-                            <div className={styles.mobileProjectDetail}>
+                            <div
+                                className={styles.mobileProjectDetail}
+                                role="article"
+                                aria-labelledby="mobile-project-title"
+                            >
                                 <div className={styles.mobileDetailHeader}>
                                     <button
                                         className={styles.backButton}
                                         onClick={() =>
                                             setSelectedMobileProject(null)
                                         }
+                                        aria-label="Go back to projects list"
+                                        title="Back to projects"
                                     >
-                                        <MdArrowBack />
+                                        <MdArrowBack aria-hidden="true" />
                                     </button>
                                     <div className={styles.detailTitle}>
-                                        <h2>
+                                        <h2 id="mobile-project-title">
                                             {
                                                 projects[selectedMobileProject]
                                                     ?.title
@@ -628,6 +979,8 @@ const Projects: React.FC<ProjectsProps> = ({
                                             className={
                                                 styles.mobileHeaderActions
                                             }
+                                            role="group"
+                                            aria-label="View mode selector"
                                         >
                                             <button
                                                 className={`${
@@ -640,8 +993,13 @@ const Projects: React.FC<ProjectsProps> = ({
                                                 onClick={() =>
                                                     setMobileViewMode("grid")
                                                 }
+                                                aria-pressed={
+                                                    mobileViewMode === "grid"
+                                                }
+                                                aria-label="Grid view"
+                                                title="Grid view"
                                             >
-                                                <MdApps />
+                                                <MdApps aria-hidden="true" />
                                             </button>
                                             <button
                                                 className={`${
@@ -654,22 +1012,31 @@ const Projects: React.FC<ProjectsProps> = ({
                                                 onClick={() =>
                                                     setMobileViewMode("list")
                                                 }
+                                                aria-pressed={
+                                                    mobileViewMode === "list"
+                                                }
+                                                aria-label="List view"
+                                                title="List view"
                                             >
-                                                <MdViewList />
+                                                <MdViewList aria-hidden="true" />
                                             </button>
                                         </div>
                                     </div>
 
                                     <div
                                         className={styles.mobileSearchContainer}
+                                        role="search"
+                                        aria-label="Search projects"
                                     >
                                         <div className={styles.mobileSearchBar}>
                                             <MdSearch
                                                 className={
                                                     styles.mobileSearchIcon
                                                 }
+                                                aria-hidden="true"
                                             />
                                             <input
+                                                ref={mobileSearchInputRef}
                                                 type="text"
                                                 placeholder="Search projects..."
                                                 value={searchTerm}
@@ -681,6 +1048,8 @@ const Projects: React.FC<ProjectsProps> = ({
                                                 className={
                                                     styles.mobileSearchInput
                                                 }
+                                                aria-label="Search projects by name, description, or technology"
+                                                aria-describedby="mobile-search-results-count"
                                             />
                                             {searchTerm && (
                                                 <button
@@ -688,15 +1057,21 @@ const Projects: React.FC<ProjectsProps> = ({
                                                         styles.mobileClearButton
                                                     }
                                                     onClick={clearSearch}
+                                                    aria-label="Clear search"
+                                                    title="Clear search"
                                                 >
-                                                    <MdClear />
+                                                    <MdClear aria-hidden="true" />
                                                 </button>
                                             )}
                                         </div>
                                     </div>
 
                                     <div className={styles.mobileStats}>
-                                        <span>
+                                        <span
+                                            id="mobile-search-results-count"
+                                            aria-live="polite"
+                                            aria-atomic="true"
+                                        >
                                             {filteredProjects.length} projects
                                             found
                                         </span>

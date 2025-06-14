@@ -16,7 +16,7 @@ const Notes: React.FC<NotesProps> = ({
     zIndexVal,
     activeElement,
 }) => {
-    const [selectedSection, setSelectedSection] = useState<string | null>(null); // null means "All"
+    const [selectedSection, setSelectedSection] = useState<string | null>(null); 
     const [selectedNote, setSelectedNote] = useState<string | null>(null);
 
     useEffect(() => {
@@ -37,10 +37,8 @@ const Notes: React.FC<NotesProps> = ({
 
     const sections = Object.keys(notesData);
 
-    // Get notes based on selection
     const getCurrentNotes = () => {
         if (!selectedSection) {
-            // Show all notes when no section is selected
             return Object.values(notesData).flat();
         }
         return notesData[selectedSection] || [];
@@ -132,7 +130,7 @@ const Notes: React.FC<NotesProps> = ({
                         </div>
                         <div className={styles.notesGrid}>
                             {selectedSection === null
-                                ? // Grouped view for "All" - consistent UI for all sections
+                                ? 
                                   sections.map(
                                       (section) =>
                                           notesData[section] &&
@@ -221,7 +219,7 @@ const Notes: React.FC<NotesProps> = ({
                                               </div>
                                           )
                                   )
-                                : // Regular view for specific section
+                                : 
                                   currentNotes.map((note) => (
                                       <div
                                           key={note.id}

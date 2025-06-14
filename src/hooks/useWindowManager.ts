@@ -32,7 +32,6 @@ export const useWindowManager = () => {
         return () => clearTimeout(timer);
     }, []);
 
-    // Handle Escape key to close Command Centre when open
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
             if (event.key === 'Escape' && showCommandCentre) {
