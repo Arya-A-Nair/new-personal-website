@@ -6,11 +6,9 @@ import ProjectItem from "./ProjectItem";
 import {
   VscFolder,
   VscFolderOpened,
-  VscFile,
   VscSearch,
   VscChevronRight,
   VscChevronDown,
-  VscSourceControl,
   VscRepo,
   VscMarkdown,
 } from "react-icons/vsc";
@@ -18,13 +16,10 @@ import {
   MdSearch,
   MdClear,
   MdFolder,
-  MdCode,
   MdLaunch,
-  MdFilterList,
   MdApps,
   MdViewList,
   MdArrowBack,
-  MdMoreVert,
   MdShare,
   MdFavorite,
   MdStar,
@@ -599,7 +594,7 @@ const Projects: React.FC<ProjectsProps> = ({
                         role="grid"
                         aria-label="Repository grid view"
                       >
-                        {filteredProjects.map((project, index) => {
+                        {filteredProjects.map((project, _index) => {
                           const actualIndex = projects.findIndex(
                             p => p.title === project.title
                           );

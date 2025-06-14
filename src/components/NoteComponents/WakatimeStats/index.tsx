@@ -130,7 +130,7 @@ const WakatimeStats: React.FC = () => {
     }));
 
   const maxDailyHours = Math.max(...days.map(day => day.total / 3600));
-  const heatmapData = days.slice(-365).map(day => {
+  const _heatmapData = days.slice(-365).map(day => {
     const hours = day.total / 3600;
     let intensity = "heatmapLow";
     if (hours > maxDailyHours * 0.7) intensity = "heatmapVeryHigh";

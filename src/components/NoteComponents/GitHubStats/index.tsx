@@ -522,7 +522,7 @@ const GitHubStats: React.FC = () => {
               All-Time Repository Contributions
             </h4>
             <div className={styles.contributedRepos}>
-              {githubData.contributedRepos.slice(0, 12).map((repo, index) => (
+              {githubData.contributedRepos.slice(0, 12).map((repo, _index) => (
                 <div
                   key={`${repo.owner}/${repo.name}`}
                   className={styles.contributedRepo}

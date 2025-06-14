@@ -1,16 +1,12 @@
 import React from "react";
-import { PersonalInfo, ResumeItem } from "../../../data";
+import { PersonalInfo } from "../../../data";
 import styles from "../PlainPortfolio.module.css";
 
 interface ContactSectionProps {
   personalInfo: PersonalInfo;
-  resume: ResumeItem[];
 }
 
-const ContactSection: React.FC<ContactSectionProps> = ({
-  personalInfo,
-  resume,
-}) => {
+const ContactSection: React.FC<ContactSectionProps> = ({ personalInfo }) => {
   return (
     <>
       <div className={styles.section}>
@@ -33,21 +29,15 @@ const ContactSection: React.FC<ContactSectionProps> = ({
           >
             LinkedIn
           </a>
+          . You can also check out my{" "}
+          <a
+            href={personalInfo.socialLinks.resume}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            resume
+          </a>
           .
-          {resume.length > 0 && (
-            <>
-              {" "}
-              You can also check out my{" "}
-              <a
-                href={resume[0].link}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                resume
-              </a>
-              .
-            </>
-          )}
         </p>
       </div>
     </>

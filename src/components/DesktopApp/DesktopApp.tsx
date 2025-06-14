@@ -18,7 +18,7 @@ const DesktopApp: React.FC = () => {
       tabIndex={0}
     >
       <div className={styles.iconContainer}>
-        <img src={drive} alt="NormCore" className={styles.icon} />
+        <img src={drive} alt="Plain View" className={styles.icon} />
       </div>
       <span className={styles.label}>Want a Plain View?</span>
     </div>

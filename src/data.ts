@@ -38,21 +38,7 @@ export interface Experience {
   workDone: string[];
 }
 
-export interface Achievement {
-  title: string;
-  event: string;
-  year: string;
-  description: string;
-  image: string;
-  category: 'hackathon' | 'internship' | 'competition' | 'award';
-}
 
-export interface Stat {
-  label: string;
-  value: string;
-  icon: string;
-  description: string;
-}
 
 export interface AchievementNote {
   id: string;
@@ -87,13 +73,6 @@ const personalInfo: PersonalInfo = {
   technologies: "I work with a wide range of technologies including React, Node.js, Python, Go, Solidity, AWS, Docker, PostgreSQL, and many more. I'm particularly interested in blockchain technology, AI/ML applications, and building scalable web applications."
 };
 
-const resume: ResumeItem[] = [
-  {
-    text: "Click here to checkout my Resume",
-    link: "https://drive.google.com/file/d/1bhLfOFy87ukde8o6MoI6AC0gJmc6Nygp/view?usp=sharing",
-    title: "Resume",
-  },
-];
 
 const projects: Project[] = [
   {
@@ -475,4 +454,4 @@ const achievementNotes: AchievementNote[] = [
   }
 ];
 
-export { personalInfo, resume, projects, experience, achievementNotes };
+export { personalInfo, projects, experience, achievementNotes };

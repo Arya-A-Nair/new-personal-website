@@ -3,7 +3,6 @@ import {
   personalInfo,
   projects,
   experience,
-  resume,
   achievementNotes,
 } from "../../data";
 import styles from "./PlainPortfolio.module.css";
@@ -49,7 +48,7 @@ const PlainPortfolio: React.FC = () => {
 
       <AchievementGrid achievementNotes={achievementNotes} />
 
-      <ContactSection personalInfo={personalInfo} resume={resume} />
+      <ContactSection personalInfo={personalInfo} />
     </div>
   );
 };
