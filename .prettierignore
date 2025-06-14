@@ -1,0 +1,28 @@
+# Dependencies
+node_modules
+dist
+build
+
+# Generated files
+package-lock.json
+*.lock
+
+# Config files that should maintain their format
+.eslintrc.cjs
+vite.config.ts
+
+# Assets
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+*.ico
+*.webp
+
+# Logs
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db 

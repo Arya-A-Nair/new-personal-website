@@ -1,55 +1,55 @@
 .container {
-    height: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 1rem;
-    width: fit-content;
-    padding: 0rem 0.5rem;
-    cursor: pointer;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 1rem;
+  width: fit-content;
+  padding: 0rem 0.5rem;
+  cursor: pointer;
 }
 .container > img {
-    height: 100%;
-    margin: 0 0.5rem;
+  height: 100%;
+  margin: 0 0.5rem;
 }
 
 .container:hover {
-    background-color: rgba(156, 156, 156, 0.3);
+  background-color: rgba(156, 156, 156, 0.3);
 }
 
 .menu {
-    position: absolute;
-    right: 2rem;
-    top: 2.2rem;
-    width: 20vh;
-    background-color: aliceblue;
-    border-radius: 4px;
-    padding: 0.2rem;
-    color: black;
+  position: absolute;
+  right: 2rem;
+  top: 2.2rem;
+  width: 20vh;
+  background-color: aliceblue;
+  border-radius: 4px;
+  padding: 0.2rem;
+  color: black;
 }
 .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 200;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 200;
 }
 .menuItem {
-    padding: 0.4rem 0.4rem;
-    border-radius: 4px;
-    margin: 0.3rem 0.2rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+  padding: 0.4rem 0.4rem;
+  border-radius: 4px;
+  margin: 0.3rem 0.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 .menuItem:hover {
-    background-color: rgba(156, 156, 156, 0.5);
+  background-color: rgba(156, 156, 156, 0.5);
 }
 .separator {
-    height: 1px;
-    width: 85%;
-    background-color: rgba(156, 156, 156, 0.5);
-    margin: 0 auto;
+  height: 1px;
+  width: 85%;
+  background-color: rgba(156, 156, 156, 0.5);
+  margin: 0 auto;
 }

@@ -1,20 +1,20 @@
 .container {
-    height: 100%;
-    position: relative;
-    background-image: url("/images/home-screen.png");
-    background-size: cover;
-    border-radius: 0.2rem;
-    background-position: center;
+  height: 100%;
+  position: relative;
+  background-image: url("/images/home-screen.png");
+  background-size: cover;
+  border-radius: 0.2rem;
+  background-position: center;
 }
 .preloader {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 @media screen and (max-width: 600px) {
-    .preloader {
-        width: 90%;
-    }
+  .preloader {
+    width: 90%;
+  }
 }

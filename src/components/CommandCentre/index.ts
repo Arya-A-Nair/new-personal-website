@@ -1,1 +1,1 @@
-export { default } from './CommandCentre'; 
+export { default } from "./CommandCentre";
