@@ -1,0 +1,73 @@
+.desktopApp {
+  position: absolute;
+  top: 4rem;
+  left: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  z-index: 1;
+}
+
+.desktopApp:hover {
+  transform: scale(1.1);
+}
+
+.iconContainer {
+  width: 80px;
+  height: 80px;
+  border-radius: 16px;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.desktopApp:hover .iconContainer {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.icon {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+  border-radius: 12px;
+}
+
+.label {
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+  max-width: 90px;
+  line-height: 1.2;
+}
+
+@media (max-width: 768px) {
+  .desktopApp {
+    top: 4rem;
+    right: 1.5rem;
+    left: unset;
+  }
+
+  .iconContainer {
+    width: 65px;
+    height: 65px;
+    border-radius: 14px;
+  }
+
+  .icon {
+    width: 55px;
+    height: 55px;
+  }
+
+  .label {
+    font-size: 0.65rem;
+    max-width: 80px;
+    font-weight: 600;
+  }
+}

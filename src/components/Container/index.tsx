@@ -4,6 +4,7 @@ import Toolbar from "../Toolbar/Toolbar";
 import Navbar from "../Navbar/Navbar";
 import WindowRenderer from "./WindowRenderer";
 import CommandCentre from "../CommandCentre";
+import DesktopApp from "../DesktopApp/DesktopApp";
 import { useWindowManager } from "../../hooks/useWindowManager";
 
 const Container: React.FC = () => {
@@ -45,6 +46,8 @@ const Container: React.FC = () => {
         brightness={brightness}
         onCommandCentreToggle={toggleCommandCentre}
       />
+
+      <DesktopApp />
 
       {windowComponentsConfig.map(config => (
         <WindowRenderer

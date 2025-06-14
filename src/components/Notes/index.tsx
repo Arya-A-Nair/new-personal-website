@@ -246,7 +246,7 @@ const Notes: React.FC<NotesProps> = ({
                             </h4>
                           </div>
                           <div className={styles.groupNotes}>
-                            {notesData[section].map((note, noteIndex) => {
+                            {notesData[section].map((note, _noteIndex) => {
                               const globalIndex = Object.values(notesData)
                                 .flat()
                                 .findIndex(n => n.id === note.id);
