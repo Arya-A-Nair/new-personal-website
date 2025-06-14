@@ -120,7 +120,7 @@ const GitHubStats: React.FC = () => {
     const eventsResponse = await fetch(
       `${baseUrl}/users/${GITHUB_USERNAME}/events/public?per_page=100`
     );
-    const events: GitHubEvent[] = eventsResponse.ok
+    const _events: GitHubEvent[] = eventsResponse.ok
       ? await eventsResponse.json()
       : [];
 
@@ -202,7 +202,7 @@ const GitHubStats: React.FC = () => {
       });
 
       Array.from(repoContributions.entries()).forEach(
-        ([repoFullName, data]) => {
+        ([_repoFullName, data]) => {
           const isOwnRepo = data.owner === GITHUB_USERNAME;
 
           contributedRepos.push({

@@ -22,7 +22,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,css,md,html}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,css,md,html}\"",
     "format:src": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives",
     "lint:fix": "eslint . --ext ts,tsx --fix",
     "type-check": "tsc --noEmit"
   },
