@@ -38,8 +38,6 @@ export interface Experience {
   workDone: string[];
 }
 
-
-
 export interface AchievementNote {
   id: string;
   title: string;
@@ -63,16 +61,17 @@ const personalInfo: PersonalInfo = {
     leetcode: "https://leetcode.com/u/aryaajitnair/",
     email: "mailto:aryaajitnair@gmail.com",
     whatsapp: "https://wa.me/919920646238",
-    resume: "https://drive.google.com/file/d/1bhLfOFy87ukde8o6MoI6AC0gJmc6Nygp/view?usp=sharing"
+    resume:
+      "https://drive.google.com/file/d/1bhLfOFy87ukde8o6MoI6AC0gJmc6Nygp/view?usp=sharing",
   },
   about: [
     "I'm a passionate software engineer with expertise in full-stack development, blockchain technology, and AI/ML applications.",
     "I love building innovative solutions that solve real-world problems and have a proven track record of winning hackathons and delivering impactful projects.",
-    "My experience spans across various technologies and I'm always eager to learn new technologies and tackle challenging problems."
+    "My experience spans across various technologies and I'm always eager to learn new technologies and tackle challenging problems.",
   ],
-  technologies: "I work with a wide range of technologies including React, Node.js, Python, Go, Solidity, AWS, Docker, PostgreSQL, and many more. I'm particularly interested in blockchain technology, AI/ML applications, and building scalable web applications."
+  technologies:
+    "I work with a wide range of technologies including React, Node.js, Python, Go, Solidity, AWS, Docker, PostgreSQL, and many more. I'm particularly interested in blockchain technology, AI/ML applications, and building scalable web applications.",
 };
-
 
 const projects: Project[] = [
   {
@@ -331,7 +330,7 @@ const achievementNotes: AchievementNote[] = [
       "🏅 Won 3 track prizes - Filecoin, Okto, and Scroll.",
     ],
     date: "December 2023",
-    link: "https://devfolio.co/projects/transform-014b"
+    link: "https://devfolio.co/projects/transform-014b",
   },
   {
     id: "achievement-2",
@@ -345,7 +344,7 @@ const achievementNotes: AchievementNote[] = [
       "Project selected for integration into current government systems.",
     ],
     date: "August 2023",
-    link: "https://www.youtube.com/watch?v=PQmar1DG5eI"
+    link: "https://www.youtube.com/watch?v=PQmar1DG5eI",
   },
   {
     id: "achievement-3",
@@ -360,7 +359,7 @@ const achievementNotes: AchievementNote[] = [
       "🏆 Won share of Quadratic Voting prize pool.",
     ],
     date: "December 2024",
-    link: "https://devfolio.co/projects/threedrive-0f13"
+    link: "https://devfolio.co/projects/threedrive-0f13",
   },
   {
     id: "achievement-4",
@@ -375,7 +374,7 @@ const achievementNotes: AchievementNote[] = [
       "Tackles contributor burnout with automated crypto rewards.",
     ],
     date: "December 2024",
-    link: "https://devfolio.co/projects/openfund-8ef2"
+    link: "https://devfolio.co/projects/openfund-8ef2",
   },
   {
     id: "achievement-5",
@@ -387,7 +386,7 @@ const achievementNotes: AchievementNote[] = [
       "National-level project presentation competition.",
       "Won best software project for presenting Parity Protocol - an open-source decentralized compute platform.",
     ],
-    date: "April 2025"
+    date: "April 2025",
   },
   {
     id: "achievement-6",
@@ -400,7 +399,7 @@ const achievementNotes: AchievementNote[] = [
       "Involved solving real-world hacking challenges and quizzes.",
       "🏅 Secured 2nd place across all interns in India + Singapore.",
     ],
-    date: "July 2024"
+    date: "July 2024",
   },
   {
     id: "achievement-7",
@@ -413,7 +412,7 @@ const achievementNotes: AchievementNote[] = [
       "Integrated logistics transparency and Aadhaar QR-based KYC.",
     ],
     date: "April 2023",
-    link: "https://devfolio.co/projects/three-chain-97b3"
+    link: "https://devfolio.co/projects/three-chain-97b3",
   },
   {
     id: "achievement-8",
@@ -426,7 +425,7 @@ const achievementNotes: AchievementNote[] = [
       "Improved transparency and security with blockchain tech.",
     ],
     date: "January 2023",
-    link: "https://devfolio.co/projects/bricks-731e"
+    link: "https://devfolio.co/projects/bricks-731e",
   },
   {
     id: "achievement-9",
@@ -438,7 +437,7 @@ const achievementNotes: AchievementNote[] = [
       "Solved end-to-end challenges using data cleaning & ML models.",
       "Ranked 3rd overall by solving full trail with accurate predictions.",
     ],
-    date: "March 2022"
+    date: "March 2022",
   },
   {
     id: "achievement-10",
@@ -450,8 +449,8 @@ const achievementNotes: AchievementNote[] = [
       "State-level competitive programming contest.",
       "Used DSA to earn points and unlock new problem sets.",
     ],
-    date: "November 2022"
-  }
+    date: "November 2022",
+  },
 ];
 
 export { personalInfo, projects, experience, achievementNotes };
