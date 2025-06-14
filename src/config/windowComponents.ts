@@ -16,7 +16,11 @@ export interface WindowComponentProps {
   activeElement: string;
   slug?: string;
   searchParams?: URLSearchParams;
-  updateSlug?: (slug: string | null, shouldReplace?: boolean, queryParams?: Record<string, string>) => void;
+  updateSlug?: (
+    slug: string | null,
+    shouldReplace?: boolean,
+    queryParams?: Record<string, string>
+  ) => void;
 }
 
 export interface WindowConfig {

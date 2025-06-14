@@ -256,7 +256,11 @@ export const useWindowManager = () => {
   }, []);
 
   const updateSlug = useCallback(
-    (newSlug: string | null, shouldReplace = false, queryParams?: Record<string, string>) => {
+    (
+      newSlug: string | null,
+      shouldReplace = false,
+      queryParams?: Record<string, string>
+    ) => {
       updateURL(activeElement, newSlug, shouldReplace, queryParams);
     },
     [activeElement, updateURL]
