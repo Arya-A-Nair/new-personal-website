@@ -70,7 +70,6 @@ const Notes: React.FC<NotesProps> = ({
                             <h3 className={styles.sidebarTitle}>Folders</h3>
                         </div>
                         <div className={styles.sectionList}>
-                            {/* All sections option */}
                             <div
                                 className={`${styles.sectionItem} ${
                                     selectedSection === null

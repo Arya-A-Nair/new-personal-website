@@ -3,6 +3,7 @@ import styles from "./Container.module.css";
 import Toolbar from "../Toolbar/Toolbar";
 import Navbar from "../Navbar/Navbar";
 import WindowRenderer from "./WindowRenderer";
+import CommandCentre from "../CommandCentre";
 import { useWindowManager } from "../../hooks/useWindowManager";
 
 const Container: React.FC = () => {
@@ -11,11 +12,14 @@ const Container: React.FC = () => {
         activeElement,
         brightness,
         showPreloader,
+        showCommandCentre,
         setActiveElement,
         setBrightness,
         activateWindow,
         focusWindow,
         closeWindow,
+        toggleCommandCentre,
+        closeCommandCentre,
         appConfig,
         windowComponentsConfig,
     } = useWindowManager();
@@ -37,7 +41,11 @@ const Container: React.FC = () => {
                 opacity: brightness,
             }}
         >
-            <Navbar setBrightness={setBrightness} brightness={brightness} />
+            <Navbar
+                setBrightness={setBrightness}
+                brightness={brightness}
+                onCommandCentreToggle={toggleCommandCentre}
+            />
 
             {windowComponentsConfig.map((config) => (
                 <WindowRenderer
@@ -56,6 +64,14 @@ const Container: React.FC = () => {
             <Toolbar
                 selectActiveItem={activateWindow}
                 activeElement={activeElement}
+            />
+
+            <CommandCentre
+                isVisible={showCommandCentre}
+                onClose={closeCommandCentre}
+                windowConfigs={windowComponentsConfig}
+                onApplicationSelect={activateWindow}
+                windowStates={windowStates}
             />
         </div>
     );

@@ -17,6 +17,12 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
+.leftSection {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
 .logoContainer {
     height: 100%;
     display: flex;
@@ -27,13 +33,53 @@
     font-size: 1rem;
 }
 
+.commandCentreButton {
+    background: none;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    opacity: 0.7;
+}
+
+.commandCentreButton:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    opacity: 1;
+}
+
+.commandCentreButton:active {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(0.95);
+}
+
+.commandCentreIcon {
+    font-size: 0.9rem;
+}
+
 @media screen and (max-width: 600px) {
     .container {
         padding: 0 0.75rem;
         height: 1.75rem;
     }
 
+    .leftSection {
+        gap: 0.375rem;
+    }
+
     .appleIcon {
         font-size: 0.9rem;
+    }
+
+    .commandCentreIcon {
+        font-size: 0.8rem;
+    }
+
+    .commandCentreButton {
+        padding: 0.2rem;
     }
 }

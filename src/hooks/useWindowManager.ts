@@ -22,6 +22,7 @@ export const useWindowManager = () => {
     const [zIndexCounter, setZIndexCounter] = useState<number>(appConfig.zIndex.initial);
     const [brightness, setBrightness] = useState<number>(appConfig.brightness.default);
     const [showPreloader, setShowPreloader] = useState<boolean>(true);
+    const [showCommandCentre, setShowCommandCentre] = useState<boolean>(false);
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -30,6 +31,18 @@ export const useWindowManager = () => {
 
         return () => clearTimeout(timer);
     }, []);
+
+    // Handle Escape key to close Command Centre when open
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.key === 'Escape' && showCommandCentre) {
+                setShowCommandCentre(false);
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [showCommandCentre]);
 
     const activateWindow = useCallback((windowId: string) => {
         setWindowStates(prev => ({
@@ -81,11 +94,20 @@ export const useWindowManager = () => {
         }
     }, [windowStates, zIndexCounter]);
 
+    const toggleCommandCentre = useCallback(() => {
+        setShowCommandCentre(prev => !prev);
+    }, []);
+
+    const closeCommandCentre = useCallback(() => {
+        setShowCommandCentre(false);
+    }, []);
+
     return {
         windowStates,
         activeElement,
         brightness,
         showPreloader,
+        showCommandCentre,
 
         setActiveElement,
         setBrightness,
@@ -93,6 +115,8 @@ export const useWindowManager = () => {
         openWindow,
         focusWindow,
         closeWindow,
+        toggleCommandCentre,
+        closeCommandCentre,
 
         appConfig,
         windowComponentsConfig,

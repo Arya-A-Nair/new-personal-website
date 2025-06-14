@@ -151,8 +151,6 @@
     font-size: 20px;
 }
 
-/* Difficulties Grid */
-/* Overall Stats */
 .overallStats {
     display: flex;
     justify-content: center;
@@ -182,7 +180,6 @@
     font-weight: 500;
 }
 
-/* Segmented Progress Bar */
 .segmentedProgressContainer {
     margin-bottom: 24px;
 }
@@ -206,7 +203,6 @@
     border-right: none;
 }
 
-/* Difficulty Breakdown */
 .difficultyBreakdown {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -264,7 +260,6 @@
     font-weight: 500;
 }
 
-/* Contest Performance */
 .contestSummary {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -422,7 +417,6 @@
     font-size: 12px;
 }
 
-/* Recent Submissions */
 .submissionsContainer {
     background: #2a2a2a;
     border-radius: 8px;
@@ -541,7 +535,6 @@
     color: #94a3b8;
 }
 
-/* Responsive Design */
 @media (max-width: 600px) {
     .container {
         padding: 0;
@@ -912,7 +905,6 @@
     }
 }
 
-/* Badges Section */
 .badgesGrid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -969,7 +961,6 @@
     color: #94a3b8;
 }
 
-/* Animation for spinner */
 @keyframes spin {
     0% {
         transform: rotate(0deg);
