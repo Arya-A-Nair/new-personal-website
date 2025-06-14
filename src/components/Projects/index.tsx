@@ -3,6 +3,7 @@ import styles from "./Projects.module.css";
 import WindowBox from "../WindowBox/WindowBox";
 import { projects } from "../../data";
 import ProjectItem from "./ProjectItem";
+import { createSlug, parseSlugPath } from "../../utils/slugUtils";
 import {
   VscFolder,
   VscFolderOpened,
@@ -31,6 +32,8 @@ interface ProjectsProps {
   setActiveElement: (element: string) => void;
   zIndexVal: number;
   activeElement: string;
+  slug?: string;
+  updateSlug?: (slug: string | null) => void;
 }
 
 const Projects: React.FC<ProjectsProps> = ({
@@ -38,6 +41,8 @@ const Projects: React.FC<ProjectsProps> = ({
   setActiveElement,
   zIndexVal,
   activeElement,
+  slug,
+  updateSlug,
 }) => {
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -75,6 +80,21 @@ const Projects: React.FC<ProjectsProps> = ({
     setFocusedProjectIndex(-1);
   }, [searchTerm]);
 
+  useEffect(() => {
+    if (slug) {
+      const projectIndex = projects.findIndex(
+        p => createSlug(p.title) === slug
+      );
+      if (projectIndex >= 0) {
+        setSelectedProject(projectIndex);
+        setSelectedMobileProject(projectIndex);
+      }
+    } else {
+      setSelectedProject(null);
+      setSelectedMobileProject(null);
+    }
+  }, [slug]);
+
   const handleProjectKeyDown = useCallback(
     (event: React.KeyboardEvent, index: number) => {
       switch (event.key) {
@@ -109,6 +129,9 @@ const Projects: React.FC<ProjectsProps> = ({
         case "Escape":
           if (selectedProject !== null) {
             setSelectedProject(null);
+            if (updateSlug) {
+              updateSlug(null);
+            }
             projectRefs.current[index]?.focus();
           }
           break;
@@ -165,6 +188,12 @@ const Projects: React.FC<ProjectsProps> = ({
     setSelectedProject(actualIndex);
 
     const projectTitle = filteredProjects[index].title;
+    const projectSlug = createSlug(projectTitle);
+
+    if (updateSlug) {
+      updateSlug(projectSlug);
+    }
+
     const announcement = `Opened project ${projectTitle}`;
     announceToScreenReader(announcement);
   };
@@ -173,6 +202,10 @@ const Projects: React.FC<ProjectsProps> = ({
     setViewMode(mode);
     setSelectedProject(null);
     setFocusedProjectIndex(-1);
+
+    if (updateSlug) {
+      updateSlug(null);
+    }
 
     const announcement = `Switched to ${mode} view`;
     announceToScreenReader(announcement);
@@ -185,6 +218,12 @@ const Projects: React.FC<ProjectsProps> = ({
     setSelectedMobileProject(actualIndex);
 
     const projectTitle = filteredProjects[index].title;
+    const projectSlug = createSlug(projectTitle);
+
+    if (updateSlug) {
+      updateSlug(projectSlug);
+    }
+
     const announcement = `Opened project details for ${projectTitle}`;
     announceToScreenReader(announcement);
   };
@@ -215,6 +254,20 @@ const Projects: React.FC<ProjectsProps> = ({
     const announcement = `Explorer ${
       !isExplorerOpen ? "expanded" : "collapsed"
     }`;
+    announceToScreenReader(announcement);
+  };
+
+  const handleRepositoryProjectSelect = (actualIndex: number) => {
+    setSelectedProject(actualIndex);
+
+    const project = projects[actualIndex];
+    const projectSlug = createSlug(project.title);
+
+    if (updateSlug) {
+      updateSlug(projectSlug);
+    }
+
+    const announcement = `Opened project ${project.title}`;
     announceToScreenReader(announcement);
   };
 
@@ -602,11 +655,13 @@ const Projects: React.FC<ProjectsProps> = ({
                             <div
                               key={project.title}
                               className={styles.repoCard}
-                              onClick={() => setSelectedProject(actualIndex)}
+                              onClick={() =>
+                                handleRepositoryProjectSelect(actualIndex)
+                              }
                               onKeyDown={e => {
                                 if (e.key === "Enter" || e.key === " ") {
                                   e.preventDefault();
-                                  setSelectedProject(actualIndex);
+                                  handleRepositoryProjectSelect(actualIndex);
                                 }
                               }}
                               role="gridcell"
@@ -673,7 +728,12 @@ const Projects: React.FC<ProjectsProps> = ({
                 <div className={styles.mobileDetailHeader}>
                   <button
                     className={styles.backButton}
-                    onClick={() => setSelectedMobileProject(null)}
+                    onClick={() => {
+                      setSelectedMobileProject(null);
+                      if (updateSlug) {
+                        updateSlug(null);
+                      }
+                    }}
                     aria-label="Go back to projects list"
                     title="Back to projects"
                   >

@@ -1,5 +1,10 @@
-import { useState, useEffect, useCallback } from "react";
-import { windowComponentsConfig, appConfig } from "../config/windowComponents";
+import { useState, useEffect, useCallback, useRef } from "react";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import {
+  windowComponentsConfig,
+  appConfig,
+  isValidWindowId,
+} from "../config/windowComponents";
 
 interface WindowState {
   isVisible: boolean;
@@ -7,6 +12,13 @@ interface WindowState {
 }
 
 export const useWindowManager = () => {
+  const navigate = useNavigate();
+  const { windowId, slug } = useParams<{ windowId?: string; slug?: string }>();
+  const [searchParams] = useSearchParams();
+  const isInitialMount = useRef(true);
+  const lastWindowId = useRef<string | undefined>(undefined);
+  const lastSlug = useRef<string | undefined>(undefined);
+
   const [windowStates, setWindowStates] = useState<Record<string, WindowState>>(
     () => {
       const initialStates: Record<string, WindowState> = {};
@@ -49,6 +61,105 @@ export const useWindowManager = () => {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [showCommandCentre]);
 
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      lastWindowId.current = windowId;
+      lastSlug.current = slug;
+
+      if (windowId && isValidWindowId(windowId)) {
+        setWindowStates(prev => ({
+          ...prev,
+          [windowId]: {
+            ...prev[windowId],
+            isVisible: true,
+            zIndex: zIndexCounter + appConfig.zIndex.increment,
+          },
+        }));
+        setZIndexCounter(prev => prev + appConfig.zIndex.increment);
+        setActiveElement(windowId);
+      }
+      return;
+    }
+
+    if (lastWindowId.current === windowId && lastSlug.current === slug) {
+      return;
+    }
+
+    lastWindowId.current = windowId;
+    lastSlug.current = slug;
+
+    if (windowId && isValidWindowId(windowId)) {
+      setWindowStates(prev => {
+        const currentWindow = prev[windowId];
+        if (!currentWindow?.isVisible) {
+          return {
+            ...prev,
+            [windowId]: {
+              ...currentWindow,
+              isVisible: true,
+              zIndex: zIndexCounter + appConfig.zIndex.increment,
+            },
+          };
+        }
+        return prev;
+      });
+
+      if (!windowStates[windowId]?.isVisible) {
+        setZIndexCounter(prev => prev + appConfig.zIndex.increment);
+      }
+      setActiveElement(windowId);
+    } else if (!windowId) {
+      setWindowStates(prev => {
+        const newStates = { ...prev };
+        let hasChanges = false;
+        Object.keys(newStates).forEach(id => {
+          if (newStates[id].isVisible) {
+            newStates[id] = { ...newStates[id], isVisible: false };
+            hasChanges = true;
+          }
+        });
+        return hasChanges ? newStates : prev;
+      });
+      setActiveElement("");
+    }
+  }, [windowId, slug]);
+
+  const updateURL = useCallback(
+    (
+      newWindowId: string | null,
+      newSlug?: string | null,
+      shouldReplace = false,
+      queryParams?: Record<string, string>
+    ) => {
+      const options = shouldReplace ? { replace: true } : {};
+
+      if (newWindowId && isValidWindowId(newWindowId)) {
+        let url = `/window/${newWindowId}`;
+        if (newSlug) {
+          url += `/${newSlug}`;
+        }
+
+        // Add query parameters if provided
+        if (queryParams && Object.keys(queryParams).length > 0) {
+          const params = new URLSearchParams();
+          Object.entries(queryParams).forEach(([key, value]) => {
+            if (value) params.set(key, value);
+          });
+          const queryString = params.toString();
+          if (queryString) {
+            url += `?${queryString}`;
+          }
+        }
+
+        navigate(url, options);
+      } else {
+        navigate("/", options);
+      }
+    },
+    [navigate]
+  );
+
   const activateWindow = useCallback(
     (windowId: string) => {
       setWindowStates(prev => ({
@@ -61,20 +172,34 @@ export const useWindowManager = () => {
       }));
       setZIndexCounter(prev => prev + appConfig.zIndex.increment);
       setActiveElement(windowId);
+
+      // For Notes window, default to "all" if no slug is present
+      if (windowId === "Notes" && !slug) {
+        updateURL(windowId, "all");
+      } else {
+        updateURL(windowId, slug);
+      }
     },
-    [zIndexCounter]
+    [zIndexCounter, updateURL, slug]
   );
 
-  const closeWindow = useCallback((windowId: string) => {
-    setWindowStates(prev => ({
-      ...prev,
-      [windowId]: {
-        ...prev[windowId],
-        isVisible: false,
-      },
-    }));
-    setActiveElement(prev => (prev === windowId ? "" : prev));
-  }, []);
+  const closeWindow = useCallback(
+    (windowId: string) => {
+      setWindowStates(prev => ({
+        ...prev,
+        [windowId]: {
+          ...prev[windowId],
+          isVisible: false,
+        },
+      }));
+      setActiveElement(prev => {
+        const newActiveElement = prev === windowId ? "" : prev;
+        updateURL(newActiveElement || null);
+        return newActiveElement;
+      });
+    },
+    [updateURL]
+  );
 
   const openWindow = useCallback(
     (windowId: string) => {
@@ -87,8 +212,15 @@ export const useWindowManager = () => {
         },
       }));
       setZIndexCounter(prev => prev + appConfig.zIndex.increment);
+
+      // For Notes window, default to "all" if no slug is present
+      if (windowId === "Notes" && !slug) {
+        updateURL(windowId, "all");
+      } else {
+        updateURL(windowId, slug);
+      }
     },
-    [zIndexCounter]
+    [zIndexCounter, updateURL, slug]
   );
 
   const focusWindow = useCallback(
@@ -103,9 +235,16 @@ export const useWindowManager = () => {
         }));
         setZIndexCounter(prev => prev + appConfig.zIndex.increment);
         setActiveElement(windowId);
+
+        // For Notes window, default to "all" if no slug is present
+        if (windowId === "Notes" && !slug) {
+          updateURL(windowId, "all");
+        } else {
+          updateURL(windowId, slug);
+        }
       }
     },
-    [windowStates, zIndexCounter]
+    [windowStates, zIndexCounter, updateURL, slug]
   );
 
   const toggleCommandCentre = useCallback(() => {
@@ -116,12 +255,21 @@ export const useWindowManager = () => {
     setShowCommandCentre(false);
   }, []);
 
+  const updateSlug = useCallback(
+    (newSlug: string | null, shouldReplace = false, queryParams?: Record<string, string>) => {
+      updateURL(activeElement, newSlug, shouldReplace, queryParams);
+    },
+    [activeElement, updateURL]
+  );
+
   return {
     windowStates,
     activeElement,
     brightness,
     showPreloader,
     showCommandCentre,
+    slug,
+    searchParams,
 
     setActiveElement,
     setBrightness,
@@ -131,6 +279,7 @@ export const useWindowManager = () => {
     closeWindow,
     toggleCommandCentre,
     closeCommandCentre,
+    updateSlug,
 
     appConfig,
     windowComponentsConfig,

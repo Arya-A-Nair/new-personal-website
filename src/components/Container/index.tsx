@@ -14,12 +14,15 @@ const Container: React.FC = () => {
     brightness,
     showPreloader,
     showCommandCentre,
+    slug,
+    searchParams,
     setBrightness,
     activateWindow,
     focusWindow,
     closeWindow,
     toggleCommandCentre,
     closeCommandCentre,
+    updateSlug,
     appConfig,
     windowComponentsConfig,
   } = useWindowManager();
@@ -58,6 +61,9 @@ const Container: React.FC = () => {
           activeElement={activeElement}
           onClose={closeWindow}
           setActiveElement={focusWindow}
+          slug={slug}
+          searchParams={searchParams}
+          updateSlug={updateSlug}
         />
       ))}
 

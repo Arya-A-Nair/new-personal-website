@@ -2,12 +2,20 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import styles from "./Notes.module.css";
 import WindowBox from "../WindowBox/WindowBox";
 import { notesData } from "../../notesData";
+import { createSlug, parseSlugPath } from "../../utils/slugUtils";
 
 interface NotesProps {
   onClickClose: () => void;
   setActiveElement: (element: string) => void;
   zIndexVal: number;
   activeElement: string;
+  slug?: string;
+  searchParams?: URLSearchParams;
+  updateSlug?: (
+    slug: string | null,
+    shouldReplace?: boolean,
+    queryParams?: Record<string, string>
+  ) => void;
 }
 
 const Notes: React.FC<NotesProps> = ({
@@ -15,6 +23,9 @@ const Notes: React.FC<NotesProps> = ({
   setActiveElement,
   zIndexVal,
   activeElement,
+  slug,
+  searchParams,
+  updateSlug,
 }) => {
   const [selectedSection, setSelectedSection] = useState<string | null>(null);
   const [selectedNote, setSelectedNote] = useState<string | null>(null);
@@ -37,6 +48,116 @@ const Notes: React.FC<NotesProps> = ({
   const noteRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
+    const noteParam = searchParams?.get("note");
+
+    if (slug) {
+      if (slug === "all") {
+        // Show all notes
+        setSelectedSection(null);
+
+        // Check if a specific note is selected via query param
+        if (noteParam) {
+          const noteSection = sections.find(section =>
+            notesData[section]?.some(n => createSlug(n.title) === noteParam)
+          );
+          if (noteSection) {
+            const notes = notesData[noteSection] || [];
+            const note = notes.find(n => createSlug(n.title) === noteParam);
+            if (note) {
+              setSelectedNote(note.id);
+            }
+          }
+        } else {
+          setSelectedNote(null);
+        }
+      } else {
+        // Find section by slug
+        const section = sections.find(s => createSlug(s) === slug);
+        if (section) {
+          setSelectedSection(section);
+
+          // Check if a specific note is selected via query param
+          if (noteParam) {
+            const notes = notesData[section] || [];
+            const note = notes.find(n => createSlug(n.title) === noteParam);
+            if (note) {
+              setSelectedNote(note.id);
+            } else {
+              setSelectedNote(null);
+            }
+          } else {
+            setSelectedNote(null);
+          }
+        } else {
+          // Invalid section slug, default to all
+          setSelectedSection(null);
+          setSelectedNote(null);
+        }
+      }
+    } else {
+      // No slug, default to all notes
+      setSelectedSection(null);
+
+      // Check if a specific note is selected via query param
+      if (noteParam) {
+        const noteSection = sections.find(section =>
+          notesData[section]?.some(n => createSlug(n.title) === noteParam)
+        );
+        if (noteSection) {
+          const notes = notesData[noteSection] || [];
+          const note = notes.find(n => createSlug(n.title) === noteParam);
+          if (note) {
+            setSelectedNote(note.id);
+          }
+        }
+      } else {
+        setSelectedNote(null);
+      }
+    }
+  }, [slug, searchParams, sections, notesData]);
+
+  const handleSectionSelect = useCallback(
+    (sectionName: string | null) => {
+      setSelectedSection(sectionName);
+      setSelectedNote(null);
+
+      if (updateSlug) {
+        if (sectionName) {
+          const sectionSlug = createSlug(sectionName);
+          updateSlug(sectionSlug);
+        } else {
+          // Show all notes
+          updateSlug("all");
+        }
+      }
+    },
+    [updateSlug]
+  );
+
+  const handleNoteSelect = useCallback(
+    (noteId: string) => {
+      setSelectedNote(noteId);
+
+      if (updateSlug) {
+        const note = currentNotes.find(n => n.id === noteId);
+        if (note) {
+          const noteSlug = createSlug(note.title);
+
+          if (selectedSection) {
+            // Keep current section slug, add note as query param
+            const sectionSlug = createSlug(selectedSection);
+            updateSlug(sectionSlug, false, { note: noteSlug });
+          } else {
+            // In "all" mode, keep "all" slug and add note as query param
+            updateSlug("all", false, { note: noteSlug });
+          }
+        }
+      }
+    },
+    [updateSlug, selectedSection, currentNotes]
+  );
+
+  useEffect(() => {
     if (activeElement === "Notes" && sectionRefs.current[0]) {
       const timer = setTimeout(() => {
         sectionRefs.current[0]?.focus();
@@ -50,6 +171,15 @@ const Notes: React.FC<NotesProps> = ({
       if (event.key === "Escape" && activeElement === "Notes") {
         if (selectedNote) {
           setSelectedNote(null);
+          // Update URL when going back from note - remove query param but keep current slug
+          if (updateSlug) {
+            if (selectedSection) {
+              const sectionSlug = createSlug(selectedSection);
+              updateSlug(sectionSlug);
+            } else {
+              updateSlug("all");
+            }
+          }
         } else {
           onClickClose();
         }
@@ -58,7 +188,7 @@ const Notes: React.FC<NotesProps> = ({
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [activeElement, onClickClose, selectedNote]);
+  }, [activeElement, onClickClose, selectedNote, selectedSection, updateSlug]);
 
   const handleSectionKeyDown = useCallback(
     (event: React.KeyboardEvent, index: number) => {
@@ -67,8 +197,7 @@ const Notes: React.FC<NotesProps> = ({
         case " ":
           event.preventDefault();
           const sectionName = index === 0 ? null : sections[index - 1];
-          setSelectedSection(sectionName);
-          setSelectedNote(null);
+          handleSectionSelect(sectionName);
           break;
         case "ArrowDown":
           event.preventDefault();
@@ -88,7 +217,7 @@ const Notes: React.FC<NotesProps> = ({
           break;
       }
     },
-    [sections]
+    [sections, handleSectionSelect]
   );
 
   const handleNoteKeyDown = useCallback(
@@ -98,7 +227,7 @@ const Notes: React.FC<NotesProps> = ({
         case " ":
           event.preventDefault();
           const note = currentNotes[index];
-          setSelectedNote(note.id);
+          handleNoteSelect(note.id);
           break;
         case "ArrowDown":
           event.preventDefault();
@@ -119,17 +248,8 @@ const Notes: React.FC<NotesProps> = ({
           break;
       }
     },
-    [currentNotes, selectedSection, sections]
+    [currentNotes, selectedSection, sections, handleNoteSelect]
   );
-
-  const handleSectionSelect = (sectionName: string | null) => {
-    setSelectedSection(sectionName);
-    setSelectedNote(null);
-  };
-
-  const handleNoteSelect = (noteId: string) => {
-    setSelectedNote(noteId);
-  };
 
   return (
     <WindowBox
@@ -425,7 +545,18 @@ const Notes: React.FC<NotesProps> = ({
               <div className={styles.mobileHeader}>
                 <button
                   className={styles.backButton}
-                  onClick={() => setSelectedNote(null)}
+                  onClick={() => {
+                    setSelectedNote(null);
+                    // Update URL to go back to current section or all notes
+                    if (updateSlug) {
+                      if (selectedSection) {
+                        const sectionSlug = createSlug(selectedSection);
+                        updateSlug(sectionSlug);
+                      } else {
+                        updateSlug("all");
+                      }
+                    }
+                  }}
                   aria-label="Back to notes list"
                 >
                   ← Back
