@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import styles from "./Experience.module.css";
 import WindowBox from "../WindowBox/WindowBox";
 import { experience } from "../../data";
+import { createSlug } from "../../utils/slugUtils";
 
 interface ExperienceProps {
   onClickClose: () => void;
   setActiveElement: (element: string) => void;
   zIndexVal: number;
   activeElement: string;
+  slug?: string;
+  updateSlug?: (slug: string | null) => void;
 }
 
 const Experience: React.FC<ExperienceProps> = ({
@@ -15,8 +18,32 @@ const Experience: React.FC<ExperienceProps> = ({
   setActiveElement,
   zIndexVal,
   activeElement,
+  slug,
+  updateSlug,
 }) => {
   const [selectedCompany, setSelectedCompany] = useState<number>(0);
+
+  useEffect(() => {
+    if (slug) {
+      const companyIndex = experience.findIndex(
+        exp => createSlug(exp.companyName) === slug
+      );
+      if (companyIndex >= 0) {
+        setSelectedCompany(companyIndex);
+      }
+    }
+  }, [slug]);
+
+  const handleCompanySelect = useCallback(
+    (index: number) => {
+      setSelectedCompany(index);
+      const companySlug = createSlug(experience[index].companyName);
+      if (updateSlug) {
+        updateSlug(companySlug);
+      }
+    },
+    [updateSlug]
+  );
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -25,15 +52,15 @@ const Experience: React.FC<ExperienceProps> = ({
       switch (event.key) {
         case "ArrowUp":
           event.preventDefault();
-          setSelectedCompany(prev =>
-            prev > 0 ? prev - 1 : experience.length - 1
-          );
+          const prevIndex =
+            selectedCompany > 0 ? selectedCompany - 1 : experience.length - 1;
+          handleCompanySelect(prevIndex);
           break;
         case "ArrowDown":
           event.preventDefault();
-          setSelectedCompany(prev =>
-            prev < experience.length - 1 ? prev + 1 : 0
-          );
+          const nextIndex =
+            selectedCompany < experience.length - 1 ? selectedCompany + 1 : 0;
+          handleCompanySelect(nextIndex);
           break;
         case "Escape":
           event.preventDefault();
@@ -44,7 +71,7 @@ const Experience: React.FC<ExperienceProps> = ({
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [activeElement, onClickClose]);
+  }, [activeElement, onClickClose, selectedCompany, handleCompanySelect]);
 
   return (
     <WindowBox
@@ -72,7 +99,7 @@ const Experience: React.FC<ExperienceProps> = ({
                   className={`${styles.companyItem} ${
                     selectedCompany === index ? styles.selected : ""
                   }`}
-                  onClick={() => setSelectedCompany(index)}
+                  onClick={() => handleCompanySelect(index)}
                 >
                   <span className={styles.folderIcon}>🏢</span>
                   <div className={styles.companyDetails}>
@@ -119,7 +146,7 @@ const Experience: React.FC<ExperienceProps> = ({
                   className={`${styles.mobileCompanyChip} ${
                     selectedCompany === index ? styles.selected : ""
                   }`}
-                  onClick={() => setSelectedCompany(index)}
+                  onClick={() => handleCompanySelect(index)}
                 >
                   {exp.companyName}
                 </div>

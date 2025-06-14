@@ -11,6 +11,13 @@ interface WindowRendererProps {
   activeElement: string;
   onClose: (windowId: string) => void;
   setActiveElement: (element: string) => void;
+  slug?: string;
+  searchParams?: URLSearchParams;
+  updateSlug?: (
+    slug: string | null,
+    shouldReplace?: boolean,
+    queryParams?: Record<string, string>
+  ) => void;
 }
 
 const WindowRenderer: React.FC<WindowRendererProps> = ({
@@ -20,6 +27,9 @@ const WindowRenderer: React.FC<WindowRendererProps> = ({
   activeElement,
   onClose,
   setActiveElement,
+  slug,
+  searchParams,
+  updateSlug,
 }) => {
   if (!isVisible) {
     return null;
@@ -32,6 +42,9 @@ const WindowRenderer: React.FC<WindowRendererProps> = ({
     setActiveElement,
     zIndexVal: zIndex,
     activeElement,
+    slug,
+    searchParams,
+    updateSlug,
   };
 
   return <Component {...windowProps} />;

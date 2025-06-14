@@ -13,6 +13,8 @@ root.render(
     <Router>
       <Routes>
         <Route path="/" element={<App />} />
+        <Route path="/window/:windowId" element={<App />} />
+        <Route path="/window/:windowId/:slug" element={<App />} />
         <Route path="/plain" element={<PlainPortfolio />} />
       </Routes>
     </Router>

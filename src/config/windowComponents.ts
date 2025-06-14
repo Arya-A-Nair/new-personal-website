@@ -14,6 +14,13 @@ export interface WindowComponentProps {
   setActiveElement: (element: string) => void;
   zIndexVal: number;
   activeElement: string;
+  slug?: string;
+  searchParams?: URLSearchParams;
+  updateSlug?: (
+    slug: string | null,
+    shouldReplace?: boolean,
+    queryParams?: Record<string, string>
+  ) => void;
 }
 
 export interface WindowConfig {
