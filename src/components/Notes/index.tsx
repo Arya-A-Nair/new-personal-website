@@ -52,10 +52,8 @@ const Notes: React.FC<NotesProps> = ({
 
     if (slug) {
       if (slug === "all") {
-        // Show all notes
         setSelectedSection(null);
 
-        // Check if a specific note is selected via query param
         if (noteParam) {
           const noteSection = sections.find(section =>
             notesData[section]?.some(n => createSlug(n.title) === noteParam)
@@ -71,12 +69,10 @@ const Notes: React.FC<NotesProps> = ({
           setSelectedNote(null);
         }
       } else {
-        // Find section by slug
         const section = sections.find(s => createSlug(s) === slug);
         if (section) {
           setSelectedSection(section);
 
-          // Check if a specific note is selected via query param
           if (noteParam) {
             const notes = notesData[section] || [];
             const note = notes.find(n => createSlug(n.title) === noteParam);
@@ -89,16 +85,13 @@ const Notes: React.FC<NotesProps> = ({
             setSelectedNote(null);
           }
         } else {
-          // Invalid section slug, default to all
           setSelectedSection(null);
           setSelectedNote(null);
         }
       }
     } else {
-      // No slug, default to all notes
       setSelectedSection(null);
 
-      // Check if a specific note is selected via query param
       if (noteParam) {
         const noteSection = sections.find(section =>
           notesData[section]?.some(n => createSlug(n.title) === noteParam)
@@ -126,7 +119,6 @@ const Notes: React.FC<NotesProps> = ({
           const sectionSlug = createSlug(sectionName);
           updateSlug(sectionSlug);
         } else {
-          // Show all notes
           updateSlug("all");
         }
       }
@@ -144,11 +136,9 @@ const Notes: React.FC<NotesProps> = ({
           const noteSlug = createSlug(note.title);
 
           if (selectedSection) {
-            // Keep current section slug, add note as query param
             const sectionSlug = createSlug(selectedSection);
             updateSlug(sectionSlug, false, { note: noteSlug });
           } else {
-            // In "all" mode, keep "all" slug and add note as query param
             updateSlug("all", false, { note: noteSlug });
           }
         }
@@ -171,7 +161,6 @@ const Notes: React.FC<NotesProps> = ({
       if (event.key === "Escape" && activeElement === "Notes") {
         if (selectedNote) {
           setSelectedNote(null);
-          // Update URL when going back from note - remove query param but keep current slug
           if (updateSlug) {
             if (selectedSection) {
               const sectionSlug = createSlug(selectedSection);
@@ -547,7 +536,6 @@ const Notes: React.FC<NotesProps> = ({
                   className={styles.backButton}
                   onClick={() => {
                     setSelectedNote(null);
-                    // Update URL to go back to current section or all notes
                     if (updateSlug) {
                       if (selectedSection) {
                         const sectionSlug = createSlug(selectedSection);
