@@ -89,6 +89,7 @@ export const windowComponentsConfig: WindowConfig[] = [
     preload: false,
     description: "Browse my knowledge base and notes",
   },
+
 ];
 
 export const appConfig: AppConfig = {

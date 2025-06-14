@@ -1,3 +1,21 @@
+export interface PersonalInfo {
+  name: string;
+  tagline: string;
+  profileImage: string;
+  subtitle: string;
+  education: string;
+  socialLinks: {
+    github: string;
+    linkedin: string;
+    leetcode: string;
+    email: string;
+    whatsapp: string;
+    resume: string;
+  };
+  about: string[];
+  technologies: string;
+}
+
 export interface ResumeItem {
   text: string;
   link: string;
@@ -19,6 +37,55 @@ export interface Experience {
   duration: string;
   workDone: string[];
 }
+
+export interface Achievement {
+  title: string;
+  event: string;
+  year: string;
+  description: string;
+  image: string;
+  category: 'hackathon' | 'internship' | 'competition' | 'award';
+}
+
+export interface Stat {
+  label: string;
+  value: string;
+  icon: string;
+  description: string;
+}
+
+export interface AchievementNote {
+  id: string;
+  title: string;
+  preview: string;
+  image: string;
+  achievementTitle: string;
+  content: string[];
+  date: string;
+  link?: string;
+}
+
+const personalInfo: PersonalInfo = {
+  name: "Arya Nair",
+  tagline: "I like to build software that solves real problems 🚀💻🎯",
+  profileImage: "/images/profilePic.png",
+  subtitle: "Software Developer",
+  education: "B.Tech Information Technology",
+  socialLinks: {
+    github: "https://github.com/Arya-A-Nair",
+    linkedin: "https://linkedin.com/in/arya-nair-2003",
+    leetcode: "https://leetcode.com/u/aryaajitnair/",
+    email: "mailto:aryaajitnair@gmail.com",
+    whatsapp: "https://wa.me/919920646238",
+    resume: "https://drive.google.com/file/d/1bhLfOFy87ukde8o6MoI6AC0gJmc6Nygp/view?usp=sharing"
+  },
+  about: [
+    "I'm a passionate software engineer with expertise in full-stack development, blockchain technology, and AI/ML applications.",
+    "I love building innovative solutions that solve real-world problems and have a proven track record of winning hackathons and delivering impactful projects.",
+    "My experience spans across various technologies and I'm always eager to learn new technologies and tackle challenging problems."
+  ],
+  technologies: "I work with a wide range of technologies including React, Node.js, Python, Go, Solidity, AWS, Docker, PostgreSQL, and many more. I'm particularly interested in blockchain technology, AI/ML applications, and building scalable web applications."
+};
 
 const resume: ResumeItem[] = [
   {
@@ -271,4 +338,141 @@ const experience: Experience[] = [
   },
 ];
 
-export { resume, projects, experience };
+const achievementNotes: AchievementNote[] = [
+  {
+    id: "achievement-1",
+    title: "ETHIndia 2023 Winner",
+    preview: "Winner of ETHIndia 2023 + 3 track prizes",
+    image: "ethindia-2023.jpeg",
+    achievementTitle: "ETHIndia 2023 - 3Transform",
+    content: [
+      "Empowers beginners with hands-on smart contract integration.",
+      "Helps enterprises adopt Web3 efficiently.",
+      "🏆 Winner of ETHIndia 2023, the world's biggest Ethereum hackathon.",
+      "🏅 Won 3 track prizes - Filecoin, Okto, and Scroll.",
+    ],
+    date: "December 2023",
+    link: "https://devfolio.co/projects/transform-014b"
+  },
+  {
+    id: "achievement-2",
+    title: "Kavach 2023 Winner",
+    preview: "Government integration of crime detection tool",
+    image: "kavach-2023.jpeg",
+    achievementTitle: "Kavach 2023 - FundTrail",
+    content: [
+      "Developed a fund trail analysis tool to detect cybercrime.",
+      "Winner of Kavach 2023, a national-level government hackathon.",
+      "Project selected for integration into current government systems.",
+    ],
+    date: "August 2023",
+    link: "https://www.youtube.com/watch?v=PQmar1DG5eI"
+  },
+  {
+    id: "achievement-3",
+    title: "ETHIndia 2024 Honoree",
+    preview: "Quadratic prize winner + Honorable mention",
+    image: "ethindia-2024.jpeg",
+    achievementTitle: "ETHIndia 2024 - ThreeDrive",
+    content: [
+      "A decentralized Google Drive-like filesystem powered by the Walrus protocol.",
+      "Provides intuitive nested folders, real-time collaboration, and SDK integration.",
+      "🏅 Honorable Mention in Walrus Protocol track.",
+      "🏆 Won share of Quadratic Voting prize pool.",
+    ],
+    date: "December 2024",
+    link: "https://devfolio.co/projects/threedrive-0f13"
+  },
+  {
+    id: "achievement-4",
+    title: "Unfold 2024 - Best Agentic Project",
+    preview: "Crypto-reward GitHub bot wins 3 prizes",
+    image: "unfold-2024.jpeg",
+    achievementTitle: "Unfold 2024 - OpenFund",
+    content: [
+      "Empowering open source innovation with crypto rewards.",
+      "AI-driven GitHub bot bridges contributions and incentives.",
+      "🏅 Won 'Best Agentic Project' from Nethermind and 2 other prizes.",
+      "Tackles contributor burnout with automated crypto rewards.",
+    ],
+    date: "December 2024",
+    link: "https://devfolio.co/projects/openfund-8ef2"
+  },
+  {
+    id: "achievement-5",
+    title: "Prakalp 2025 Winner",
+    preview: "Best software project for Parity Protocol",
+    image: "prakalp-2025.jpeg",
+    achievementTitle: "Prakalp 2025 - Parity Protocol",
+    content: [
+      "National-level project presentation competition.",
+      "Won best software project for presenting Parity Protocol - an open-source decentralized compute platform.",
+    ],
+    date: "April 2025"
+  },
+  {
+    id: "achievement-6",
+    title: "JPMC Secure Code Warrior - 2nd Place",
+    preview: "Ranked 2nd among interns across India & Singapore",
+    image: "jpmc-2024.png",
+    achievementTitle: "Secure Code Warrior 2024",
+    content: [
+      "Internal CTF-style cybersecurity contest by JPMC.",
+      "Involved solving real-world hacking challenges and quizzes.",
+      "🏅 Secured 2nd place across all interns in India + Singapore.",
+    ],
+    date: "July 2024"
+  },
+  {
+    id: "achievement-7",
+    title: "Hackerstellar Blockchain 2023 Winner",
+    preview: "Escrow + logistics dApp with KYC verification",
+    image: "hackerstellar-2023.jpeg",
+    achievementTitle: "Hackerstellar - ThreeChain",
+    content: [
+      "Secured goods transfer with ERC721 tokens and escrow service.",
+      "Integrated logistics transparency and Aadhaar QR-based KYC.",
+    ],
+    date: "April 2023",
+    link: "https://devfolio.co/projects/three-chain-97b3"
+  },
+  {
+    id: "achievement-8",
+    title: "BitnBuild 2023 Winner",
+    preview: "Tokenized real estate using Polygon",
+    image: "bitnbuild-2023.jpeg",
+    achievementTitle: "BitnBuild - Bricks",
+    content: [
+      "Streamlined property transactions using NFTs on Polygon.",
+      "Improved transparency and security with blockchain tech.",
+    ],
+    date: "January 2023",
+    link: "https://devfolio.co/projects/bricks-731e"
+  },
+  {
+    id: "achievement-9",
+    title: "X-Tract Datathon - 3rd Place",
+    preview: "Ranked 3rd in ML + data cleaning competition",
+    image: "xtract-2022.jpeg",
+    achievementTitle: "X-Tract 2022 Datathon",
+    content: [
+      "Solved end-to-end challenges using data cleaning & ML models.",
+      "Ranked 3rd overall by solving full trail with accurate predictions.",
+    ],
+    date: "March 2022"
+  },
+  {
+    id: "achievement-10",
+    title: "Bid by Bit 2022 Champion",
+    preview: "DSA-based gamified contest win",
+    image: "",
+    achievementTitle: "Bid by Bit 2022",
+    content: [
+      "State-level competitive programming contest.",
+      "Used DSA to earn points and unlock new problem sets.",
+    ],
+    date: "November 2022"
+  }
+];
+
+export { personalInfo, resume, projects, experience, achievementNotes };

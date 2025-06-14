@@ -4,6 +4,7 @@ import styles from "./AboutUs.module.css";
 import { IconContext } from "react-icons";
 import { FaGithub, FaLinkedinIn, FaWhatsapp } from "react-icons/fa6";
 import { AiOutlineMail } from "react-icons/ai";
+import { personalInfo } from "../../data";
 
 interface AboutUsProps {
   onClickClose: () => void;
@@ -18,6 +19,26 @@ const AboutUs: React.FC<AboutUsProps> = ({
   zIndexVal,
   activeElement,
 }) => {
+  const getDisplayText = (
+    url: string,
+    type: "github" | "linkedin" | "email" | "leetcode" | "whatsapp"
+  ) => {
+    switch (type) {
+      case "github":
+        return url.replace("https://github.com/", "");
+      case "linkedin":
+        return url.replace("https://linkedin.com/in/", "");
+      case "email":
+        return url.replace("mailto:", "");
+      case "leetcode":
+        return url.replace("https://leetcode.com/u/", "").replace("/", "");
+      case "whatsapp":
+        return "+91 99206 46238";
+      default:
+        return url;
+    }
+  };
+
   return (
     <IconContext.Provider value={{ color: "#007AFF", size: "1rem" }}>
       <WindowBox
@@ -32,21 +53,19 @@ const AboutUs: React.FC<AboutUsProps> = ({
         <div className={styles.container}>
           <div className={styles.profileImageWrapper}>
             <img
-              src="/images/profilePic.png"
-              alt="Arya Nair"
+              src={personalInfo.profileImage}
+              alt={personalInfo.name}
               className={styles.profileImage}
             />
           </div>
 
-          <h1 className={styles.name}>Arya Nair</h1>
-          <p className={styles.subtitle}>Software Developer</p>
+          <h1 className={styles.name}>{personalInfo.name}</h1>
+          <p className={styles.subtitle}>{personalInfo.subtitle}</p>
 
           <div className={styles.specs}>
             <div className={styles.specRow}>
               <span className={styles.specLabel}>Education</span>
-              <span className={styles.specValue}>
-                B.Tech Information Technology
-              </span>
+              <span className={styles.specValue}>{personalInfo.education}</span>
             </div>
             <div className={styles.specRow}>
               <span className={styles.specLabel}>
@@ -56,10 +75,10 @@ const AboutUs: React.FC<AboutUsProps> = ({
               <span
                 className={styles.specLink}
                 onClick={() =>
-                  window.open("https://github.com/Arya-A-Nair", "_blank")
+                  window.open(personalInfo.socialLinks.github, "_blank")
                 }
               >
-                github.com/Arya-A-Nair
+                {getDisplayText(personalInfo.socialLinks.github, "github")}
               </span>
             </div>
             <div className={styles.specRow}>
@@ -70,13 +89,10 @@ const AboutUs: React.FC<AboutUsProps> = ({
               <span
                 className={styles.specLink}
                 onClick={() =>
-                  window.open(
-                    "https://www.linkedin.com/in/arya-nair-2003/",
-                    "_blank"
-                  )
+                  window.open(personalInfo.socialLinks.linkedin, "_blank")
                 }
               >
-                arya-nair-2003
+                {getDisplayText(personalInfo.socialLinks.linkedin, "linkedin")}
               </span>
             </div>
             <div className={styles.specRow}>
@@ -87,10 +103,10 @@ const AboutUs: React.FC<AboutUsProps> = ({
               <span
                 className={styles.specLink}
                 onClick={() =>
-                  window.open("https://wa.me/919920646238", "_blank")
+                  window.open(personalInfo.socialLinks.whatsapp, "_blank")
                 }
               >
-                +91 99206 46238
+                {getDisplayText(personalInfo.socialLinks.whatsapp, "whatsapp")}
               </span>
             </div>
             <div className={styles.specRow}>
@@ -98,10 +114,10 @@ const AboutUs: React.FC<AboutUsProps> = ({
               <span
                 className={styles.specLink}
                 onClick={() =>
-                  window.open("https://leetcode.com/u/aryaajitnair/", "_blank")
+                  window.open(personalInfo.socialLinks.leetcode, "_blank")
                 }
               >
-                aryaajitnair
+                {getDisplayText(personalInfo.socialLinks.leetcode, "leetcode")}
               </span>
             </div>
             <div className={styles.specRow}>
@@ -112,22 +128,19 @@ const AboutUs: React.FC<AboutUsProps> = ({
               <span
                 className={styles.specLink}
                 onClick={() =>
-                  window.open("mailto:aryaajitnair@gmail.com", "_blank")
+                  window.open(personalInfo.socialLinks.email, "_blank")
                 }
               >
-                aryaajitnair@gmail.com
+                {getDisplayText(personalInfo.socialLinks.email, "email")}
               </span>
             </div>
           </div>
 
           <button
             className={styles.moreInfoButton}
-            onClick={() => {
-              window.open(
-                "https://drive.google.com/file/d/1bhLfOFy87ukde8o6MoI6AC0gJmc6Nygp/view?usp=sharing",
-                "_blank"
-              );
-            }}
+            onClick={() =>
+              window.open(personalInfo.socialLinks.resume, "_blank")
+            }
           >
             Resume...
           </button>
