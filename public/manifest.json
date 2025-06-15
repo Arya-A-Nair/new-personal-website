@@ -42,7 +42,7 @@
       "src": "favicon.ico",
       "type": "image/x-icon",
       "sizes": "192x192",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
       "src": "favicon.ico",
@@ -54,7 +54,7 @@
       "src": "favicon.ico",
       "type": "image/x-icon",
       "sizes": "512x512",
-      "purpose": "any maskable"
+      "purpose": "any"
     }
   ],
   "start_url": "/",
