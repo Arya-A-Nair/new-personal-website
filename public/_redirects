@@ -1,4 +1,10 @@
 # Netlify redirects for SPA routing
-# All routes should serve the index.html file for client-side routing
+# Handle static assets first
+/favicon.ico   /favicon.ico   200
+/manifest.json /manifest.json 200
+/sw.js         /sw.js         200
+/assets/*      /assets/:splat 200
+/images/*      /images/:splat 200
 
+# All other routes should serve the index.html file for client-side routing
 /*    /index.html   200 

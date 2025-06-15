@@ -1,4 +1,13 @@
 Options -MultiViews
 RewriteEngine On
-RewriteCond %{REQUEST_FILENAME} !-f
+
+# Handle static assets - don't rewrite if file exists
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^ - [L]
+
+# Handle directories - don't rewrite if directory exists
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Handle SPA routing - rewrite everything else to index.html
 RewriteRule ^ index.html [QSA,L] 
