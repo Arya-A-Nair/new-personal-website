@@ -9,50 +9,50 @@
       "type": "image/x-icon"
     },
     {
-      "src": "images/profilePic.png",
-      "type": "image/png",
+      "src": "favicon.ico",
+      "type": "image/x-icon",
       "sizes": "72x72",
       "purpose": "any"
     },
     {
-      "src": "images/profilePic.png",
-      "type": "image/png",
+      "src": "favicon.ico",
+      "type": "image/x-icon",
       "sizes": "96x96",
       "purpose": "any"
     },
     {
-      "src": "images/profilePic.png",
-      "type": "image/png",
+      "src": "favicon.ico",
+      "type": "image/x-icon",
       "sizes": "128x128",
       "purpose": "any"
     },
     {
-      "src": "images/profilePic.png",
-      "type": "image/png",
+      "src": "favicon.ico",
+      "type": "image/x-icon",
       "sizes": "144x144",
       "purpose": "any"
     },
     {
-      "src": "images/profilePic.png",
-      "type": "image/png",
+      "src": "favicon.ico",
+      "type": "image/x-icon",
       "sizes": "152x152",
       "purpose": "any"
     },
     {
-      "src": "images/profilePic.png",
-      "type": "image/png",
+      "src": "favicon.ico",
+      "type": "image/x-icon",
       "sizes": "192x192",
       "purpose": "any maskable"
     },
     {
-      "src": "images/profilePic.png",
-      "type": "image/png",
+      "src": "favicon.ico",
+      "type": "image/x-icon",
       "sizes": "384x384",
       "purpose": "any"
     },
     {
-      "src": "images/profilePic.png",
-      "type": "image/png",
+      "src": "favicon.ico",
+      "type": "image/x-icon",
       "sizes": "512x512",
       "purpose": "any maskable"
     }
@@ -72,21 +72,21 @@
       "short_name": "Projects",
       "description": "View my portfolio projects",
       "url": "/window/Projects",
-      "icons": [{ "src": "images/profilePic.png", "sizes": "192x192" }]
+      "icons": [{ "src": "favicon.ico", "sizes": "192x192" }]
     },
     {
       "name": "Experience",
       "short_name": "Experience",
       "description": "Check out my work experience",
       "url": "/window/Experience",
-      "icons": [{ "src": "images/profilePic.png", "sizes": "192x192" }]
+      "icons": [{ "src": "favicon.ico", "sizes": "192x192" }]
     },
     {
       "name": "Notes",
       "short_name": "Notes",
       "description": "Browse my knowledge base",
       "url": "/window/Notes/all",
-      "icons": [{ "src": "images/profilePic.png", "sizes": "192x192" }]
+      "icons": [{ "src": "favicon.ico", "sizes": "192x192" }]
     }
   ]
 }

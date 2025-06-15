@@ -2,7 +2,6 @@ const CACHE_NAME = "arya-nair-portfolio-v1";
 const STATIC_CACHE_NAME = "arya-nair-static-v1";
 const DYNAMIC_CACHE_NAME = "arya-nair-dynamic-v1";
 
-// Assets to cache immediately
 const STATIC_ASSETS = [
   "/",
   "/static/js/bundle.js",
@@ -14,7 +13,6 @@ const STATIC_ASSETS = [
   "/images/preloader.gif",
 ];
 
-// Install event - cache static assets
 self.addEventListener("install", event => {
   console.log("Service Worker: Installing...");
   event.waitUntil(
@@ -35,7 +33,6 @@ self.addEventListener("install", event => {
   self.skipWaiting();
 });
 
-// Activate event - clean up old caches
 self.addEventListener("activate", event => {
   console.log("Service Worker: Activating...");
   event.waitUntil(
@@ -56,14 +53,11 @@ self.addEventListener("activate", event => {
   self.clients.claim();
 });
 
-// Fetch event - serve from cache, fallback to network
 self.addEventListener("fetch", event => {
-  // Skip non-GET requests
   if (event.request.method !== "GET") {
     return;
   }
 
-  // Skip external requests
   if (!event.request.url.startsWith(self.location.origin)) {
     return;
   }
@@ -76,7 +70,6 @@ self.addEventListener("fetch", event => {
 
       return fetch(event.request)
         .then(response => {
-          // Don't cache non-successful responses
           if (
             !response ||
             response.status !== 200 ||
@@ -85,10 +78,8 @@ self.addEventListener("fetch", event => {
             return response;
           }
 
-          // Clone the response
           const responseToCache = response.clone();
 
-          // Cache dynamic content
           caches.open(DYNAMIC_CACHE_NAME).then(cache => {
             cache.put(event.request, responseToCache);
           });
@@ -96,7 +87,6 @@ self.addEventListener("fetch", event => {
           return response;
         })
         .catch(() => {
-          // Return offline page for navigation requests
           if (event.request.mode === "navigate") {
             return caches.match("/");
           }
@@ -105,24 +95,19 @@ self.addEventListener("fetch", event => {
   );
 });
 
-// Background sync for when connection is restored
 self.addEventListener("sync", event => {
   console.log("Service Worker: Background sync", event.tag);
   if (event.tag === "background-sync") {
-    event.waitUntil(
-      // Perform background sync tasks here
-      console.log("Service Worker: Performing background sync")
-    );
+    event.waitUntil(console.log("Service Worker: Performing background sync"));
   }
 });
 
-// Push notification handling
 self.addEventListener("push", event => {
   console.log("Service Worker: Push received");
 
   const options = {
     body: event.data ? event.data.text() : "New update available!",
-    icon: "/images/profilePic.png",
+    icon: "/favicon.ico",
     badge: "/favicon.ico",
     vibrate: [100, 50, 100],
     data: {
@@ -133,7 +118,7 @@ self.addEventListener("push", event => {
       {
         action: "explore",
         title: "View Portfolio",
-        icon: "/images/profilePic.png",
+        icon: "/favicon.ico",
       },
       {
         action: "close",
@@ -148,7 +133,6 @@ self.addEventListener("push", event => {
   );
 });
 
-// Notification click handling
 self.addEventListener("notificationclick", event => {
   console.log("Service Worker: Notification clicked");
   event.notification.close();
@@ -158,7 +142,6 @@ self.addEventListener("notificationclick", event => {
   }
 });
 
-// Handle app updates
 self.addEventListener("message", event => {
   if (event.data && event.data.type === "SKIP_WAITING") {
     self.skipWaiting();

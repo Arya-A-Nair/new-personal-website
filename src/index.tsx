@@ -28,7 +28,6 @@ serviceWorker.register({
   },
   onUpdate: registration => {
     console.log("PWA: New content available, please refresh");
-    // Optionally show update notification to user
     if (confirm("New version available! Refresh to update?")) {
       if (registration.waiting) {
         registration.waiting.postMessage({ type: "SKIP_WAITING" });
