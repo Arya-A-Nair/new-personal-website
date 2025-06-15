@@ -1,15 +1,92 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Arya Nair",
+  "name": "Arya Nair - Portfolio",
+  "description": "Personal portfolio of Arya Nair - Software Developer, Hackathon Winner, and Innovator",
   "icons": [
     {
-      "src": "favicon.png",
+      "src": "favicon.ico",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
+    },
+    {
+      "src": "images/profilePic.png",
+      "type": "image/png",
+      "sizes": "72x72",
+      "purpose": "any"
+    },
+    {
+      "src": "images/profilePic.png",
+      "type": "image/png",
+      "sizes": "96x96",
+      "purpose": "any"
+    },
+    {
+      "src": "images/profilePic.png",
+      "type": "image/png",
+      "sizes": "128x128",
+      "purpose": "any"
+    },
+    {
+      "src": "images/profilePic.png",
+      "type": "image/png",
+      "sizes": "144x144",
+      "purpose": "any"
+    },
+    {
+      "src": "images/profilePic.png",
+      "type": "image/png",
+      "sizes": "152x152",
+      "purpose": "any"
+    },
+    {
+      "src": "images/profilePic.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "images/profilePic.png",
+      "type": "image/png",
+      "sizes": "384x384",
+      "purpose": "any"
+    },
+    {
+      "src": "images/profilePic.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
     }
   ],
-  "start_url": ".",
+  "start_url": "/",
   "display": "standalone",
+  "orientation": "portrait-primary",
   "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "background_color": "#1e1e1e",
+  "categories": ["portfolio", "developer", "technology"],
+  "lang": "en",
+  "scope": "/",
+  "prefer_related_applications": false,
+  "shortcuts": [
+    {
+      "name": "Projects",
+      "short_name": "Projects",
+      "description": "View my portfolio projects",
+      "url": "/window/Projects",
+      "icons": [{ "src": "images/profilePic.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Experience",
+      "short_name": "Experience",
+      "description": "Check out my work experience",
+      "url": "/window/Experience",
+      "icons": [{ "src": "images/profilePic.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Notes",
+      "short_name": "Notes",
+      "description": "Browse my knowledge base",
+      "url": "/window/Notes/all",
+      "icons": [{ "src": "images/profilePic.png", "sizes": "192x192" }]
+    }
+  ]
 }
