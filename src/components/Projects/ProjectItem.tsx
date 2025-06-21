@@ -72,23 +72,23 @@ const ProjectItem: React.FC<ProjectItemProps> = ({ data }) => {
               src={"/images/" + data.img}
               alt={`Screenshot of ${data.title} project`}
             />
-            <div className={styles.imageOverlay}>
-              <IconContext.Provider
-                value={{
-                  className: styles.overlayIcon,
-                  size: "2.5rem",
-                }}
-              >
-                <button
-                  className={styles.viewProjectButton}
-                  onClick={() => window.open(data.link)}
-                  aria-label={`View ${data.title} project live`}
-                  title={`View ${data.title} project`}
+            <button
+              className={styles.viewProjectButton}
+              onClick={() => window.open(data.link)}
+              aria-label={`View ${data.title} project live`}
+              title={`View ${data.title} project`}
+            >
+              <div className={styles.imageOverlay}>
+                <IconContext.Provider
+                  value={{
+                    className: styles.overlayIcon,
+                    size: "2.5rem",
+                  }}
                 >
                   <FaExternalLinkAlt aria-hidden="true" />
-                </button>
-              </IconContext.Provider>
-            </div>
+                </IconContext.Provider>
+              </div>
+            </button>
           </div>
         </div>
 
