@@ -323,7 +323,14 @@ export const useWindowManager = () => {
         }
       }
     },
-    [windowStates, zIndexCounter, updateURL, slug, updateWindowHistory, searchParams]
+    [
+      windowStates,
+      zIndexCounter,
+      updateURL,
+      slug,
+      updateWindowHistory,
+      searchParams,
+    ]
   );
 
   const toggleCommandCentre = useCallback(() => {
