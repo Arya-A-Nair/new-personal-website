@@ -86,7 +86,9 @@ const Notes: React.FC<NotesProps> = ({
           }
         } else {
           setSelectedSection(null);
-          setSelectedNote(null);
+          if (updateSlug) {
+            updateSlug("all", true, noteParam ? { note: noteParam } : {});
+          }
         }
       }
     } else {
@@ -106,24 +108,47 @@ const Notes: React.FC<NotesProps> = ({
       } else {
         setSelectedNote(null);
       }
+
+      if (updateSlug) {
+        updateSlug("all", true, noteParam ? { note: noteParam } : {});
+      }
     }
-  }, [slug, searchParams, sections, notesData]);
+  }, [slug, searchParams, sections, notesData, updateSlug]);
 
   const handleSectionSelect = useCallback(
     (sectionName: string | null) => {
       setSelectedSection(sectionName);
-      setSelectedNote(null);
 
       if (updateSlug) {
-        if (sectionName) {
-          const sectionSlug = createSlug(sectionName);
-          updateSlug(sectionSlug);
+        const sectionSlug = sectionName ? createSlug(sectionName) : "all";
+
+        if (selectedNote) {
+          const allNotes = Object.values(notesData).flat();
+          const currentNote = allNotes.find(n => n.id === selectedNote);
+
+          if (currentNote) {
+            const targetNotes = sectionName
+              ? notesData[sectionName] || []
+              : Object.values(notesData).flat();
+            const noteExistsInSection = targetNotes.some(
+              n => n.id === selectedNote
+            );
+
+            if (noteExistsInSection) {
+              const noteSlug = createSlug(currentNote.title);
+              updateSlug(sectionSlug, false, { note: noteSlug });
+            } else {
+              updateSlug(sectionSlug);
+            }
+          } else {
+            updateSlug(sectionSlug);
+          }
         } else {
-          updateSlug("all");
+          updateSlug(sectionSlug);
         }
       }
     },
-    [updateSlug]
+    [updateSlug, selectedNote, notesData]
   );
 
   const handleNoteSelect = useCallback(
@@ -147,6 +172,17 @@ const Notes: React.FC<NotesProps> = ({
     [updateSlug, selectedSection, currentNotes]
   );
 
+  const handleNoteContentClick = useCallback((e: React.MouseEvent) => {
+    e.stopPropagation();
+  }, []);
+
+  const handleEmptySpaceDoubleClick = useCallback(() => {
+    if (updateSlug) {
+      const sectionSlug = selectedSection ? createSlug(selectedSection) : "all";
+      updateSlug(sectionSlug);
+    }
+  }, [selectedSection, updateSlug]);
+
   useEffect(() => {
     if (activeElement === "Notes" && sectionRefs.current[0]) {
       const timer = setTimeout(() => {
@@ -160,14 +196,11 @@ const Notes: React.FC<NotesProps> = ({
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape" && activeElement === "Notes") {
         if (selectedNote) {
-          setSelectedNote(null);
           if (updateSlug) {
-            if (selectedSection) {
-              const sectionSlug = createSlug(selectedSection);
-              updateSlug(sectionSlug);
-            } else {
-              updateSlug("all");
-            }
+            const sectionSlug = selectedSection
+              ? createSlug(selectedSection)
+              : "all";
+            updateSlug(sectionSlug);
           }
         } else {
           onClickClose();
@@ -256,6 +289,7 @@ const Notes: React.FC<NotesProps> = ({
         className={styles.notesContainer}
         role="main"
         aria-label="Notes application"
+        onClick={handleNoteContentClick}
       >
         <div className={styles.desktopLayout}>
           <div
@@ -427,6 +461,7 @@ const Notes: React.FC<NotesProps> = ({
             className={styles.noteContent}
             role="main"
             aria-label="Note content"
+            onClick={handleNoteContentClick}
           >
             {currentNote ? (
               <>
@@ -454,7 +489,10 @@ const Notes: React.FC<NotesProps> = ({
                 <div className={styles.contentBody}>{currentNote.content}</div>
               </>
             ) : (
-              <div className={styles.emptyContent}>
+              <div
+                className={styles.emptyContent}
+                onDoubleClick={handleEmptySpaceDoubleClick}
+              >
                 <div className={styles.emptyIcon} aria-hidden="true">
                   📝
                 </div>
@@ -535,14 +573,11 @@ const Notes: React.FC<NotesProps> = ({
                 <button
                   className={styles.backButton}
                   onClick={() => {
-                    setSelectedNote(null);
                     if (updateSlug) {
-                      if (selectedSection) {
-                        const sectionSlug = createSlug(selectedSection);
-                        updateSlug(sectionSlug);
-                      } else {
-                        updateSlug("all");
-                      }
+                      const sectionSlug = selectedSection
+                        ? createSlug(selectedSection)
+                        : "all";
+                      updateSlug(sectionSlug);
                     }
                   }}
                   aria-label="Back to notes list"
