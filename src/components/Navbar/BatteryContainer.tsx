@@ -76,9 +76,6 @@ const BatteryContainer: React.FC<BatteryContainerProps> = ({
               />
             </div>
             <div className={styles.separator}></div>
-            <div className={styles.menuItem} onClick={() => window.close()}>
-              Shutdown
-            </div>
             <div className={styles.menuItem} onClick={() => location.reload()}>
               Restart
             </div>
