@@ -512,6 +512,12 @@ const Notes: React.FC<NotesProps> = ({
         >
           {!selectedNote ? (
             <>
+              <div className={styles.mobileHeader}>
+                <h1 className={styles.mobileTitle}>Notes</h1>
+                <p className={styles.mobileSubtitle}>
+                  {Object.values(notesData).flat().length} notes
+                </p>
+              </div>
               <div className={styles.mobileSectionSelector}>
                 <div
                   className={`${styles.mobileSectionChip} ${
@@ -571,7 +577,7 @@ const Notes: React.FC<NotesProps> = ({
             <div className={styles.mobileNoteView}>
               <div className={styles.mobileHeader}>
                 <button
-                  className={styles.backButton}
+                  className={styles.mobileBackButton}
                   onClick={() => {
                     if (updateSlug) {
                       const sectionSlug = selectedSection
@@ -582,20 +588,41 @@ const Notes: React.FC<NotesProps> = ({
                   }}
                   aria-label="Back to notes list"
                 >
-                  ← Back
+                  <span className={styles.backArrow}>←</span>
                 </button>
                 <h2 className={styles.mobileTitle}>{currentNote?.title}</h2>
               </div>
-              <div className={styles.mobileContentSection}>
-                {currentNote?.image && (
-                  <div className={styles.contentImage}>
-                    <img
-                      src={currentNote.image}
-                      alt={`Visual content for ${currentNote.title}`}
-                    />
+
+              <div className={styles.mobileContentWrapper}>
+                <div className={styles.mobileContentSection}>
+                  <div className={styles.mobileContentHeader}>
+                    <h1 className={styles.mobileContentTitle}>
+                      {currentNote?.title}
+                    </h1>
+                    <div className={styles.mobileContentMeta}>
+                      {currentNote?.date && (
+                        <span className={styles.mobileContentDate}>
+                          {currentNote.date}
+                        </span>
+                      )}
+                    </div>
                   </div>
-                )}
-                <div className={styles.contentBody}>{currentNote?.content}</div>
+
+                  {currentNote?.image && (
+                    <div className={styles.mobileContentImage}>
+                      <img
+                        src={currentNote.image}
+                        alt={`Visual content for ${currentNote.title}`}
+                      />
+                    </div>
+                  )}
+
+                  <div className={styles.mobileContentBody}>
+                    <div className={styles.mobileContentParagraph}>
+                      {currentNote?.content}
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           )}
