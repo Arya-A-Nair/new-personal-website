@@ -232,7 +232,7 @@ const experience: Experience[] = [
       "LLMs",
       "Browser Automation",
     ],
-    duration: "Jan 2025 - Present",
+    duration: "Jan 2025 - July 2025",
     workDone: [
       "Reduced manual labor by 40% by developing AI agents that automate repetitive business tasks",
       "Automated 300+ daily tasks via browser automation using AI agents, removing manual input",
