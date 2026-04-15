@@ -223,20 +223,44 @@ const projects: Project[] = [
 
 const experience: Experience[] = [
   {
-    companyName: "Edra Labs",
-    position: "Software Engineer Intern",
-    techStack: [
-      "Prefect",
-      "Python",
-      "Phoenix Framework",
-      "LLMs",
-      "Browser Automation",
-    ],
-    duration: "Jan 2025 - July 2025",
+    companyName: "YottaDB (YCSI)",
+    position: "Software Development Engineer",
+    techStack: ["Go", "Python", "Rust", "MongoDB", "Protobuf", "TOML"],
+    duration: "Nov 2025 - Present",
     workDone: [
-      "Reduced manual labor by 40% by developing AI agents that automate repetitive business tasks",
-      "Automated 300+ daily tasks via browser automation using AI agents, removing manual input",
-      "Centralized LLM evaluation and Prefect orchestration, reducing execution time by 50% and error rate by 30%",
+      "Re-architected distributed locking and concurrency control in Go, migrating to a Redsync-based mutex framework with configurable TTL, retries, exponential backoff, and jitter; reduced concurrency-related production incidents by 64%",
+      "Led the redesign of the Python SDK, generating 200+ config-driven node classes from TOML via a custom code generation pipeline with typed outputs, static constructor stubs (.pyi), and backward-compatible JSON deserialization",
+      "Redesigned the Trigger deployment system, moving webhook provisioning to pipeline-deployment time via Mongo-backed state updates; built 10+ OAuth integrations (ServiceNow, Zoom, Zoho CRM, Linear, Box, Zendesk)",
+      "Engineered an agentic AI verification platform in Rust for financial auditing, leveraging multi-level parallelism across complex agentic flows with asynchronous state persistence in MongoDB and real-time result delivery via Protobuf streaming",
+    ],
+  },
+  {
+    companyName: "JP Morgan Chase",
+    position: "Software Development Engineer",
+    techStack: ["Java", "Spring Boot", "AWS Lambda", "S3", "Terraform", "CI/CD"],
+    duration: "Aug 2025 - Nov 2025",
+    workDone: [
+      "Modularized two shared library repositories into internal modules within the payments platform while preserving full Git history, reducing release effort from 6 hours to 1 hour",
+      "Developed a serverless cloud pricing pipeline using AWS Lambda, AWS Pricing API, and S3 to pre-compute infrastructure costs for Terraform templates; optimized scheduled jobs with multithreading to improve throughput",
+      "Improved cross-service integration testing across Java/Spring Boot microservices by introducing a CI/CD-integrated smoke test suite, strengthening regression detection and release stability",
+    ],
+  },
+  {
+    companyName: "Edna Labs",
+    position: "Software Development Engineer",
+    techStack: [
+      "Python",
+      "Prefect",
+      "AWS ECS",
+      "Phoenix",
+      "LLMs",
+      "Repository Pattern",
+    ],
+    duration: "Jan 2025 - Jun 2025",
+    workDone: [
+      "Developed agentic AI systems for large-scale data extraction and SEO automation; auto-commenter executed 300+ daily tasks, automating 70% of workflows",
+      "Refactored core services using the Repository design pattern to improve modularity and maintainability, reducing feature extension time from 3 days to 2 hours",
+      "Orchestrated workflows using Prefect with state management and integrated AWS ECS for autoscaling under high-load surges, reducing processing turnaround time by 67%; implemented LLM evaluation pipelines with Phoenix, cutting testing errors by 50%",
     ],
   },
   {
