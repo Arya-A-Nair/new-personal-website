@@ -237,7 +237,14 @@ const experience: Experience[] = [
   {
     companyName: "JP Morgan Chase",
     position: "Software Development Engineer",
-    techStack: ["Java", "Spring Boot", "AWS Lambda", "S3", "Terraform", "CI/CD"],
+    techStack: [
+      "Java",
+      "Spring Boot",
+      "AWS Lambda",
+      "S3",
+      "Terraform",
+      "CI/CD",
+    ],
     duration: "Aug 2025 - Nov 2025",
     workDone: [
       "Modularized two shared library repositories into internal modules within the payments platform while preserving full Git history, streamlining version management and reducing release effort from 6 hours to 1 hour",
