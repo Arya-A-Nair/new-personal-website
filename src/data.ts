@@ -223,6 +223,36 @@ const projects: Project[] = [
 
 const experience: Experience[] = [
   {
+    companyName: "VectorShift (YC23)",
+    position: "Software Development Engineer",
+    techStack: ["Go", "Python", "Rust", "MongoDB", "Protobuf", "TOML"],
+    duration: "Nov 2025 - Present",
+    workDone: [
+      "Re-architected the distributed locking and concurrency control in Go, migrating to a Redsync-based mutex framework with configurable TTL, retries, exponential backoff, and jitter; implemented heartbeat extension and graceful shutdown release, reducing concurrency-related production incidents by 64%, improving system reliability",
+      "Led the redesign of the Python SDK, generating 200+ config-driven node classes from TOML via a custom code generation pipeline; introduced typed outputs, static constructor stubs (.pyi) for IDE linting and early type errors, input validation using a defined type hierarchy, and backward-compatible JSON deserialization",
+      "Redesigned key components of the existing Trigger deployment system, moving webhook provisioning from UI-driven creation to pipeline-deployment time via Mongo-backed state updates; added support for OAuth limits, incremental scopes, and integration-specific webhook constraints for scalable multi-tenant automation, and built 10+ OAuth integrations (ServiceNow, Zoom, MySQL, Zoho CRM, Linear, Box, Zendesk)",
+      "Engineered an agentic AI verification platform in Rust to automate financial auditing; developed high-throughput data extraction and discovery pipelines utilizing GPT-5.4 to extract text/numeric claims and orchestrate specialized agents for cross-document validation. Leveraged multi-level parallelism across complex agentic flows, managing asynchronous state persistence in MongoDB and real-time result delivery via Protobuf streaming",
+    ],
+  },
+  {
+    companyName: "JP Morgan Chase",
+    position: "Software Development Engineer",
+    techStack: [
+      "Java",
+      "Spring Boot",
+      "AWS Lambda",
+      "S3",
+      "Terraform",
+      "CI/CD",
+    ],
+    duration: "Aug 2025 - Nov 2025",
+    workDone: [
+      "Modularized two shared library repositories into internal modules within the payments platform while preserving full Git history, streamlining version management and reducing release effort from 6 hours to 1 hour",
+      "Developed a serverless cloud pricing pipeline using AWS Lambda, AWS Pricing API, and S3 to pre-compute infrastructure costs for Terraform templates; optimized scheduled jobs with multithreading to improve throughput",
+      "Helped in improving cross-service integration testing across Java/Spring Boot microservices by introducing a CI/CD-integrated smoke test suite, strengthening regression detection and release stability",
+    ],
+  },
+  {
     companyName: "Edra Labs",
     position: "Software Engineer Intern",
     techStack: [
