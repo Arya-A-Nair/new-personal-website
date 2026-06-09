@@ -79,6 +79,7 @@ const Experience: React.FC<ExperienceProps> = ({
     <WindowBox
       onClickClose={onClickClose}
       onClickMinimize={onClickMinimize}
+      windowId="Experience"
       setActive={() => setActiveElement("Experience")}
       zIndexVal={zIndexVal}
       offset={20}

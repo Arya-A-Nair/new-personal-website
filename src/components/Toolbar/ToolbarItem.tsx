@@ -61,6 +61,7 @@ const ToolbarItem = forwardRef<HTMLDivElement, ToolbarItemProps>(
     return (
       <motion.div
         ref={setRefs}
+        data-dock-id={config.id}
         className={`${styles.toolbarItem} ${isActive ? styles.active : ""} ${
           isRunning ? styles.running : ""
         }`}

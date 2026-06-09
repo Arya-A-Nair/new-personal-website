@@ -150,10 +150,88 @@
   color: #e8e8e8;
 }
 
+.asciiArt {
+  color: #e5c07b;
+  font-family: inherit;
+  font-size: 12px;
+  line-height: 1.25;
+  margin: 0.35rem 0;
+}
+
+.snakeWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.3rem;
+  margin: 0.4rem 0;
+}
+
+.snakeHud {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.snakeBoard {
+  color: #98c379;
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.05;
+  margin: 0;
+  text-shadow: 0 0 6px rgba(152, 211, 121, 0.4);
+}
+
+.snakeGameOver {
+  color: #e06c75;
+  font-weight: 700;
+  animation: gameOverBlink 0.5s step-end infinite;
+}
+
+@keyframes gameOverBlink {
+  50% {
+    opacity: 0.4;
+  }
+}
+
+.snakeControls {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  align-self: center;
+  margin-top: 0.3rem;
+}
+
+.snakeControls button {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #e8e8e8;
+  border-radius: 8px;
+  width: 44px;
+  height: 38px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.snakeControls > div {
+  display: flex;
+  gap: 0.3rem;
+}
+
+@media (pointer: coarse) {
+  .snakeControls {
+    display: flex;
+  }
+}
+
 @media screen and (max-width: 600px) {
   .terminal {
     font-size: 12px;
     padding: 0.5rem 0.75rem;
+  }
+
+  .snakeBoard {
+    font-size: 10px;
   }
 
   .neofetch {

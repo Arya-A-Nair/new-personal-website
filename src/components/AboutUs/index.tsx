@@ -46,6 +46,7 @@ const AboutUs: React.FC<AboutUsProps> = ({
       <WindowBox
         onClickClose={onClickClose}
         onClickMinimize={onClickMinimize}
+        windowId="AboutUs"
         setActive={() => setActiveElement("AboutUs")}
         zIndexVal={zIndexVal}
         offset={60}

@@ -63,6 +63,26 @@
   filter: brightness(1.1);
 }
 
+.toolbarItem.active .toolbarIcon {
+  animation: dockBounce 0.55s cubic-bezier(0.28, 0.84, 0.42, 1);
+}
+
+@keyframes dockBounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  35% {
+    transform: translateY(-22px);
+  }
+  65% {
+    transform: translateY(0);
+  }
+  82% {
+    transform: translateY(-8px);
+  }
+}
+
 .sr-only {
   position: absolute;
   width: 1px;

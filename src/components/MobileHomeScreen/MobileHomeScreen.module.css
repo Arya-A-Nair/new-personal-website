@@ -1,0 +1,157 @@
+.springboard {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 3.2rem 1.2rem 1.4rem;
+  z-index: 1;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.4rem 0.6rem;
+  align-content: start;
+  animation: springIn 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.1);
+}
+
+@keyframes springIn {
+  from {
+    opacity: 0;
+    transform: scale(1.08);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.app {
+  background: none;
+  border: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.app:active .appIconWrapper {
+  transform: scale(0.88);
+  filter: brightness(0.8);
+}
+
+.appIconWrapper {
+  width: 58px;
+  height: 58px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  transition:
+    transform 0.15s ease,
+    filter 0.15s ease;
+  overflow: hidden;
+}
+
+.appIconImage {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 14px;
+}
+
+.imageIcon {
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+}
+
+.emojiIcon {
+  font-size: 30px;
+  line-height: 1;
+}
+
+.appLabel {
+  color: #ffffff;
+  font-size: 0.68rem;
+  font-weight: 500;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+  font-family:
+    -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue",
+    sans-serif;
+  max-width: 74px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.githubIcon {
+  background: linear-gradient(180deg, #4a4a4e, #1c1c1e);
+}
+
+.linkedinIcon {
+  background: linear-gradient(180deg, #2da3e8, #0a66c2);
+}
+
+.leetcodeIcon {
+  background: linear-gradient(180deg, #3c3c40, #18181a);
+  color: #ffa116;
+}
+
+.resumeIcon {
+  background: linear-gradient(180deg, #fefefe, #d8d8dc);
+  color: #e0383e;
+}
+
+.trophyIcon {
+  background: linear-gradient(180deg, #5d4216, #2e2008);
+}
+
+.plainIcon {
+  background: linear-gradient(180deg, #8e8e93, #48484a);
+}
+
+.searchIcon {
+  background: linear-gradient(180deg, #6e6e73, #3a3a3c);
+  font-size: 26px;
+}
+
+.dock {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-radius: 26px;
+  padding: 0.7rem 0.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.dockApp {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.dockApp:active .dockIconImage {
+  transform: scale(0.88);
+}
+
+.dockIconImage {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  border-radius: 14px;
+  transition: transform 0.15s ease;
+  display: block;
+}

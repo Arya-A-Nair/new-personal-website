@@ -18,6 +18,7 @@ interface WindowBoxProps {
   displayTextMobile: string;
   initialWidth?: number;
   initialHeight?: number;
+  windowId?: string;
 }
 
 interface Dimensions {
@@ -42,8 +43,10 @@ const WindowBox: React.FC<WindowBoxProps> = ({
   displayTextMobile,
   initialWidth = 60,
   initialHeight = 80,
+  windowId,
 }) => {
   const isMobile = useIsMobile(600);
+  const containerRef = React.useRef<HTMLDivElement>(null);
   const [dimensions, setDimensions] = useState<Dimensions>({
     height: initialHeight,
     width: initialWidth,
@@ -56,11 +59,34 @@ const WindowBox: React.FC<WindowBoxProps> = ({
       onClickClose();
       return;
     }
+
+    // Aim the genie animation at this window's dock icon.
+    const el = containerRef.current;
+    const icon = windowId
+      ? document.querySelector(`[data-dock-id="${windowId}"]`)
+      : null;
+    if (el && icon) {
+      const iconRect = icon.getBoundingClientRect();
+      const parentRect = (
+        el.offsetParent as HTMLElement | null
+      )?.getBoundingClientRect();
+      if (parentRect) {
+        // The minimizing transform replaces the drag translate, so the
+        // target is computed from the window's untransformed layout box.
+        const baseCx = parentRect.left + el.offsetLeft + el.offsetWidth / 2;
+        const baseCy = parentRect.top + el.offsetTop + el.offsetHeight / 2;
+        const dx = iconRect.left + iconRect.width / 2 - baseCx;
+        const dy = iconRect.top + iconRect.height / 2 - baseCy;
+        el.style.setProperty("--minimize-dx", `${dx}px`);
+        el.style.setProperty("--minimize-dy", `${dy}px`);
+      }
+    }
+
     setIsMinimizing(true);
     setTimeout(() => {
       setIsMinimizing(false);
       onClickMinimize();
-    }, 280);
+    }, 320);
   };
 
   useEffect(() => {
@@ -69,7 +95,7 @@ const WindowBox: React.FC<WindowBoxProps> = ({
         setDimensions({ height: initialHeight, width: initialWidth });
         setPosition({ x: "50%", y: "50%" });
       } else {
-        setDimensions({ height: 90, width: 100 });
+        setDimensions({ height: 100, width: 100 });
         setPosition({ x: 0, y: 0 });
       }
     };
@@ -81,7 +107,7 @@ const WindowBox: React.FC<WindowBoxProps> = ({
       dimensions.height === initialHeight &&
       dimensions.width === initialWidth
     ) {
-      setDimensions({ height: 90, width: 100 });
+      setDimensions({ height: isMobile ? 100 : 90, width: 100 });
       setPosition({ x: 0, y: 0 });
     } else {
       setDimensions({ height: initialHeight, width: initialWidth });
@@ -105,13 +131,15 @@ const WindowBox: React.FC<WindowBoxProps> = ({
       disabled={isMobile}
     >
       <div
+        ref={containerRef}
+        data-window="true"
         className={`${styles.container} ${
           isMinimizing ? styles.minimizing : ""
         }`}
         style={{
           zIndex: zIndexVal,
-          top: dimensions.height === 90 ? 0 : `calc(10% - ${offset}px)`,
-          left: dimensions.height === 90 ? 0 : `calc(10% - ${offset}px)`,
+          top: dimensions.width === 100 ? 0 : `calc(10% - ${offset}px)`,
+          left: dimensions.width === 100 ? 0 : `calc(10% - ${offset}px)`,
           height: `${dimensions.height}%`,
           width: `${dimensions.width}%`,
           boxShadow: activeElement

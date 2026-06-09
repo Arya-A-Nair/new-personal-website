@@ -278,6 +278,7 @@ const Projects: React.FC<ProjectsProps> = ({
       <WindowBox
         onClickClose={onClickClose}
         onClickMinimize={onClickMinimize}
+        windowId="Projects"
         setActive={() => setActiveElement("Projects")}
         zIndexVal={zIndexVal}
         offset={40}

@@ -1,4 +1,6 @@
 .container {
+  position: relative;
+  z-index: 10;
   width: 100%;
   background-color: #1b1b1b;
   height: 2rem;
@@ -98,6 +100,70 @@
   font-weight: 700;
   font-size: 0.8rem;
   letter-spacing: 0.01em;
+}
+
+.rightSection {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  height: 100%;
+}
+
+.trophyButton {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: none;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 0.15rem 0.45rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.15s ease;
+}
+
+.trophyButton:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.trophyCount {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #ffd60a;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+}
+
+/* iOS status bar (mobile) */
+.iosStatusBar {
+  background: transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999999998;
+  height: 2.4rem;
+  padding: 0 1.4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.iosLeft {
+  font-weight: 700;
+  min-width: 4rem;
+}
+
+.iosRight {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-width: 4rem;
+  justify-content: flex-end;
+}
+
+.iosIcon {
+  font-size: 0.75rem;
 }
 
 .commandCentreButton {

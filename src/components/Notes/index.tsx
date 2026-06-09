@@ -279,6 +279,7 @@ const Notes: React.FC<NotesProps> = ({
     <WindowBox
       onClickClose={onClickClose}
       onClickMinimize={onClickMinimize}
+      windowId="Notes"
       setActive={() => setActiveElement("Notes")}
       zIndexVal={zIndexVal}
       offset={30}

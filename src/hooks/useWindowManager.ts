@@ -5,6 +5,7 @@ import {
   appConfig,
   isValidWindowId,
 } from "../config/windowComponents";
+import { unlock, trackAppOpened } from "../utils/achievements";
 
 interface WindowState {
   isVisible: boolean;
@@ -58,6 +59,10 @@ export const useWindowManager = () => {
       windowId,
       ...windowHistory.current.filter(id => id !== windowId),
     ].slice(0, 10);
+    trackAppOpened(windowId, windowComponentsConfig.length);
+    if (windowId === "Terminal") {
+      unlock("terminal");
+    }
   }, []);
 
   const getNextActiveWindow = useCallback(
@@ -103,6 +108,7 @@ export const useWindowManager = () => {
       }
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
         event.preventDefault();
+        unlock("spotlight");
         setShowCommandCentre(prev => !prev);
       }
     };
@@ -289,6 +295,7 @@ export const useWindowManager = () => {
 
   const minimizeWindow = useCallback(
     (windowId: string) => {
+      unlock("minimize");
       setWindowStates(prev => {
         const newStates = {
           ...prev,

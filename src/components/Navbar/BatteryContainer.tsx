@@ -63,6 +63,15 @@ const BatteryContainer: React.FC<BatteryContainerProps> = ({
             <div className={styles.menuItem} onClick={() => location.reload()}>
               Restart
             </div>
+            <div
+              className={styles.menuItem}
+              onClick={() => {
+                setOpenMenu(false);
+                window.dispatchEvent(new CustomEvent("aryaos-shutdown"));
+              }}
+            >
+              Shut Down
+            </div>
           </div>
         </div>
       )}

@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import WindowBox from "../WindowBox/WindowBox";
+import SnakeGame from "./SnakeGame";
 import styles from "./Terminal.module.css";
 import {
   personalInfo,
@@ -8,6 +9,7 @@ import {
   experience,
   achievementNotes,
 } from "../../data";
+import { ACHIEVEMENTS, getUnlocked, unlock } from "../../utils/achievements";
 
 interface TerminalProps {
   onClickClose: () => void;
@@ -51,9 +53,17 @@ const COMMAND_NAMES = [
   "experience",
   "skills",
   "achievements",
+  "trophies",
   "contact",
   "open",
   "neofetch",
+  "snake",
+  "matrix",
+  "cowsay",
+  "fortune",
+  "hack",
+  "coffee",
+  "wallpaper",
   "ls",
   "pwd",
   "whoami",
@@ -62,6 +72,29 @@ const COMMAND_NAMES = [
   "history",
   "clear",
   "exit",
+];
+
+const FORTUNES = [
+  "There are only two hard things in computer science: cache invalidation, naming things, and off-by-one errors.",
+  "It works on my machine. — every developer, moments before disaster",
+  "A good programmer looks both ways before crossing a one-way street.",
+  "Weeks of coding can save you hours of planning.",
+  "The best error message is the one that never shows up. The second best is this one.",
+  "99 little bugs in the code, 99 little bugs. Take one down, patch it around... 127 little bugs in the code.",
+  "Real programmers count from 0.",
+  "To understand recursion, you must first understand recursion.",
+  "The cloud is just someone else's computer. This terminal is just someone else's portfolio.",
+  "Talk is cheap. Show me the code. — Linus Torvalds",
+];
+
+const HACK_SEQUENCE = [
+  "Initializing exploit framework v4.2.0...",
+  "Scanning target: arya-nair.in [ports 22, 80, 443, 31337]",
+  "Bypassing firewall... [████████░░] 80%",
+  "Decrypting RSA-4096 key... done (lucky guess)",
+  "Injecting payload into mainframe... [██████████] 100%",
+  "ACCESS GRANTED ✔",
+  "...just kidding. Everything here is already open source:",
 ];
 
 const OPEN_TARGETS: Record<string, string> = {
@@ -92,10 +125,17 @@ const Terminal: React.FC<TerminalProps> = ({
   const [input, setInput] = useState("");
   const [history, setHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
+  const [snakeActive, setSnakeActive] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const lineId = useRef(0);
   const hasBooted = useRef(false);
+  const hackTimers = useRef<ReturnType<typeof setTimeout>[]>([]);
+
+  useEffect(() => {
+    const timers = hackTimers.current;
+    return () => timers.forEach(timer => clearTimeout(timer));
+  }, []);
 
   const pushLines = useCallback((...contents: React.ReactNode[]) => {
     setLines(prev => [
@@ -154,6 +194,11 @@ const Terminal: React.FC<TerminalProps> = ({
           ["open <target>", "github | linkedin | leetcode | resume | email"],
           ["open <app>", "about | projects | experience | notes"],
           ["neofetch", "system info, the right way"],
+          ["trophies", "your trophy collection 🏆"],
+          ["snake", "play snake, right here"],
+          ["matrix", "take the red pill"],
+          ["cowsay / fortune / hack / coffee", "essential productivity tools"],
+          ["wallpaper", "rotate the desktop wallpaper"],
           ["ls / pwd / whoami / date / echo", "the classics"],
           ["history", "command history"],
           ["clear", "clear the screen"],
@@ -380,6 +425,99 @@ const Terminal: React.FC<TerminalProps> = ({
     );
   };
 
+  const runTrophies = () => {
+    const unlocked = getUnlocked();
+    pushLines(
+      <div className={styles.block}>
+        <span className={styles.highlight}>
+          Trophy Room — {unlocked.size}/{ACHIEVEMENTS.length} unlocked
+        </span>
+        {ACHIEVEMENTS.map(achievement => {
+          const isUnlocked = unlocked.has(achievement.id);
+          return (
+            <span key={achievement.id}>
+              {isUnlocked ? achievement.icon : "🔒"}{" "}
+              <span className={isUnlocked ? styles.cmd : styles.dim}>
+                {isUnlocked
+                  ? achievement.title
+                  : achievement.secret
+                    ? "???"
+                    : achievement.title}
+              </span>{" "}
+              <span className={styles.dim}>
+                — {isUnlocked ? achievement.description : achievement.hint}
+              </span>
+            </span>
+          );
+        })}
+      </div>
+    );
+  };
+
+  const runCowsay = (text: string) => {
+    const message = text || "moo";
+    const border = "-".repeat(message.length + 2);
+    pushLines(
+      <pre className={styles.asciiArt}>
+        {` ${border}\n< ${message} >\n ${border}\n        \\   ^__^\n         \\  (oo)\\_______\n            (__)\\       )\\/\\\n                ||----w |\n                ||     ||`}
+      </pre>
+    );
+  };
+
+  const runFortune = () => {
+    const fortune = FORTUNES[Math.floor(Math.random() * FORTUNES.length)];
+    pushLines(<span className={styles.highlight}>🥠 {fortune}</span>);
+  };
+
+  const runHack = () => {
+    HACK_SEQUENCE.forEach((line, i) => {
+      const timer = setTimeout(() => {
+        if (i === HACK_SEQUENCE.length - 1) {
+          pushLines(
+            <span className={styles.dim}>{line}</span>,
+            <a
+              href={personalInfo.socialLinks.github}
+              target="_blank"
+              rel="noreferrer"
+              className={styles.link}
+            >
+              {personalInfo.socialLinks.github}
+            </a>
+          );
+        } else if (line.startsWith("ACCESS")) {
+          pushLines(<span className={styles.cmd}>{line}</span>);
+        } else {
+          pushLines(<span className={styles.dim}>{line}</span>);
+        }
+      }, i * 550);
+      hackTimers.current.push(timer);
+    });
+  };
+
+  const runCoffee = () => {
+    pushLines(
+      <pre className={styles.asciiArt}>
+        {`      ( (\n       ) )\n    ........\n    |      |]\n    \\      /\n     \`----'`}
+      </pre>,
+      <span>☕ Brewing... productivity +20%. Hackathon mode engaged.</span>
+    );
+  };
+
+  const runMatrix = () => {
+    unlock("matrix");
+    pushLines(
+      <span className={styles.cmd}>Wake up, Neo... entering the Matrix.</span>
+    );
+    setTimeout(() => {
+      window.dispatchEvent(new CustomEvent("aryaos-matrix"));
+    }, 600);
+  };
+
+  const runWallpaper = () => {
+    window.dispatchEvent(new CustomEvent("aryaos-wallpaper"));
+    pushLines(<span>🎨 Wallpaper rotated. Close me to admire it.</span>);
+  };
+
   const executeCommand = (rawInput: string) => {
     const trimmed = rawInput.trim();
 
@@ -427,7 +565,33 @@ const Terminal: React.FC<TerminalProps> = ({
         runOpen(args[0] || "");
         break;
       case "neofetch":
+        unlock("neofetch");
         runNeofetch();
+        break;
+      case "trophies":
+        runTrophies();
+        break;
+      case "snake":
+        pushLines(<span className={styles.dim}>Loading snake.bin...</span>);
+        setSnakeActive(true);
+        break;
+      case "matrix":
+        runMatrix();
+        break;
+      case "cowsay":
+        runCowsay(arg);
+        break;
+      case "fortune":
+        runFortune();
+        break;
+      case "hack":
+        runHack();
+        break;
+      case "coffee":
+        runCoffee();
+        break;
+      case "wallpaper":
+        runWallpaper();
         break;
       case "ls":
         runLs();
@@ -471,12 +635,16 @@ const Terminal: React.FC<TerminalProps> = ({
         setTimeout(onClickClose, 300);
         break;
       case "sudo":
-        pushLines(
-          <span className={styles.error}>
-            {PROMPT_USER} is not in the sudoers file. This incident will be
-            reported. 😏
-          </span>
-        );
+        if (arg.toLowerCase() === "make me a sandwich") {
+          pushLines(<span>Okay. 🥪</span>);
+        } else {
+          pushLines(
+            <span className={styles.error}>
+              {PROMPT_USER} is not in the sudoers file. This incident will be
+              reported. 😏
+            </span>
+          );
+        }
         break;
       case "rm":
         pushLines(
@@ -487,10 +655,12 @@ const Terminal: React.FC<TerminalProps> = ({
         break;
       case "cat":
         if (args[0] === "secrets.txt") {
+          unlock("secrets");
           pushLines(
             <span>
               The real secret is the hackathons we won along the way. Try{" "}
-              <span className={styles.cmd}>achievements</span>.
+              <span className={styles.cmd}>trophies</span> — and maybe the
+              Konami code. 🤫
             </span>
           );
         } else if (args[0] === "resume.pdf") {
@@ -588,6 +758,7 @@ const Terminal: React.FC<TerminalProps> = ({
     <WindowBox
       onClickClose={onClickClose}
       onClickMinimize={onClickMinimize}
+      windowId="Terminal"
       setActive={() => setActiveElement("Terminal")}
       zIndexVal={zIndexVal}
       offset={80}
@@ -597,7 +768,9 @@ const Terminal: React.FC<TerminalProps> = ({
     >
       <div
         className={styles.terminal}
-        onClick={() => inputRef.current?.focus()}
+        onClick={() => {
+          if (!snakeActive) inputRef.current?.focus();
+        }}
         ref={scrollRef}
         role="application"
         aria-label="Interactive terminal. Type help for available commands."
@@ -609,22 +782,40 @@ const Terminal: React.FC<TerminalProps> = ({
             </div>
           ))}
         </div>
-        <div className={styles.inputLine}>
-          {prompt}
-          <input
-            ref={inputRef}
-            className={styles.input}
-            value={input}
-            onChange={e => setInput(e.target.value)}
-            onKeyDown={handleKeyDown}
-            autoFocus
-            autoComplete="off"
-            autoCapitalize="off"
-            autoCorrect="off"
-            spellCheck={false}
-            aria-label="Terminal command input"
+        {snakeActive ? (
+          <SnakeGame
+            onExit={score => {
+              setSnakeActive(false);
+              pushLines(
+                <span>
+                  Snake exited — final score:{" "}
+                  <span className={styles.highlight}>{score}</span>
+                  {score >= 10
+                    ? " 🏆 trophy unlocked!"
+                    : " (score 10+ for a trophy)"}
+                </span>
+              );
+              setTimeout(() => inputRef.current?.focus(), 50);
+            }}
           />
-        </div>
+        ) : (
+          <div className={styles.inputLine}>
+            {prompt}
+            <input
+              ref={inputRef}
+              className={styles.input}
+              value={input}
+              onChange={e => setInput(e.target.value)}
+              onKeyDown={handleKeyDown}
+              autoFocus
+              autoComplete="off"
+              autoCapitalize="off"
+              autoCorrect="off"
+              spellCheck={false}
+              aria-label="Terminal command input"
+            />
+          </div>
+        )}
       </div>
     </WindowBox>
   );
