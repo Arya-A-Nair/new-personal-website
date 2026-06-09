@@ -1,28 +1,42 @@
 .container {
-  background-color: #10162c;
+  background-color: #1c1c21;
   position: absolute;
   border-radius: 12px;
   overflow: hidden;
-  animation: width 1s ease-in-out;
+  animation: windowOpen 0.25s cubic-bezier(0.2, 0.9, 0.3, 1.2);
   display: flex;
   flex-direction: column;
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes windowOpen {
+  from {
+    opacity: 0;
+    scale: 0.92;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+.minimizing {
+  transition:
+    transform 0.32s cubic-bezier(0.5, -0.1, 0.8, 0.6),
+    opacity 0.32s ease-in;
+  transform: translate(var(--minimize-dx, 0px), var(--minimize-dy, 60vh))
+    scale(0.05) !important;
+  opacity: 0.15;
+  pointer-events: none;
 }
 
 .statBar {
   width: 100%;
-  height: 2rem;
-  background: linear-gradient(
-    180deg,
-    rgba(55, 55, 55, 0.95) 0%,
-    rgba(45, 45, 45, 0.95) 100%
-  );
-  backdrop-filter: blur(20px);
-  top: 0%;
-  left: 0%;
-  padding: 0.5rem;
+  height: 2.4rem;
+  background: rgba(38, 38, 42, 0.92);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  padding: 0 0.8rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -31,26 +45,94 @@
   font-family:
     -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
   font-size: 13px;
-  font-weight: 500;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font-weight: 600;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.35);
 }
 
-.statBarIcons {
+.windowTitle {
+  color: #d8d8dd;
+  letter-spacing: 0.01em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.statBarInactive .windowTitle {
+  color: #77777d;
+}
+
+.trafficLights {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  gap: 0.5rem;
+  gap: 8px;
+  width: 64px;
+  flex-shrink: 0;
 }
 
-.statBarIcons > img {
+.titleSpacer {
+  width: 64px;
+  flex-shrink: 0;
+}
+
+.light {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 0;
   cursor: pointer;
-  width: 12px;
-  height: 12px;
-  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: filter 0.15s ease;
 }
 
-.statBarIcons > img:hover {
-  transform: scale(1.1);
+.light span {
+  font-size: 11px;
+  line-height: 1;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  transition: opacity 0.1s ease;
+  transform: translateY(-0.5px);
+}
+
+.trafficLights:hover .light span {
+  opacity: 1;
+}
+
+.light:active {
+  filter: brightness(0.8);
+}
+
+.lightClose {
+  background-color: #ff5f57;
+}
+
+.lightMinimize {
+  background-color: #febc2e;
+}
+
+.lightZoom {
+  background-color: #28c840;
+}
+
+.statBarInactive .lightClose,
+.statBarInactive .lightMinimize,
+.statBarInactive .lightZoom {
+  background-color: #4c4c52;
+}
+
+.statBarInactive .trafficLights:hover .lightClose {
+  background-color: #ff5f57;
+}
+
+.statBarInactive .trafficLights:hover .lightMinimize {
+  background-color: #febc2e;
+}
+
+.statBarInactive .trafficLights:hover .lightZoom {
+  background-color: #28c840;
 }
 
 .ContentContainer {
@@ -67,24 +149,37 @@
   .container {
     border-radius: 0;
     border: none;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    box-shadow: none !important;
     backdrop-filter: none;
+    animation: mobileAppOpen 0.34s cubic-bezier(0.32, 0.72, 0.35, 1);
+  }
+
+  @keyframes mobileAppOpen {
+    from {
+      opacity: 0;
+      scale: 0.86;
+    }
+    to {
+      opacity: 1;
+      scale: 1;
+    }
   }
 
   .statBar {
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d30 100%);
+    background: rgba(18, 18, 22, 0.94);
     color: #ffffff;
-    font-family: "Roboto", "Google Sans", system-ui, sans-serif;
-    font-size: 16px;
+    font-family:
+      -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+    font-size: 17px;
     font-weight: 600;
-    height: 56px;
-    padding: 0 16px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    height: calc(52px + 2.4rem);
+    padding: 2.4rem 12px 0;
+    border-bottom: 0.5px solid rgba(255, 255, 255, 0.12);
     position: relative;
   }
 
-  .statBarIcons {
+  .trafficLights,
+  .titleSpacer {
     display: none;
   }
 
@@ -96,32 +191,26 @@
     height: 40px;
     border-radius: 50%;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    margin-right: 8px;
-  }
-
-  .mobileBackButton:hover {
-    background: rgba(255, 255, 255, 0.1);
-    transform: scale(1.1);
+    transition: background-color 0.2s ease;
   }
 
   .mobileBackButton:active {
-    background: rgba(255, 255, 255, 0.2);
-    transform: scale(0.95);
+    background: rgba(255, 255, 255, 0.12);
   }
 
   .backArrow {
-    font-size: 24px;
-    font-weight: 300;
-    color: #ffffff;
+    font-size: 34px;
+    font-weight: 400;
+    color: #0a84ff;
     user-select: none;
     line-height: 1;
+    transform: translateY(-2px);
   }
 
   .mobileTitle {
     flex: 1;
     text-align: center;
-    font-size: 16px;
+    font-size: 17px;
     font-weight: 600;
     color: #ffffff;
     margin: 0 8px;

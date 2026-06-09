@@ -6,6 +6,7 @@ import { createSlug, parseSlugPath } from "../../utils/slugUtils";
 
 interface NotesProps {
   onClickClose: () => void;
+  onClickMinimize?: () => void;
   setActiveElement: (element: string) => void;
   zIndexVal: number;
   activeElement: string;
@@ -20,6 +21,7 @@ interface NotesProps {
 
 const Notes: React.FC<NotesProps> = ({
   onClickClose,
+  onClickMinimize,
   setActiveElement,
   zIndexVal,
   activeElement,
@@ -48,6 +50,11 @@ const Notes: React.FC<NotesProps> = ({
   const noteRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
+    // The route slug belongs to whichever window is active. A background
+    // Notes window must not interpret another window's slug or rewrite
+    // the URL from underneath it.
+    if (activeElement !== "Notes") return;
+
     const noteParam = searchParams?.get("note");
 
     if (slug) {
@@ -113,7 +120,7 @@ const Notes: React.FC<NotesProps> = ({
         updateSlug("all", true, noteParam ? { note: noteParam } : {});
       }
     }
-  }, [slug, searchParams, sections, notesData, updateSlug]);
+  }, [slug, searchParams, sections, notesData, updateSlug, activeElement]);
 
   const handleSectionSelect = useCallback(
     (sectionName: string | null) => {
@@ -276,6 +283,8 @@ const Notes: React.FC<NotesProps> = ({
   return (
     <WindowBox
       onClickClose={onClickClose}
+      onClickMinimize={onClickMinimize}
+      windowId="Notes"
       setActive={() => setActiveElement("Notes")}
       zIndexVal={zIndexVal}
       offset={30}

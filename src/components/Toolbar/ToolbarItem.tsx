@@ -1,15 +1,43 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, useRef } from "react";
+import { motion, MotionValue, useSpring, useTransform } from "framer-motion";
 import styles from "./Toolbar.module.css";
 import { WindowConfig } from "../../config/windowComponents";
+
+const BASE_SIZE = 52;
+const MAX_SIZE = 76;
+const MAGNIFY_RANGE = 140;
 
 interface ToolbarItemProps {
   config: WindowConfig;
   onSelect: (windowId: string) => void;
   isActive: boolean;
+  isRunning: boolean;
+  mouseX: MotionValue<number>;
+  magnifyEnabled: boolean;
 }
 
 const ToolbarItem = forwardRef<HTMLDivElement, ToolbarItemProps>(
-  ({ config, onSelect, isActive }, ref) => {
+  ({ config, onSelect, isActive, isRunning, mouseX, magnifyEnabled }, ref) => {
+    const itemRef = useRef<HTMLDivElement | null>(null);
+
+    const distance = useTransform(mouseX, value => {
+      const bounds = itemRef.current?.getBoundingClientRect();
+      if (!bounds || !magnifyEnabled) return MAGNIFY_RANGE;
+      return value - bounds.x - bounds.width / 2;
+    });
+
+    const sizeTarget = useTransform(
+      distance,
+      [-MAGNIFY_RANGE, 0, MAGNIFY_RANGE],
+      [BASE_SIZE, MAX_SIZE, BASE_SIZE]
+    );
+
+    const size = useSpring(sizeTarget, {
+      mass: 0.1,
+      stiffness: 170,
+      damping: 14,
+    });
+
     const handleClick = () => {
       onSelect(config.id);
     };
@@ -21,10 +49,23 @@ const ToolbarItem = forwardRef<HTMLDivElement, ToolbarItemProps>(
       }
     };
 
+    const setRefs = (el: HTMLDivElement | null) => {
+      itemRef.current = el;
+      if (typeof ref === "function") {
+        ref(el);
+      } else if (ref) {
+        ref.current = el;
+      }
+    };
+
     return (
-      <div
-        ref={ref}
-        className={`${styles.toolbarItem} ${isActive ? styles.active : ""}`}
+      <motion.div
+        ref={setRefs}
+        data-dock-id={config.id}
+        className={`${styles.toolbarItem} ${isActive ? styles.active : ""} ${
+          isRunning ? styles.running : ""
+        }`}
+        style={magnifyEnabled ? { width: size, height: size } : undefined}
         onClick={handleClick}
         onKeyDown={handleKeyDown}
         tabIndex={0}
@@ -42,7 +83,7 @@ const ToolbarItem = forwardRef<HTMLDivElement, ToolbarItemProps>(
           className={styles.toolbarIcon}
           aria-hidden="true"
         />
-      </div>
+      </motion.div>
     );
   }
 );

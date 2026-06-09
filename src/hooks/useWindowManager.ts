@@ -5,11 +5,15 @@ import {
   appConfig,
   isValidWindowId,
 } from "../config/windowComponents";
+import { unlock, trackAppOpened } from "../utils/achievements";
 
 interface WindowState {
   isVisible: boolean;
+  isMinimized: boolean;
   zIndex: number;
 }
+
+const BOOT_SESSION_KEY = "aryaos-booted";
 
 export const useWindowManager = () => {
   const navigate = useNavigate();
@@ -26,6 +30,7 @@ export const useWindowManager = () => {
       windowComponentsConfig.forEach(config => {
         initialStates[config.id] = {
           isVisible: false,
+          isMinimized: false,
           zIndex: config.defaultZIndex,
         };
       });
@@ -40,7 +45,13 @@ export const useWindowManager = () => {
   const [brightness, setBrightness] = useState<number>(
     appConfig.brightness.default
   );
-  const [showPreloader, setShowPreloader] = useState<boolean>(true);
+  const [showPreloader, setShowPreloader] = useState<boolean>(() => {
+    try {
+      return !window.sessionStorage.getItem(BOOT_SESSION_KEY);
+    } catch {
+      return true;
+    }
+  });
   const [showCommandCentre, setShowCommandCentre] = useState<boolean>(false);
 
   const updateWindowHistory = useCallback((windowId: string) => {
@@ -48,6 +59,10 @@ export const useWindowManager = () => {
       windowId,
       ...windowHistory.current.filter(id => id !== windowId),
     ].slice(0, 10);
+    trackAppOpened(windowId, windowComponentsConfig.length);
+    if (windowId === "Terminal") {
+      unlock("terminal");
+    }
   }, []);
 
   const getNextActiveWindow = useCallback(
@@ -72,17 +87,29 @@ export const useWindowManager = () => {
   );
 
   useEffect(() => {
+    if (!showPreloader) return;
+
     const timer = setTimeout(() => {
       setShowPreloader(false);
+      try {
+        window.sessionStorage.setItem(BOOT_SESSION_KEY, "true");
+      } catch {
+        // Session storage unavailable; boot will replay next load.
+      }
     }, appConfig.preloader.duration);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [showPreloader]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape" && showCommandCentre) {
         setShowCommandCentre(false);
+      }
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+        event.preventDefault();
+        unlock("spotlight");
+        setShowCommandCentre(prev => !prev);
       }
     };
 
@@ -102,6 +129,7 @@ export const useWindowManager = () => {
           [windowId]: {
             ...prev[windowId],
             isVisible: true,
+            isMinimized: false,
             zIndex: zIndexCounter + appConfig.zIndex.increment,
           },
         }));
@@ -128,6 +156,7 @@ export const useWindowManager = () => {
             [windowId]: {
               ...currentWindow,
               isVisible: true,
+              isMinimized: false,
               zIndex: zIndexCounter + appConfig.zIndex.increment,
             },
           };
@@ -190,6 +219,33 @@ export const useWindowManager = () => {
     [navigate]
   );
 
+  // Builds the right URL for a target window. The current slug and query
+  // params belong to the currently routed window — they must not leak into
+  // a different window's URL when switching.
+  const navigateToWindow = useCallback(
+    (targetWindowId: string) => {
+      const staying = lastWindowId.current === targetWindowId;
+
+      if (targetWindowId === "Notes") {
+        const params: Record<string, string> = {};
+        if (staying) {
+          searchParams.forEach((value, key) => {
+            params[key] = value;
+          });
+        }
+        updateURL(
+          targetWindowId,
+          staying && slug ? slug : "all",
+          false,
+          params
+        );
+      } else {
+        updateURL(targetWindowId, staying ? (slug ?? null) : null);
+      }
+    },
+    [slug, searchParams, updateURL]
+  );
+
   const activateWindow = useCallback(
     (windowId: string) => {
       setWindowStates(prev => ({
@@ -197,29 +253,16 @@ export const useWindowManager = () => {
         [windowId]: {
           ...prev[windowId],
           isVisible: true,
+          isMinimized: false,
           zIndex: zIndexCounter + appConfig.zIndex.increment,
         },
       }));
       setZIndexCounter(prev => prev + appConfig.zIndex.increment);
       setActiveElement(windowId);
       updateWindowHistory(windowId);
-
-      if (windowId === "Notes") {
-        const currentParams: Record<string, string> = {};
-        searchParams.forEach((value, key) => {
-          currentParams[key] = value;
-        });
-
-        if (!slug) {
-          updateURL(windowId, "all", false, currentParams);
-        } else {
-          updateURL(windowId, slug, false, currentParams);
-        }
-      } else {
-        updateURL(windowId, slug);
-      }
+      navigateToWindow(windowId);
     },
-    [zIndexCounter, updateURL, slug, updateWindowHistory, searchParams]
+    [zIndexCounter, navigateToWindow, updateWindowHistory]
   );
 
   const closeWindow = useCallback(
@@ -230,6 +273,7 @@ export const useWindowManager = () => {
           [windowId]: {
             ...prev[windowId],
             isVisible: false,
+            isMinimized: false,
           },
         };
 
@@ -237,20 +281,7 @@ export const useWindowManager = () => {
 
         if (nextActiveWindow) {
           setActiveElement(nextActiveWindow);
-          if (nextActiveWindow === "Notes") {
-            const currentParams: Record<string, string> = {};
-            searchParams.forEach((value, key) => {
-              currentParams[key] = value;
-            });
-
-            if (!slug) {
-              updateURL(nextActiveWindow, "all", false, currentParams);
-            } else {
-              updateURL(nextActiveWindow, slug, false, currentParams);
-            }
-          } else {
-            updateURL(nextActiveWindow, slug);
-          }
+          navigateToWindow(nextActiveWindow);
         } else {
           setActiveElement("");
           updateURL(null);
@@ -259,7 +290,36 @@ export const useWindowManager = () => {
         return newStates;
       });
     },
-    [getNextActiveWindow, updateURL, slug, searchParams]
+    [getNextActiveWindow, updateURL, navigateToWindow]
+  );
+
+  const minimizeWindow = useCallback(
+    (windowId: string) => {
+      unlock("minimize");
+      setWindowStates(prev => {
+        const newStates = {
+          ...prev,
+          [windowId]: {
+            ...prev[windowId],
+            isVisible: false,
+            isMinimized: true,
+          },
+        };
+
+        const nextActiveWindow = getNextActiveWindow(windowId, newStates);
+
+        if (nextActiveWindow) {
+          setActiveElement(nextActiveWindow);
+          navigateToWindow(nextActiveWindow);
+        } else {
+          setActiveElement("");
+          updateURL(null);
+        }
+
+        return newStates;
+      });
+    },
+    [getNextActiveWindow, updateURL, navigateToWindow]
   );
 
   const openWindow = useCallback(
@@ -269,28 +329,15 @@ export const useWindowManager = () => {
         [windowId]: {
           ...prev[windowId],
           isVisible: true,
+          isMinimized: false,
           zIndex: zIndexCounter + appConfig.zIndex.increment,
         },
       }));
       setZIndexCounter(prev => prev + appConfig.zIndex.increment);
       updateWindowHistory(windowId);
-
-      if (windowId === "Notes") {
-        const currentParams: Record<string, string> = {};
-        searchParams.forEach((value, key) => {
-          currentParams[key] = value;
-        });
-
-        if (!slug) {
-          updateURL(windowId, "all", false, currentParams);
-        } else {
-          updateURL(windowId, slug, false, currentParams);
-        }
-      } else {
-        updateURL(windowId, slug);
-      }
+      navigateToWindow(windowId);
     },
-    [zIndexCounter, updateURL, slug, updateWindowHistory, searchParams]
+    [zIndexCounter, navigateToWindow, updateWindowHistory]
   );
 
   const focusWindow = useCallback(
@@ -306,31 +353,10 @@ export const useWindowManager = () => {
         setZIndexCounter(prev => prev + appConfig.zIndex.increment);
         setActiveElement(windowId);
         updateWindowHistory(windowId);
-
-        if (windowId === "Notes") {
-          const currentParams: Record<string, string> = {};
-          searchParams.forEach((value, key) => {
-            currentParams[key] = value;
-          });
-
-          if (!slug) {
-            updateURL(windowId, "all", false, currentParams);
-          } else {
-            updateURL(windowId, slug, false, currentParams);
-          }
-        } else {
-          updateURL(windowId, slug);
-        }
+        navigateToWindow(windowId);
       }
     },
-    [
-      windowStates,
-      zIndexCounter,
-      updateURL,
-      slug,
-      updateWindowHistory,
-      searchParams,
-    ]
+    [windowStates, zIndexCounter, navigateToWindow, updateWindowHistory]
   );
 
   const toggleCommandCentre = useCallback(() => {
@@ -367,6 +393,7 @@ export const useWindowManager = () => {
     openWindow,
     focusWindow,
     closeWindow,
+    minimizeWindow,
     toggleCommandCentre,
     closeCommandCentre,
     updateSlug,

@@ -47,9 +47,62 @@
 .menuItem:hover {
   background-color: rgba(156, 156, 156, 0.5);
 }
+.brightnessSlider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  background: #acc4e4;
+  outline: none;
+  cursor: pointer;
+}
+
+.brightnessSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #000;
+  cursor: pointer;
+}
+
+.brightnessSlider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border: none;
+  border-radius: 50%;
+  background: #000;
+  cursor: pointer;
+}
+
+.brightnessSlider::-moz-range-progress {
+  background: #000;
+  height: 4px;
+  border-radius: 2px;
+}
+
 .separator {
   height: 1px;
   width: 85%;
   background-color: rgba(156, 156, 156, 0.5);
   margin: 0 auto;
+}
+
+@media screen and (max-width: 600px) {
+  .container {
+    padding: 0;
+  }
+
+  .container > img {
+    height: 0.95rem;
+    margin: 0;
+  }
+
+  .menu {
+    right: 0.5rem;
+    top: 2.4rem;
+    width: 45vw;
+  }
 }

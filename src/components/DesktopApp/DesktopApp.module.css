@@ -1,13 +1,19 @@
-.desktopApp {
+.desktopIcons {
   position: absolute;
   top: 4rem;
   left: 2rem;
   display: flex;
   flex-direction: column;
+  gap: 1.25rem;
+  z-index: 1;
+}
+
+.desktopApp {
+  display: flex;
+  flex-direction: column;
   align-items: center;
   cursor: pointer;
   transition: transform 0.2s ease;
-  z-index: 1;
 }
 
 .desktopApp:hover {
@@ -48,7 +54,7 @@
 }
 
 @media (max-width: 768px) {
-  .desktopApp {
+  .desktopIcons {
     top: 4rem;
     right: 1.5rem;
     left: unset;

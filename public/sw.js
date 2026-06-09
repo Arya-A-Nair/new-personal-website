@@ -1,16 +1,13 @@
-const CACHE_NAME = "arya-nair-portfolio-v1";
-const STATIC_CACHE_NAME = "arya-nair-static-v1";
-const DYNAMIC_CACHE_NAME = "arya-nair-dynamic-v1";
+const STATIC_CACHE_NAME = "arya-nair-static-v2";
+const DYNAMIC_CACHE_NAME = "arya-nair-dynamic-v2";
 
 const STATIC_ASSETS = [
   "/",
-  "/static/js/bundle.js",
-  "/static/css/main.css",
   "/manifest.json",
   "/favicon.ico",
   "/images/profilePic.png",
   "/images/Background.png",
-  "/images/preloader.gif",
+  "/images/home-screen.png",
 ];
 
 self.addEventListener("install", event => {
@@ -62,35 +59,44 @@ self.addEventListener("fetch", event => {
     return;
   }
 
+  // Network-first for navigations so deploys are picked up immediately;
+  // cache-first for everything else (hashed assets never change in place).
+  if (event.request.mode === "navigate") {
+    event.respondWith(
+      fetch(event.request)
+        .then(response => {
+          const responseToCache = response.clone();
+          caches.open(DYNAMIC_CACHE_NAME).then(cache => {
+            cache.put(event.request, responseToCache);
+          });
+          return response;
+        })
+        .catch(() =>
+          caches.match(event.request).then(r => r || caches.match("/"))
+        )
+    );
+    return;
+  }
+
   event.respondWith(
     caches.match(event.request).then(cachedResponse => {
       if (cachedResponse) {
         return cachedResponse;
       }
 
-      return fetch(event.request)
-        .then(response => {
-          if (
-            !response ||
-            response.status !== 200 ||
-            response.type !== "basic"
-          ) {
-            return response;
-          }
-
-          const responseToCache = response.clone();
-
-          caches.open(DYNAMIC_CACHE_NAME).then(cache => {
-            cache.put(event.request, responseToCache);
-          });
-
+      return fetch(event.request).then(response => {
+        if (!response || response.status !== 200 || response.type !== "basic") {
           return response;
-        })
-        .catch(() => {
-          if (event.request.mode === "navigate") {
-            return caches.match("/");
-          }
+        }
+
+        const responseToCache = response.clone();
+
+        caches.open(DYNAMIC_CACHE_NAME).then(cache => {
+          cache.put(event.request, responseToCache);
         });
+
+        return response;
+      });
     })
   );
 });

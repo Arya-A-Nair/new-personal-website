@@ -1,4 +1,5 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useMemo } from "react";
+import { useMotionValue } from "framer-motion";
 import styles from "./Toolbar.module.css";
 import ToolbarItem from "./ToolbarItem";
 import { getToolbarItems, appConfig } from "../../config/windowComponents";
@@ -6,15 +7,25 @@ import { getToolbarItems, appConfig } from "../../config/windowComponents";
 interface ToolbarProps {
   selectActiveItem: (item: string) => void;
   activeElement: string;
+  windowStates: Record<string, { isVisible: boolean; isMinimized: boolean }>;
 }
 
 const Toolbar: React.FC<ToolbarProps> = ({
   selectActiveItem,
   activeElement,
+  windowStates,
 }) => {
   const toolbarItems = getToolbarItems();
   const toolbarRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const mouseX = useMotionValue(Infinity);
+
+  const magnifyEnabled = useMemo(
+    () =>
+      typeof window !== "undefined" &&
+      window.matchMedia("(pointer: fine)").matches,
+    []
+  );
 
   const handleToolbarKeyDown = (event: React.KeyboardEvent) => {
     const currentIndex = itemRefs.current.findIndex(
@@ -66,6 +77,8 @@ const Toolbar: React.FC<ToolbarProps> = ({
         role="toolbar"
         aria-label="Application windows"
         onKeyDown={handleToolbarKeyDown}
+        onMouseMove={e => mouseX.set(e.clientX)}
+        onMouseLeave={() => mouseX.set(Infinity)}
       >
         {toolbarItems.map((config, index) => (
           <ToolbarItem
@@ -73,6 +86,13 @@ const Toolbar: React.FC<ToolbarProps> = ({
             config={config}
             onSelect={selectActiveItem}
             isActive={activeElement === config.id}
+            isRunning={
+              windowStates[config.id]?.isVisible ||
+              windowStates[config.id]?.isMinimized ||
+              false
+            }
+            mouseX={mouseX}
+            magnifyEnabled={magnifyEnabled}
             ref={el => (itemRefs.current[index] = el)}
           />
         ))}

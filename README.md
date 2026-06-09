@@ -1,8 +1,19 @@
 # Personal Website
 
-This Repository contains the code for my Personal website.
+This Repository contains the code for my Personal website — an interactive macOS-style desktop you can explore in the browser.
 
 ## You can see the website [here](https://www.arya-nair.in/)
+
+## Features
+
+- 🖥️ **macOS desktop experience** — draggable, zoomable, minimizable windows inside a laptop frame, with an iPhone-style frame on mobile
+- 🍎 **Authentic boot screen** — Apple-style boot with progress bar, played once per session (Apple menu → Restart to replay)
+- ⌨️ **Interactive Terminal** — a real shell in the dock: `help`, `neofetch`, `projects`, `experience`, `open github`, tab completion, command history, and a few easter eggs
+- 🔍 **Command Centre (⌘K)** — Spotlight-style search across apps, projects, and quick links with full keyboard navigation
+- 🚀 **Dock magnification** — proximity-based icon magnification with running-app indicator dots
+- 📌 **Minimize to dock** — windows shrink into the dock and restore from it, just like the real thing
+- 📝 Apps for About, Projects (VS Code-style), Experience (Finder-style), and Notes (with live GitHub/LeetCode/Wakatime stats)
+- 📱 Fully responsive, installable as a PWA, deep-linkable windows via URLs
 
 ## Development
 
@@ -38,7 +49,6 @@ This project has been migrated from Create React App to Vite for better performa
 - TypeScript
 - Vite
 - Framer Motion
-- Material-UI
 - CSS Modules
 
 ### Code Quality & Formatting

@@ -10,7 +10,7 @@
   width: auto;
   padding: 0.75rem 1rem 1rem 1rem;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
   gap: 8px;
   backdrop-filter: blur(20px);
@@ -18,14 +18,15 @@
   box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.3),
     0 0 0 0.5px rgba(255, 255, 255, 0.1) inset;
+  overflow: visible;
 }
 
 .toolbarItem {
   position: relative;
   height: 52px;
   width: 52px;
+  flex-shrink: 0;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border-radius: 12px;
   padding: 0;
   outline: none;
@@ -38,7 +39,7 @@
   outline: none;
 }
 
-.toolbarItem.active::after {
+.toolbarItem.running::after {
   content: "";
   position: absolute;
   bottom: -8px;
@@ -55,16 +56,31 @@
   height: 100%;
   width: 100%;
   object-fit: contain;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border-radius: 12px;
-}
-
-.toolbarItem:hover {
-  transform: translateY(-8px) scale(1.2);
 }
 
 .toolbarItem:hover .toolbarIcon {
   filter: brightness(1.1);
+}
+
+.toolbarItem.active .toolbarIcon {
+  animation: dockBounce 0.55s cubic-bezier(0.28, 0.84, 0.42, 1);
+}
+
+@keyframes dockBounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  35% {
+    transform: translateY(-22px);
+  }
+  65% {
+    transform: translateY(0);
+  }
+  82% {
+    transform: translateY(-8px);
+  }
 }
 
 .sr-only {
@@ -119,11 +135,7 @@
     border-radius: 10px;
   }
 
-  .toolbarItem:hover {
-    transform: translateY(-6px) scale(1.15);
-  }
-
-  .toolbarItem.active::after {
+  .toolbarItem.running::after {
     bottom: -6px;
     width: 3px;
     height: 3px;

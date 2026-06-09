@@ -1,4 +1,6 @@
 .container {
+  position: relative;
+  z-index: 10;
   width: 100%;
   background-color: #1b1b1b;
   height: 2rem;
@@ -28,10 +30,140 @@
   height: 100%;
   display: flex;
   align-items: center;
+  position: relative;
+}
+
+.appleButton {
+  background: none;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.15rem 0.4rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.15s ease;
+}
+
+.appleButton:hover,
+.appleButtonOpen {
+  background-color: rgba(255, 255, 255, 0.15);
 }
 
 .appleIcon {
   font-size: 1rem;
+}
+
+.appleMenu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  min-width: 220px;
+  background: rgba(40, 40, 42, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  padding: 5px;
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.45);
+  z-index: 100000;
+  display: flex;
+  flex-direction: column;
+}
+
+.appleMenuItem {
+  background: none;
+  border: none;
+  color: #ffffff;
+  text-align: left;
+  font-size: 13px;
+  padding: 6px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue",
+    sans-serif;
+}
+
+.appleMenuItem:hover {
+  background-color: #007aff;
+}
+
+.appleMenuSeparator {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.15);
+  margin: 4px 10px;
+}
+
+.activeApp {
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.01em;
+}
+
+.rightSection {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  height: 100%;
+}
+
+.trophyButton {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: none;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 0.15rem 0.45rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.15s ease;
+}
+
+.trophyButton:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.trophyCount {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #ffd60a;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+}
+
+/* iOS status bar (mobile) */
+.iosStatusBar {
+  background: transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999999998;
+  height: 2.4rem;
+  padding: 0 1.4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.iosLeft {
+  font-weight: 700;
+  min-width: 4rem;
+}
+
+.iosRight {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-width: 4rem;
+  justify-content: flex-end;
+}
+
+.iosIcon {
+  font-size: 0.75rem;
 }
 
 .commandCentreButton {

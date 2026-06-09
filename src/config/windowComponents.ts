@@ -3,14 +3,17 @@ import AboutUs from "../components/AboutUs";
 import Projects from "../components/Projects";
 import Experience from "../components/Experience";
 import Notes from "../components/Notes";
+import Terminal from "../components/Terminal";
 
-import linux from "../assets/linux.png";
-import visualStudio from "../assets/visualStudio.png";
-import terminal from "../assets/terminal.png";
-import notes from "../assets/notes.png";
+import iconAbout from "../assets/icon-about.svg";
+import iconProjects from "../assets/icon-projects.svg";
+import iconExperience from "../assets/icon-experience.svg";
+import iconNotes from "../assets/icon-notes.svg";
+import iconTerminal from "../assets/icon-terminal.svg";
 
 export interface WindowComponentProps {
   onClickClose: () => void;
+  onClickMinimize?: () => void;
   setActiveElement: (element: string) => void;
   zIndexVal: number;
   activeElement: string;
@@ -37,8 +40,6 @@ export interface WindowConfig {
 export interface AppConfig {
   preloader: {
     duration: number;
-    imageSrc: string;
-    altText: string;
   };
   brightness: {
     default: number;
@@ -61,7 +62,7 @@ export const windowComponentsConfig: WindowConfig[] = [
     name: "About Me",
     displayName: "About Me",
     component: AboutUs,
-    icon: linux,
+    icon: iconAbout,
     defaultZIndex: 1,
     preload: true,
     description: "Learn more about Arya Nair",
@@ -71,7 +72,7 @@ export const windowComponentsConfig: WindowConfig[] = [
     name: "Projects",
     displayName: "Projects",
     component: Projects,
-    icon: visualStudio,
+    icon: iconProjects,
     defaultZIndex: 1,
     preload: false,
     description: "View my portfolio projects",
@@ -81,7 +82,7 @@ export const windowComponentsConfig: WindowConfig[] = [
     name: "Experience",
     displayName: "Experience",
     component: Experience,
-    icon: terminal,
+    icon: iconExperience,
     defaultZIndex: 1,
     preload: false,
     description: "Check out my work experience",
@@ -91,18 +92,26 @@ export const windowComponentsConfig: WindowConfig[] = [
     name: "Notes",
     displayName: "Notes",
     component: Notes,
-    icon: notes,
+    icon: iconNotes,
     defaultZIndex: 1,
     preload: false,
     description: "Browse my knowledge base and notes",
+  },
+  {
+    id: "Terminal",
+    name: "Terminal",
+    displayName: "Terminal",
+    component: Terminal,
+    icon: iconTerminal,
+    defaultZIndex: 1,
+    preload: false,
+    description: "An interactive shell — type help to explore",
   },
 ];
 
 export const appConfig: AppConfig = {
   preloader: {
     duration: 2000,
-    imageSrc: "/images/preloader.gif",
-    altText: "Loading...",
   },
   brightness: {
     default: 1,

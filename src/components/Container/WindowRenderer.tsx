@@ -10,6 +10,7 @@ interface WindowRendererProps {
   zIndex: number;
   activeElement: string;
   onClose: (windowId: string) => void;
+  onMinimize: (windowId: string) => void;
   setActiveElement: (element: string) => void;
   slug?: string;
   searchParams?: URLSearchParams;
@@ -26,6 +27,7 @@ const WindowRenderer: React.FC<WindowRendererProps> = ({
   zIndex,
   activeElement,
   onClose,
+  onMinimize,
   setActiveElement,
   slug,
   searchParams,
@@ -39,6 +41,7 @@ const WindowRenderer: React.FC<WindowRendererProps> = ({
 
   const windowProps: WindowComponentProps = {
     onClickClose: () => onClose(config.id),
+    onClickMinimize: () => onMinimize(config.id),
     setActiveElement,
     zIndexVal: zIndex,
     activeElement,

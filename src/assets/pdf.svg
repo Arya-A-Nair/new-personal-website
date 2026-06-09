@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <linearGradient id="page" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#e8e8ec"/>
+    </linearGradient>
+  </defs>
+  <path d="M28 8 h44 l24 24 v76 a8 8 0 0 1 -8 8 h-60 a8 8 0 0 1 -8 -8 v-92 a8 8 0 0 1 8 -8 z" fill="url(#page)" stroke="#c8c8cc" stroke-width="2"/>
+  <path d="M72 8 l24 24 h-20 a4 4 0 0 1 -4 -4 z" fill="#c8c8cc"/>
+  <rect x="20" y="62" width="64" height="30" rx="6" fill="#e0383e"/>
+  <text x="52" y="84" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#ffffff" text-anchor="middle">PDF</text>
+  <rect x="32" y="26" width="32" height="4" rx="2" fill="#c8c8cc"/>
+  <rect x="32" y="36" width="44" height="4" rx="2" fill="#d8d8dc"/>
+  <rect x="32" y="46" width="40" height="4" rx="2" fill="#d8d8dc"/>
+</svg>

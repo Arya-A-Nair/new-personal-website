@@ -30,12 +30,70 @@
 
 .wrapper {
   height: 100%;
+  position: relative;
   padding: 0 1rem 1rem 1rem;
 }
 
-@media screen and (max-width: 600px) {
-  .laptopScreen {
-    width: 98vw;
-    height: 98vh;
-  }
+/* iPhone frame for mobile */
+.phoneFrame {
+  width: 100vw;
+  height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.45rem;
+}
+
+.phoneScreen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  border-radius: 2.6rem;
+  border: 0.22rem solid #3a3a3c;
+  box-shadow:
+    0 0 0 2px #1c1c1e,
+    0 18px 60px rgba(0, 0, 0, 0.65);
+  overflow: hidden;
+}
+
+.dynamicIsland {
+  position: absolute;
+  top: 0.55rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 7.2rem;
+  height: 1.55rem;
+  background-color: #000;
+  border-radius: 1.2rem;
+  z-index: 999999999;
+  pointer-events: none;
+  box-shadow: inset 0 0 2px rgba(255, 255, 255, 0.18);
+}
+
+.dynamicIsland::after {
+  content: "";
+  position: absolute;
+  right: 0.6rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #1d3557 0%, #050a14 70%);
+}
+
+.homeIndicator {
+  position: absolute;
+  bottom: 0.35rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8.5rem;
+  height: 0.32rem;
+  border: none;
+  border-radius: 0.2rem;
+  background-color: rgba(255, 255, 255, 0.85);
+  z-index: 999999999;
+  cursor: pointer;
+  padding: 0;
 }

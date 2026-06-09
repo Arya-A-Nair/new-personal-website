@@ -1,26 +1,52 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./DesktopApp.module.css";
-import drive from "../../assets/drive.png";
+import iconPlain from "../../assets/icon-plain.svg";
+import pdf from "../../assets/pdf.svg";
+import { personalInfo } from "../../data";
 
 const DesktopApp: React.FC = () => {
   const navigate = useNavigate();
 
-  const handleClick = () => {
-    navigate("/plain");
-  };
-
   return (
-    <div
-      className={styles.desktopApp}
-      onClick={handleClick}
-      role="button"
-      tabIndex={0}
-    >
-      <div className={styles.iconContainer}>
-        <img src={drive} alt="Plain View" className={styles.icon} />
+    <div className={styles.desktopIcons}>
+      <div
+        className={styles.desktopApp}
+        onClick={() => navigate("/plain")}
+        onKeyDown={e => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            navigate("/plain");
+          }
+        }}
+        role="button"
+        tabIndex={0}
+        aria-label="Open plain view of portfolio"
+      >
+        <div className={styles.iconContainer}>
+          <img src={iconPlain} alt="" className={styles.icon} />
+        </div>
+        <span className={styles.label}>Plain View</span>
       </div>
-      <span className={styles.label}>Want a Plain View?</span>
+
+      <div
+        className={styles.desktopApp}
+        onClick={() => window.open(personalInfo.socialLinks.resume, "_blank")}
+        onKeyDown={e => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            window.open(personalInfo.socialLinks.resume, "_blank");
+          }
+        }}
+        role="button"
+        tabIndex={0}
+        aria-label="Open resume PDF"
+      >
+        <div className={styles.iconContainer}>
+          <img src={pdf} alt="" className={styles.icon} />
+        </div>
+        <span className={styles.label}>Resume.pdf</span>
+      </div>
     </div>
   );
 };

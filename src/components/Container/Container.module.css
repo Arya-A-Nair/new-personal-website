@@ -1,20 +1,159 @@
 .container {
   height: 100%;
   position: relative;
-  background-image: url("/images/home-screen.png");
-  background-size: cover;
   border-radius: 0.2rem;
-  background-position: center;
-}
-.preloader {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  overflow: hidden;
+  background-color: #0c0c14;
 }
 
-@media screen and (max-width: 600px) {
-  .preloader {
-    width: 90%;
+.wallpaper {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-size: cover;
+  background-position: center;
+  pointer-events: none;
+  transition: transform 0.25s ease-out;
+  will-change: transform;
+}
+
+.lofi {
+  background-image: url("/images/home-screen.png");
+}
+
+.aurora {
+  background: linear-gradient(
+    125deg,
+    #061224,
+    #0b3057,
+    #14532d,
+    #312e81,
+    #4c1d95,
+    #0b3057
+  );
+  background-size: 420% 420%;
+  animation: auroraShift 24s ease-in-out infinite;
+}
+
+@keyframes auroraShift {
+  0%,
+  100% {
+    background-position: 0% 30%;
+  }
+  50% {
+    background-position: 100% 70%;
+  }
+}
+
+.synthwave {
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 113, 206, 0.18) 0px,
+      rgba(255, 113, 206, 0.18) 1px,
+      transparent 1px,
+      transparent 42px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 113, 206, 0.14) 0px,
+      rgba(255, 113, 206, 0.14) 1px,
+      transparent 1px,
+      transparent 42px
+    ),
+    radial-gradient(
+      ellipse 60% 45% at 50% 38%,
+      #ff9f43 0%,
+      #ff5e62 30%,
+      transparent 62%
+    ),
+    linear-gradient(180deg, #16043a 0%, #43124e 45%, #1c0b3b 100%);
+  animation: synthScroll 8s linear infinite;
+}
+
+@keyframes synthScroll {
+  from {
+    background-position:
+      0 0,
+      0 0,
+      0 0,
+      0 0;
+  }
+  to {
+    background-position:
+      0 42px,
+      0 0,
+      0 0,
+      0 0;
+  }
+}
+
+.graphite {
+  background:
+    radial-gradient(
+      ellipse 90% 70% at 50% 0%,
+      rgba(120, 130, 150, 0.35) 0%,
+      transparent 60%
+    ),
+    linear-gradient(180deg, #2a2a30 0%, #131318 70%, #0a0a0e 100%);
+}
+
+/* CRT shutdown collapse */
+.crtOff {
+  animation: crtCollapse 0.75s cubic-bezier(0.6, 0, 0.9, 0.4) forwards;
+}
+
+@keyframes crtCollapse {
+  0% {
+    transform: scale(1, 1);
+    filter: brightness(1);
+  }
+  55% {
+    transform: scale(1, 0.006);
+    filter: brightness(6);
+  }
+  85% {
+    transform: scale(0.18, 0.004);
+    filter: brightness(12);
+  }
+  100% {
+    transform: scale(0, 0.002);
+    filter: brightness(0);
+  }
+}
+
+.powerOffScreen {
+  height: 100%;
+  width: 100%;
+  background: #000;
+  border-radius: 0.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  cursor: pointer;
+}
+
+.powerSymbol {
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 3rem;
+  animation: powerPulse 2.6s ease-in-out infinite;
+}
+
+.powerHint {
+  color: rgba(255, 255, 255, 0.25);
+  font-size: 0.8rem;
+  font-family: "SF Mono", monospace;
+  letter-spacing: 0.08em;
+}
+
+@keyframes powerPulse {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
   }
 }

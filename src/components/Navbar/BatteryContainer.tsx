@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import batteryIcon from "../../assets/battery.png";
 import batteryCharging from "../../assets/batteryCharging.png";
-import styles from "./BatteryContianer.module.css";
+import styles from "./BatteryContainer.module.css";
 import { useBattery } from "react-use";
 import {
   BsBatteryCharging,
   BsBatteryFull,
   BsFillBrightnessHighFill,
 } from "react-icons/bs";
-import { Slider } from "@mui/material";
 import { BatteryState } from "react-use/lib/useBattery";
 import { useIsMobile } from "../../hooks/useIsMobile";
 
@@ -29,8 +28,8 @@ const BatteryContainer: React.FC<BatteryContainerProps> = ({
   const level = batteryState.isSupported ? batteryState.level : 1;
   const charging = batteryState.isSupported ? batteryState.charging : false;
 
-  const handleSliderChange = (_event: Event, newValue: number | number[]) => {
-    setBrightness(newValue as number);
+  const handleSliderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setBrightness(parseFloat(event.target.value));
   };
 
   return (
@@ -49,35 +48,29 @@ const BatteryContainer: React.FC<BatteryContainerProps> = ({
             </div>
             <div className={styles.menuItem}>
               <BsFillBrightnessHighFill size="1.2rem" />
-              <Slider
+              <input
+                type="range"
+                className={styles.brightnessSlider}
                 onChange={handleSliderChange}
                 min={0.1}
                 max={1}
                 step={0.01}
-                defaultValue={1}
                 value={brightness}
-                sx={{
-                  "& .MuiSlider-thumb": {
-                    color: "black",
-                  },
-                  "& .MuiSlider-track": {
-                    color: "black",
-                  },
-                  "& .MuiSlider-rail": {
-                    color: "#acc4e4",
-                  },
-                  "& .MuiSlider-active": {
-                    color: "#acc4e4",
-                  },
-                  "& .Muislider-thumbColorPrimary": {
-                    color: "#acc4e4",
-                  },
-                }}
+                aria-label="Screen brightness"
               />
             </div>
             <div className={styles.separator}></div>
             <div className={styles.menuItem} onClick={() => location.reload()}>
               Restart
+            </div>
+            <div
+              className={styles.menuItem}
+              onClick={() => {
+                setOpenMenu(false);
+                window.dispatchEvent(new CustomEvent("aryaos-shutdown"));
+              }}
+            >
+              Shut Down
             </div>
           </div>
         </div>
