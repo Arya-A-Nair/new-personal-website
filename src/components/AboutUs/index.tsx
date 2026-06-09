@@ -8,6 +8,7 @@ import { personalInfo } from "../../data";
 
 interface AboutUsProps {
   onClickClose: () => void;
+  onClickMinimize?: () => void;
   setActiveElement: (element: string) => void;
   zIndexVal: number;
   activeElement: string;
@@ -15,6 +16,7 @@ interface AboutUsProps {
 
 const AboutUs: React.FC<AboutUsProps> = ({
   onClickClose,
+  onClickMinimize,
   setActiveElement,
   zIndexVal,
   activeElement,
@@ -43,6 +45,7 @@ const AboutUs: React.FC<AboutUsProps> = ({
     <IconContext.Provider value={{ color: "#007AFF", size: "1rem" }}>
       <WindowBox
         onClickClose={onClickClose}
+        onClickMinimize={onClickMinimize}
         setActive={() => setActiveElement("AboutUs")}
         zIndexVal={zIndexVal}
         offset={60}

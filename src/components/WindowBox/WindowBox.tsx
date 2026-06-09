@@ -9,6 +9,7 @@ import { useIsMobile } from "../../hooks/useIsMobile";
 interface WindowBoxProps {
   children: React.ReactNode;
   onClickClose: () => void;
+  onClickMinimize?: () => void;
   zIndexVal: number;
   setActive: () => void;
   offset?: number;
@@ -32,6 +33,7 @@ interface Position {
 const WindowBox: React.FC<WindowBoxProps> = ({
   children,
   onClickClose,
+  onClickMinimize,
   zIndexVal,
   setActive,
   offset = 0,
@@ -47,6 +49,19 @@ const WindowBox: React.FC<WindowBoxProps> = ({
     width: initialWidth,
   });
   const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
+  const [isMinimizing, setIsMinimizing] = useState<boolean>(false);
+
+  const handleMinimize = () => {
+    if (!onClickMinimize) {
+      onClickClose();
+      return;
+    }
+    setIsMinimizing(true);
+    setTimeout(() => {
+      setIsMinimizing(false);
+      onClickMinimize();
+    }, 280);
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -90,7 +105,9 @@ const WindowBox: React.FC<WindowBoxProps> = ({
       disabled={isMobile}
     >
       <div
-        className={styles.container}
+        className={`${styles.container} ${
+          isMinimizing ? styles.minimizing : ""
+        }`}
         style={{
           zIndex: zIndexVal,
           top: dimensions.height === 90 ? 0 : `calc(10% - ${offset}px)`,
@@ -116,7 +133,7 @@ const WindowBox: React.FC<WindowBoxProps> = ({
             <>
               <div className={styles.statBarIcons}>
                 <img src={Close} alt="Close" onClick={onClickClose} />
-                <img src={Minimize} alt="Minimize" onClick={onClickClose} />
+                <img src={Minimize} alt="Minimize" onClick={handleMinimize} />
                 <img src={Zoom} alt="Zoom" onClick={handleZoom} />
               </div>
               <div>{displayText}</div>

@@ -1,0 +1,178 @@
+.terminal {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(18, 18, 24, 0.98);
+  color: #e8e8e8;
+  font-family: "SF Mono", "Menlo", "Monaco", monospace;
+  font-size: 13px;
+  line-height: 1.55;
+  padding: 0.75rem 1rem;
+  overflow-y: auto;
+  cursor: text;
+}
+
+.output {
+  display: flex;
+  flex-direction: column;
+}
+
+.line {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.welcome {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.5rem;
+  color: #b8b8b8;
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  margin: 0.35rem 0;
+}
+
+.echoLine {
+  display: inline;
+}
+
+.echoLine > span:last-child {
+  margin-left: 0.5ch;
+}
+
+.inputLine {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.input {
+  flex: 1;
+  margin-left: 0.5ch;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #e8e8e8;
+  font-family: inherit;
+  font-size: inherit;
+  caret-color: #98c379;
+}
+
+.promptUser {
+  color: #98c379;
+  font-weight: 600;
+}
+
+.promptPath {
+  color: #61afef;
+  white-space: pre;
+}
+
+.promptSymbol {
+  color: #e8e8e8;
+}
+
+.highlight {
+  color: #e5c07b;
+  font-weight: 600;
+}
+
+.cmd {
+  color: #61afef;
+  font-weight: 600;
+}
+
+.dim {
+  color: #7f848e;
+}
+
+.index {
+  color: #c678dd;
+}
+
+.error {
+  color: #e06c75;
+}
+
+.link {
+  color: #56b6c2;
+  text-decoration: underline;
+}
+
+.trophy {
+  font-size: 12px;
+}
+
+.helpGrid {
+  display: grid;
+  grid-template-columns: minmax(140px, max-content) 1fr;
+  column-gap: 1.5rem;
+  row-gap: 2px;
+  margin: 0.35rem 0;
+}
+
+.neofetch {
+  display: flex;
+  gap: 2rem;
+  margin: 0.5rem 0;
+  align-items: center;
+}
+
+.ascii {
+  color: #98c379;
+  font-size: 9px;
+  line-height: 1.15;
+  margin: 0;
+  font-family: inherit;
+}
+
+.sysinfo {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.lsGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 2rem;
+  margin: 0.35rem 0;
+}
+
+.dir {
+  color: #61afef;
+  font-weight: 600;
+}
+
+.file {
+  color: #e8e8e8;
+}
+
+@media screen and (max-width: 600px) {
+  .terminal {
+    font-size: 12px;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .neofetch {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+
+  .ascii {
+    font-size: 7px;
+  }
+
+  .helpGrid {
+    grid-template-columns: 1fr;
+    row-gap: 0;
+  }
+
+  .helpGrid > span:nth-child(even) {
+    margin-bottom: 4px;
+    color: #7f848e;
+  }
+}

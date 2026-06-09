@@ -6,6 +6,7 @@ import { createSlug } from "../../utils/slugUtils";
 
 interface ExperienceProps {
   onClickClose: () => void;
+  onClickMinimize?: () => void;
   setActiveElement: (element: string) => void;
   zIndexVal: number;
   activeElement: string;
@@ -15,6 +16,7 @@ interface ExperienceProps {
 
 const Experience: React.FC<ExperienceProps> = ({
   onClickClose,
+  onClickMinimize,
   setActiveElement,
   zIndexVal,
   activeElement,
@@ -76,6 +78,7 @@ const Experience: React.FC<ExperienceProps> = ({
   return (
     <WindowBox
       onClickClose={onClickClose}
+      onClickMinimize={onClickMinimize}
       setActive={() => setActiveElement("Experience")}
       zIndexVal={zIndexVal}
       offset={20}

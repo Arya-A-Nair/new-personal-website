@@ -3,14 +3,17 @@ import AboutUs from "../components/AboutUs";
 import Projects from "../components/Projects";
 import Experience from "../components/Experience";
 import Notes from "../components/Notes";
+import Terminal from "../components/Terminal";
 
 import linux from "../assets/linux.png";
 import visualStudio from "../assets/visualStudio.png";
 import terminal from "../assets/terminal.png";
 import notes from "../assets/notes.png";
+import finder from "../assets/finder.svg";
 
 export interface WindowComponentProps {
   onClickClose: () => void;
+  onClickMinimize?: () => void;
   setActiveElement: (element: string) => void;
   zIndexVal: number;
   activeElement: string;
@@ -81,7 +84,7 @@ export const windowComponentsConfig: WindowConfig[] = [
     name: "Experience",
     displayName: "Experience",
     component: Experience,
-    icon: terminal,
+    icon: finder,
     defaultZIndex: 1,
     preload: false,
     description: "Check out my work experience",
@@ -95,6 +98,16 @@ export const windowComponentsConfig: WindowConfig[] = [
     defaultZIndex: 1,
     preload: false,
     description: "Browse my knowledge base and notes",
+  },
+  {
+    id: "Terminal",
+    name: "Terminal",
+    displayName: "Terminal",
+    component: Terminal,
+    icon: terminal,
+    defaultZIndex: 1,
+    preload: false,
+    description: "An interactive shell — type help to explore",
   },
 ];
 

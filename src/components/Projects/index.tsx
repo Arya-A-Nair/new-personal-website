@@ -29,6 +29,7 @@ import { IconContext } from "react-icons";
 
 interface ProjectsProps {
   onClickClose: () => void;
+  onClickMinimize?: () => void;
   setActiveElement: (element: string) => void;
   zIndexVal: number;
   activeElement: string;
@@ -38,6 +39,7 @@ interface ProjectsProps {
 
 const Projects: React.FC<ProjectsProps> = ({
   onClickClose,
+  onClickMinimize,
   setActiveElement,
   zIndexVal,
   activeElement,
@@ -275,6 +277,7 @@ const Projects: React.FC<ProjectsProps> = ({
     <IconContext.Provider value={{ size: "16px" }}>
       <WindowBox
         onClickClose={onClickClose}
+        onClickMinimize={onClickMinimize}
         setActive={() => setActiveElement("Projects")}
         zIndexVal={zIndexVal}
         offset={40}

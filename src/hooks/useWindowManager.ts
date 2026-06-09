@@ -8,8 +8,11 @@ import {
 
 interface WindowState {
   isVisible: boolean;
+  isMinimized: boolean;
   zIndex: number;
 }
+
+const BOOT_SESSION_KEY = "aryaos-booted";
 
 export const useWindowManager = () => {
   const navigate = useNavigate();
@@ -26,6 +29,7 @@ export const useWindowManager = () => {
       windowComponentsConfig.forEach(config => {
         initialStates[config.id] = {
           isVisible: false,
+          isMinimized: false,
           zIndex: config.defaultZIndex,
         };
       });
@@ -40,7 +44,13 @@ export const useWindowManager = () => {
   const [brightness, setBrightness] = useState<number>(
     appConfig.brightness.default
   );
-  const [showPreloader, setShowPreloader] = useState<boolean>(true);
+  const [showPreloader, setShowPreloader] = useState<boolean>(() => {
+    try {
+      return !window.sessionStorage.getItem(BOOT_SESSION_KEY);
+    } catch {
+      return true;
+    }
+  });
   const [showCommandCentre, setShowCommandCentre] = useState<boolean>(false);
 
   const updateWindowHistory = useCallback((windowId: string) => {
@@ -72,17 +82,28 @@ export const useWindowManager = () => {
   );
 
   useEffect(() => {
+    if (!showPreloader) return;
+
     const timer = setTimeout(() => {
       setShowPreloader(false);
+      try {
+        window.sessionStorage.setItem(BOOT_SESSION_KEY, "true");
+      } catch {
+        // Session storage unavailable; boot will replay next load.
+      }
     }, appConfig.preloader.duration);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [showPreloader]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape" && showCommandCentre) {
         setShowCommandCentre(false);
+      }
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+        event.preventDefault();
+        setShowCommandCentre(prev => !prev);
       }
     };
 
@@ -102,6 +123,7 @@ export const useWindowManager = () => {
           [windowId]: {
             ...prev[windowId],
             isVisible: true,
+            isMinimized: false,
             zIndex: zIndexCounter + appConfig.zIndex.increment,
           },
         }));
@@ -128,6 +150,7 @@ export const useWindowManager = () => {
             [windowId]: {
               ...currentWindow,
               isVisible: true,
+              isMinimized: false,
               zIndex: zIndexCounter + appConfig.zIndex.increment,
             },
           };
@@ -197,6 +220,7 @@ export const useWindowManager = () => {
         [windowId]: {
           ...prev[windowId],
           isVisible: true,
+          isMinimized: false,
           zIndex: zIndexCounter + appConfig.zIndex.increment,
         },
       }));
@@ -230,6 +254,48 @@ export const useWindowManager = () => {
           [windowId]: {
             ...prev[windowId],
             isVisible: false,
+            isMinimized: false,
+          },
+        };
+
+        const nextActiveWindow = getNextActiveWindow(windowId, newStates);
+
+        if (nextActiveWindow) {
+          setActiveElement(nextActiveWindow);
+          if (nextActiveWindow === "Notes") {
+            const currentParams: Record<string, string> = {};
+            searchParams.forEach((value, key) => {
+              currentParams[key] = value;
+            });
+
+            if (!slug) {
+              updateURL(nextActiveWindow, "all", false, currentParams);
+            } else {
+              updateURL(nextActiveWindow, slug, false, currentParams);
+            }
+          } else {
+            updateURL(nextActiveWindow, slug);
+          }
+        } else {
+          setActiveElement("");
+          updateURL(null);
+        }
+
+        return newStates;
+      });
+    },
+    [getNextActiveWindow, updateURL, slug, searchParams]
+  );
+
+  const minimizeWindow = useCallback(
+    (windowId: string) => {
+      setWindowStates(prev => {
+        const newStates = {
+          ...prev,
+          [windowId]: {
+            ...prev[windowId],
+            isVisible: false,
+            isMinimized: true,
           },
         };
 
@@ -269,6 +335,7 @@ export const useWindowManager = () => {
         [windowId]: {
           ...prev[windowId],
           isVisible: true,
+          isMinimized: false,
           zIndex: zIndexCounter + appConfig.zIndex.increment,
         },
       }));
@@ -367,6 +434,7 @@ export const useWindowManager = () => {
     openWindow,
     focusWindow,
     closeWindow,
+    minimizeWindow,
     toggleCommandCentre,
     closeCommandCentre,
     updateSlug,

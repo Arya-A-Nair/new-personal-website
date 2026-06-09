@@ -5,6 +5,7 @@ import Navbar from "../Navbar/Navbar";
 import WindowRenderer from "./WindowRenderer";
 import CommandCentre from "../CommandCentre";
 import DesktopApp from "../DesktopApp/DesktopApp";
+import BootScreen from "../BootScreen/BootScreen";
 import { useWindowManager } from "../../hooks/useWindowManager";
 
 const Container: React.FC = () => {
@@ -20,6 +21,7 @@ const Container: React.FC = () => {
     activateWindow,
     focusWindow,
     closeWindow,
+    minimizeWindow,
     toggleCommandCentre,
     closeCommandCentre,
     updateSlug,
@@ -28,13 +30,7 @@ const Container: React.FC = () => {
   } = useWindowManager();
 
   if (showPreloader) {
-    return (
-      <img
-        src={appConfig.preloader.imageSrc}
-        alt={appConfig.preloader.altText}
-        className={styles.preloader}
-      />
-    );
+    return <BootScreen duration={appConfig.preloader.duration} />;
   }
 
   return (
@@ -48,6 +44,8 @@ const Container: React.FC = () => {
         setBrightness={setBrightness}
         brightness={brightness}
         onCommandCentreToggle={toggleCommandCentre}
+        activeElement={activeElement}
+        onOpenApp={activateWindow}
       />
 
       <DesktopApp />
@@ -60,6 +58,7 @@ const Container: React.FC = () => {
           zIndex={windowStates[config.id]?.zIndex || config.defaultZIndex}
           activeElement={activeElement}
           onClose={closeWindow}
+          onMinimize={minimizeWindow}
           setActiveElement={focusWindow}
           slug={slug}
           searchParams={searchParams}
@@ -70,6 +69,7 @@ const Container: React.FC = () => {
       <Toolbar
         selectActiveItem={activateWindow}
         activeElement={activeElement}
+        windowStates={windowStates}
       />
 
       <CommandCentre

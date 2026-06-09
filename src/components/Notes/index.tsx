@@ -6,6 +6,7 @@ import { createSlug, parseSlugPath } from "../../utils/slugUtils";
 
 interface NotesProps {
   onClickClose: () => void;
+  onClickMinimize?: () => void;
   setActiveElement: (element: string) => void;
   zIndexVal: number;
   activeElement: string;
@@ -20,6 +21,7 @@ interface NotesProps {
 
 const Notes: React.FC<NotesProps> = ({
   onClickClose,
+  onClickMinimize,
   setActiveElement,
   zIndexVal,
   activeElement,
@@ -276,6 +278,7 @@ const Notes: React.FC<NotesProps> = ({
   return (
     <WindowBox
       onClickClose={onClickClose}
+      onClickMinimize={onClickMinimize}
       setActive={() => setActiveElement("Notes")}
       zIndexVal={zIndexVal}
       offset={30}
