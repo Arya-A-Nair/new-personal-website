@@ -200,12 +200,16 @@ const Container: React.FC = () => {
   }, [isMobile, showPreloader]);
 
   // Welcome experience after first boot of the session.
-  const welcomed = useRef(false);
   useEffect(() => {
-    if (showPreloader || welcomed.current) return;
-    welcomed.current = true;
+    if (showPreloader) return;
     unlock("welcome");
-    setTimeout(() => {
+    const timer = setTimeout(() => {
+      try {
+        if (window.sessionStorage.getItem("aryaos-welcomed")) return;
+        window.sessionStorage.setItem("aryaos-welcomed", "true");
+      } catch {
+        // Without storage the welcome may repeat; harmless.
+      }
       notify({
         title: "Welcome to AryaOS 👋",
         message: isMobile
@@ -215,6 +219,7 @@ const Container: React.FC = () => {
         duration: 8000,
       });
     }, 900);
+    return () => clearTimeout(timer);
   }, [showPreloader, isMobile]);
 
   const handleContextMenu = (event: React.MouseEvent) => {

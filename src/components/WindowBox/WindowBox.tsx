@@ -1,9 +1,6 @@
 import Draggable, { DraggableData, DraggableEvent } from "react-draggable";
 import styles from "./WindowBox.module.css";
 import React, { useEffect, useState } from "react";
-import Close from "../../assets/Close.png";
-import Zoom from "../../assets/Zoom.png";
-import Minimize from "../../assets/Minimise.png";
 import { useIsMobile } from "../../hooks/useIsMobile";
 
 interface WindowBoxProps {
@@ -143,29 +140,54 @@ const WindowBox: React.FC<WindowBoxProps> = ({
           height: `${dimensions.height}%`,
           width: `${dimensions.width}%`,
           boxShadow: activeElement
-            ? "0px 0px 32px 0px rgba(0, 0, 0, 0.50)"
-            : "0 0 10px rgba(0, 0, 0, 0.2)",
-          border: activeElement ? "1px solid #131313" : "none",
+            ? "0 24px 64px rgba(0, 0, 0, 0.55), 0 0 0 0.5px rgba(255, 255, 255, 0.18)"
+            : "0 10px 28px rgba(0, 0, 0, 0.35), 0 0 0 0.5px rgba(255, 255, 255, 0.08)",
         }}
       >
-        <div className={styles.statBar}>
+        <div
+          className={`${styles.statBar} ${
+            activeElement ? "" : styles.statBarInactive
+          }`}
+        >
           {isMobile ? (
             <>
               <div className={styles.mobileBackButton} onClick={onClickClose}>
-                <span className={styles.backArrow}>←</span>
+                <span className={styles.backArrow}>‹</span>
               </div>
               <div className={styles.mobileTitle}>{displayTextMobile}</div>
               <div className={styles.mobileSpacer}></div>
             </>
           ) : (
             <>
-              <div className={styles.statBarIcons}>
-                <img src={Close} alt="Close" onClick={onClickClose} />
-                <img src={Minimize} alt="Minimize" onClick={handleMinimize} />
-                <img src={Zoom} alt="Zoom" onClick={handleZoom} />
+              <div
+                className={styles.trafficLights}
+                role="group"
+                aria-label="Window controls"
+              >
+                <button
+                  className={`${styles.light} ${styles.lightClose}`}
+                  onClick={onClickClose}
+                  aria-label="Close window"
+                >
+                  <span aria-hidden="true">×</span>
+                </button>
+                <button
+                  className={`${styles.light} ${styles.lightMinimize}`}
+                  onClick={handleMinimize}
+                  aria-label="Minimize window"
+                >
+                  <span aria-hidden="true">−</span>
+                </button>
+                <button
+                  className={`${styles.light} ${styles.lightZoom}`}
+                  onClick={handleZoom}
+                  aria-label="Zoom window"
+                >
+                  <span aria-hidden="true">+</span>
+                </button>
               </div>
-              <div>{displayText}</div>
-              <div></div>
+              <div className={styles.windowTitle}>{displayText}</div>
+              <div className={styles.titleSpacer}></div>
             </>
           )}
         </div>

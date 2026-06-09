@@ -8,6 +8,93 @@
   z-index: 1;
 }
 
+.topArea {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.widget {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  width: 100%;
+  background: rgba(28, 28, 32, 0.72);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 0.5px solid rgba(255, 255, 255, 0.16);
+  border-radius: 22px;
+  padding: 0.95rem 1.1rem;
+  margin-bottom: 1.5rem;
+  cursor: pointer;
+  text-align: left;
+  -webkit-tap-highlight-color: transparent;
+  animation: springIn 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.widget:active {
+  transform: scale(0.97);
+}
+
+.widgetAvatar {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+}
+
+.widgetText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.widgetName {
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+}
+
+.widgetRole {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.72rem;
+  font-weight: 500;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.widgetProgressTrack {
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.15);
+  overflow: hidden;
+  margin-top: 5px;
+}
+
+.widgetProgressFill {
+  height: 100%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #ffd60a, #ff9f0a);
+  transition: width 0.5s ease;
+}
+
+.widgetTrophies {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.66rem;
+  font-weight: 500;
+  margin-top: 2px;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);

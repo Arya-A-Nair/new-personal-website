@@ -5,11 +5,11 @@ import Experience from "../components/Experience";
 import Notes from "../components/Notes";
 import Terminal from "../components/Terminal";
 
-import linux from "../assets/linux.png";
-import visualStudio from "../assets/visualStudio.png";
-import terminal from "../assets/terminal.png";
-import notes from "../assets/notes.png";
-import finder from "../assets/finder.svg";
+import iconAbout from "../assets/icon-about.svg";
+import iconProjects from "../assets/icon-projects.svg";
+import iconExperience from "../assets/icon-experience.svg";
+import iconNotes from "../assets/icon-notes.svg";
+import iconTerminal from "../assets/icon-terminal.svg";
 
 export interface WindowComponentProps {
   onClickClose: () => void;
@@ -62,7 +62,7 @@ export const windowComponentsConfig: WindowConfig[] = [
     name: "About Me",
     displayName: "About Me",
     component: AboutUs,
-    icon: linux,
+    icon: iconAbout,
     defaultZIndex: 1,
     preload: true,
     description: "Learn more about Arya Nair",
@@ -72,7 +72,7 @@ export const windowComponentsConfig: WindowConfig[] = [
     name: "Projects",
     displayName: "Projects",
     component: Projects,
-    icon: visualStudio,
+    icon: iconProjects,
     defaultZIndex: 1,
     preload: false,
     description: "View my portfolio projects",
@@ -82,7 +82,7 @@ export const windowComponentsConfig: WindowConfig[] = [
     name: "Experience",
     displayName: "Experience",
     component: Experience,
-    icon: finder,
+    icon: iconExperience,
     defaultZIndex: 1,
     preload: false,
     description: "Check out my work experience",
@@ -92,7 +92,7 @@ export const windowComponentsConfig: WindowConfig[] = [
     name: "Notes",
     displayName: "Notes",
     component: Notes,
-    icon: notes,
+    icon: iconNotes,
     defaultZIndex: 1,
     preload: false,
     description: "Browse my knowledge base and notes",
@@ -102,7 +102,7 @@ export const windowComponentsConfig: WindowConfig[] = [
     name: "Terminal",
     displayName: "Terminal",
     component: Terminal,
-    icon: terminal,
+    icon: iconTerminal,
     defaultZIndex: 1,
     preload: false,
     description: "An interactive shell — type help to explore",

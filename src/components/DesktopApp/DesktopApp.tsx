@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./DesktopApp.module.css";
-import drive from "../../assets/drive.png";
+import iconPlain from "../../assets/icon-plain.svg";
 import pdf from "../../assets/pdf.svg";
 import { personalInfo } from "../../data";
 
@@ -24,9 +24,9 @@ const DesktopApp: React.FC = () => {
         aria-label="Open plain view of portfolio"
       >
         <div className={styles.iconContainer}>
-          <img src={drive} alt="" className={styles.icon} />
+          <img src={iconPlain} alt="" className={styles.icon} />
         </div>
-        <span className={styles.label}>Want a Plain View?</span>
+        <span className={styles.label}>Plain View</span>
       </div>
 
       <div
