@@ -219,6 +219,33 @@ export const useWindowManager = () => {
     [navigate]
   );
 
+  // Builds the right URL for a target window. The current slug and query
+  // params belong to the currently routed window — they must not leak into
+  // a different window's URL when switching.
+  const navigateToWindow = useCallback(
+    (targetWindowId: string) => {
+      const staying = lastWindowId.current === targetWindowId;
+
+      if (targetWindowId === "Notes") {
+        const params: Record<string, string> = {};
+        if (staying) {
+          searchParams.forEach((value, key) => {
+            params[key] = value;
+          });
+        }
+        updateURL(
+          targetWindowId,
+          staying && slug ? slug : "all",
+          false,
+          params
+        );
+      } else {
+        updateURL(targetWindowId, staying ? (slug ?? null) : null);
+      }
+    },
+    [slug, searchParams, updateURL]
+  );
+
   const activateWindow = useCallback(
     (windowId: string) => {
       setWindowStates(prev => ({
@@ -233,23 +260,9 @@ export const useWindowManager = () => {
       setZIndexCounter(prev => prev + appConfig.zIndex.increment);
       setActiveElement(windowId);
       updateWindowHistory(windowId);
-
-      if (windowId === "Notes") {
-        const currentParams: Record<string, string> = {};
-        searchParams.forEach((value, key) => {
-          currentParams[key] = value;
-        });
-
-        if (!slug) {
-          updateURL(windowId, "all", false, currentParams);
-        } else {
-          updateURL(windowId, slug, false, currentParams);
-        }
-      } else {
-        updateURL(windowId, slug);
-      }
+      navigateToWindow(windowId);
     },
-    [zIndexCounter, updateURL, slug, updateWindowHistory, searchParams]
+    [zIndexCounter, navigateToWindow, updateWindowHistory]
   );
 
   const closeWindow = useCallback(
@@ -268,20 +281,7 @@ export const useWindowManager = () => {
 
         if (nextActiveWindow) {
           setActiveElement(nextActiveWindow);
-          if (nextActiveWindow === "Notes") {
-            const currentParams: Record<string, string> = {};
-            searchParams.forEach((value, key) => {
-              currentParams[key] = value;
-            });
-
-            if (!slug) {
-              updateURL(nextActiveWindow, "all", false, currentParams);
-            } else {
-              updateURL(nextActiveWindow, slug, false, currentParams);
-            }
-          } else {
-            updateURL(nextActiveWindow, slug);
-          }
+          navigateToWindow(nextActiveWindow);
         } else {
           setActiveElement("");
           updateURL(null);
@@ -290,7 +290,7 @@ export const useWindowManager = () => {
         return newStates;
       });
     },
-    [getNextActiveWindow, updateURL, slug, searchParams]
+    [getNextActiveWindow, updateURL, navigateToWindow]
   );
 
   const minimizeWindow = useCallback(
@@ -310,20 +310,7 @@ export const useWindowManager = () => {
 
         if (nextActiveWindow) {
           setActiveElement(nextActiveWindow);
-          if (nextActiveWindow === "Notes") {
-            const currentParams: Record<string, string> = {};
-            searchParams.forEach((value, key) => {
-              currentParams[key] = value;
-            });
-
-            if (!slug) {
-              updateURL(nextActiveWindow, "all", false, currentParams);
-            } else {
-              updateURL(nextActiveWindow, slug, false, currentParams);
-            }
-          } else {
-            updateURL(nextActiveWindow, slug);
-          }
+          navigateToWindow(nextActiveWindow);
         } else {
           setActiveElement("");
           updateURL(null);
@@ -332,7 +319,7 @@ export const useWindowManager = () => {
         return newStates;
       });
     },
-    [getNextActiveWindow, updateURL, slug, searchParams]
+    [getNextActiveWindow, updateURL, navigateToWindow]
   );
 
   const openWindow = useCallback(
@@ -348,23 +335,9 @@ export const useWindowManager = () => {
       }));
       setZIndexCounter(prev => prev + appConfig.zIndex.increment);
       updateWindowHistory(windowId);
-
-      if (windowId === "Notes") {
-        const currentParams: Record<string, string> = {};
-        searchParams.forEach((value, key) => {
-          currentParams[key] = value;
-        });
-
-        if (!slug) {
-          updateURL(windowId, "all", false, currentParams);
-        } else {
-          updateURL(windowId, slug, false, currentParams);
-        }
-      } else {
-        updateURL(windowId, slug);
-      }
+      navigateToWindow(windowId);
     },
-    [zIndexCounter, updateURL, slug, updateWindowHistory, searchParams]
+    [zIndexCounter, navigateToWindow, updateWindowHistory]
   );
 
   const focusWindow = useCallback(
@@ -380,31 +353,10 @@ export const useWindowManager = () => {
         setZIndexCounter(prev => prev + appConfig.zIndex.increment);
         setActiveElement(windowId);
         updateWindowHistory(windowId);
-
-        if (windowId === "Notes") {
-          const currentParams: Record<string, string> = {};
-          searchParams.forEach((value, key) => {
-            currentParams[key] = value;
-          });
-
-          if (!slug) {
-            updateURL(windowId, "all", false, currentParams);
-          } else {
-            updateURL(windowId, slug, false, currentParams);
-          }
-        } else {
-          updateURL(windowId, slug);
-        }
+        navigateToWindow(windowId);
       }
     },
-    [
-      windowStates,
-      zIndexCounter,
-      updateURL,
-      slug,
-      updateWindowHistory,
-      searchParams,
-    ]
+    [windowStates, zIndexCounter, navigateToWindow, updateWindowHistory]
   );
 
   const toggleCommandCentre = useCallback(() => {

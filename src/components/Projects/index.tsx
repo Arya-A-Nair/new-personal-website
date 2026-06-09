@@ -83,6 +83,10 @@ const Projects: React.FC<ProjectsProps> = ({
   }, [searchTerm]);
 
   useEffect(() => {
+    // Only the active window owns the route slug; a background Projects
+    // window must not react to another window's slug changes.
+    if (activeElement !== "Projects") return;
+
     if (slug) {
       const projectIndex = projects.findIndex(
         p => createSlug(p.title) === slug
@@ -95,7 +99,7 @@ const Projects: React.FC<ProjectsProps> = ({
       setSelectedProject(null);
       setSelectedMobileProject(null);
     }
-  }, [slug]);
+  }, [slug, activeElement]);
 
   const handleProjectKeyDown = useCallback(
     (event: React.KeyboardEvent, index: number) => {
