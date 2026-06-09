@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import batteryIcon from "../../assets/battery.png";
 import batteryCharging from "../../assets/batteryCharging.png";
-import styles from "./BatteryContianer.module.css";
+import styles from "./BatteryContainer.module.css";
 import { useBattery } from "react-use";
 import {
   BsBatteryCharging,
