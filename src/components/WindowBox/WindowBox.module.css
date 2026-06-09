@@ -3,12 +3,23 @@
   position: absolute;
   border-radius: 12px;
   overflow: hidden;
-  animation: width 1s ease-in-out;
+  animation: windowOpen 0.25s cubic-bezier(0.2, 0.9, 0.3, 1.2);
   display: flex;
   flex-direction: column;
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes windowOpen {
+  from {
+    opacity: 0;
+    scale: 0.92;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
 }
 
 .minimizing {

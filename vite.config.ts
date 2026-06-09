@@ -13,7 +13,10 @@ export default defineConfig({
         emptyOutDir: true,
         rollupOptions: {
             output: {
-                manualChunks: undefined,
+                manualChunks: {
+                    react: ['react', 'react-dom', 'react-router-dom'],
+                    motion: ['framer-motion'],
+                },
             },
         },
     },

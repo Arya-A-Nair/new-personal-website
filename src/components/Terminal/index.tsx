@@ -316,8 +316,8 @@ const Terminal: React.FC<TerminalProps> = ({
     } else {
       pushLines(
         <span className={styles.error}>
-          open: unknown target "{arg}". Try: github, linkedin, leetcode,
-          resume, email, about, projects, experience, notes
+          open: unknown target "{arg}". Try: github, linkedin, leetcode, resume,
+          email, about, projects, experience, notes
         </span>
       );
     }
@@ -334,8 +334,7 @@ const Terminal: React.FC<TerminalProps> = ({
           </span>
           <span className={styles.dim}>─────────────────</span>
           <span>
-            <span className={styles.cmd}>OS:</span> AryaOS (macOS-flavoured
-            web)
+            <span className={styles.cmd}>OS:</span> AryaOS (macOS-flavoured web)
           </span>
           <span>
             <span className={styles.cmd}>Host:</span> arya-nair.in
@@ -361,8 +360,7 @@ const Terminal: React.FC<TerminalProps> = ({
             <span className={styles.cmd}>CPU:</span> Caffeine-9000 @ 5.0GHz
           </span>
           <span>
-            <span className={styles.cmd}>Memory:</span> mostly hackathon
-            stories
+            <span className={styles.cmd}>Memory:</span> mostly hackathon stories
           </span>
         </div>
       </div>

@@ -141,8 +141,7 @@ const CommandCentre: React.FC<CommandCentreProps> = ({
       event.preventDefault();
       setSelectedIndex(
         prev =>
-          (prev - 1 + Math.max(entries.length, 1)) %
-          Math.max(entries.length, 1)
+          (prev - 1 + Math.max(entries.length, 1)) % Math.max(entries.length, 1)
       );
     } else if (event.key === "Enter") {
       event.preventDefault();
@@ -304,7 +303,9 @@ const CommandCentre: React.FC<CommandCentreProps> = ({
                       <span className={styles.rowIcon}>{link.icon}</span>
                       <span className={styles.rowName}>{link.name}</span>
                       <span className={styles.rowMeta}>
-                        {link.url.replace("mailto:", "").replace(/^https?:\/\//, "")}
+                        {link.url
+                          .replace("mailto:", "")
+                          .replace(/^https?:\/\//, "")}
                       </span>
                     </div>
                   );

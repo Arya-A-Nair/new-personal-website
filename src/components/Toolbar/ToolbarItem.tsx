@@ -1,10 +1,5 @@
 import React, { forwardRef, useRef } from "react";
-import {
-  motion,
-  MotionValue,
-  useSpring,
-  useTransform,
-} from "framer-motion";
+import { motion, MotionValue, useSpring, useTransform } from "framer-motion";
 import styles from "./Toolbar.module.css";
 import { WindowConfig } from "../../config/windowComponents";
 
@@ -22,10 +17,7 @@ interface ToolbarItemProps {
 }
 
 const ToolbarItem = forwardRef<HTMLDivElement, ToolbarItemProps>(
-  (
-    { config, onSelect, isActive, isRunning, mouseX, magnifyEnabled },
-    ref
-  ) => {
+  ({ config, onSelect, isActive, isRunning, mouseX, magnifyEnabled }, ref) => {
     const itemRef = useRef<HTMLDivElement | null>(null);
 
     const distance = useTransform(mouseX, value => {

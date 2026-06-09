@@ -40,8 +40,6 @@ export interface WindowConfig {
 export interface AppConfig {
   preloader: {
     duration: number;
-    imageSrc: string;
-    altText: string;
   };
   brightness: {
     default: number;
@@ -114,8 +112,6 @@ export const windowComponentsConfig: WindowConfig[] = [
 export const appConfig: AppConfig = {
   preloader: {
     duration: 2000,
-    imageSrc: "/images/preloader.gif",
-    altText: "Loading...",
   },
   brightness: {
     default: 1,
