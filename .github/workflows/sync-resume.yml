@@ -1,0 +1,54 @@
+name: Sync resume from Google Drive
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/sync-resume.yml
+  schedule:
+    # 08:45 IST every day
+    - cron: "15 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-resume
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the website
+        uses: actions/checkout@v4
+
+      - name: Download the latest resume
+        env:
+          RESUME_DOWNLOAD_URL: https://drive.google.com/uc?export=download&id=1bhLfOFy87ukde8o6MoI6AC0gJmc6Nygp
+        run: |
+          curl --fail --location --retry 3 --retry-all-errors \
+            --output public/resume.pdf "$RESUME_DOWNLOAD_URL"
+          test -s public/resume.pdf
+          python3 - <<'PY'
+          from pathlib import Path
+
+          resume = Path("public/resume.pdf")
+          if not resume.read_bytes().startswith(b"%PDF-"):
+              raise SystemExit("Downloaded resume is not a PDF")
+          PY
+
+      - name: Commit the updated resume when it changed
+        run: |
+          if git diff --quiet -- public/resume.pdf; then
+            echo "Resume is already current."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/resume.pdf
+          git commit -m "chore: sync resume from Google Drive"
+          git push
